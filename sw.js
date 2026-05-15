@@ -1,9 +1,9 @@
 const CACHE = 'maui-2026-v6';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon.svg',
+  '/maui-2026/',
+  '/maui-2026/index.html',
+  '/maui-2026/manifest.json',
+  '/maui-2026/icon.svg',
   'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Didact+Gothic&family=Tenor+Sans&display=swap',
 ];
 
