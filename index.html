@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Maui 2026">
+<meta name="theme-color" content="#faf4eb">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Maui 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Didact+Gothic&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf4eb; --sand:#f0e4ce; --gold:#a87840; --gold-dark:#7a5420;
+  --gold-light:#c8a870; --warm-brown:#3a1e08; --text:#2a1a08;
+  --text-soft:#5a3010; --white:#fffdf8; --card-bg:#fffdf8; --border:rgba(168,120,64,0.2);
+}
+body.pm {
+  --cream:#eaecf2; --sand:#d8dce8; --gold:#6a82a0; --gold-dark:#4a6080;
+  --gold-light:#8aa0bc; --warm-brown:#0d1e2e; --text:#0d1e2e;
+  --text-soft:#2a4060; --white:#f4f6fa; --card-bg:#f4f6fa; --border:rgba(106,130,160,0.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--cream);font-family:'Didact Gothic',sans-serif;color:var(--text)}
+::-webkit-scrollbar{width:0}
+
+.view{position:fixed;inset:0;display:none;flex-direction:column;background:var(--cream)}
+.view.active{display:flex}
+
+/* ── LAUNCH ── */
+#launch{background:linear-gradient(160deg,#fdf7ee 0%,#f5e8d0 55%,#ecdbb8 100%);align-items:center;justify-content:center;text-align:center;cursor:pointer}
+body.pm #launch{background:linear-gradient(160deg,#eaecf2 0%,#d8dce8 55%,#c8d0dc 100%)}
+.l-orn{font-size:15px;letter-spacing:14px;color:var(--gold);margin-bottom:24px;animation:fadeUp 1s ease forwards .3s;opacity:0}
+.l-eye{font-size:clamp(13px,1.8vw,20px);letter-spacing:.5em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:12px;animation:fadeUp 1s ease forwards .7s;opacity:0}
+.l-title{font-family:'Cormorant Garamond',serif;font-size:clamp(80px,15vw,170px);font-weight:700;font-style:italic;color:var(--warm-brown);line-height:.88;margin-bottom:14px;animation:fadeUp 1.2s ease forwards 1s;opacity:0}
+.l-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.8vw,32px);font-style:italic;color:var(--gold);letter-spacing:.1em;margin-bottom:40px;animation:fadeUp 1s ease forwards 1.6s;opacity:0}
+.l-rule{width:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 34px;animation:expand 1.2s ease forwards 2s}
+.l-tap{font-size:clamp(12px,1.3vw,16px);letter-spacing:.45em;text-transform:uppercase;color:var(--gold-light);animation:fadeUp 1s ease forwards 2.5s,breathe 3s ease-in-out 3.2s infinite;opacity:0}
+.secret{position:absolute;bottom:0;right:0;width:70px;height:70px}
+
+/* ── PIN ── */
+#pin-ov{position:fixed;inset:0;background:rgba(42,26,8,.87);z-index:1000;display:none;align-items:center;justify-content:center}
+body.pm #pin-ov{background:rgba(13,30,46,.9)}
+#pin-ov.on{display:flex}
+.pin-box{background:var(--card-bg);padding:48px 36px;text-align:center;max-width:320px;width:92%}
+.pin-t{font-family:'Cormorant Garamond',serif;font-size:30px;font-style:italic;color:var(--warm-brown);margin-bottom:6px}
+.pin-s{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin-bottom:26px}
+.pd{width:15px;height:15px;border-radius:50%;border:2px solid var(--gold);transition:background .2s}
+.pd.on{background:var(--gold)}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:210px;margin:0 auto 20px}
+.pb{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--warm-brown);background:none;border:1px solid var(--border);padding:15px;cursor:pointer;transition:background .2s}
+.pb:hover{background:var(--sand)}
+.pin-err{font-size:12px;letter-spacing:.2em;color:#c0392b;height:16px;margin-bottom:8px}
+.pin-cancel{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-light);background:none;border:none;cursor:pointer;margin-top:6px}
+
+/* ── BANNER ── */
+#banner{display:none;background:var(--gold-dark);color:var(--white);font-size:12px;letter-spacing:.28em;text-transform:uppercase;text-align:center;padding:12px 16px;flex-shrink:0}
+#banner.on{display:block}
+.bx{opacity:.75;cursor:pointer;font-size:10px;margin-left:14px}
+
+/* ── TOP NAV ── */
+.top-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 13px;background:var(--cream);border-bottom:1px solid var(--border);flex-shrink:0}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;font-style:italic;color:var(--warm-brown)}
+.nav-orn{font-size:11px;letter-spacing:7px;color:var(--gold)}
+.nav-right{display:flex;gap:8px;align-items:center}
+.nav-btn{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--border);padding:7px 12px;cursor:pointer;display:none}
+.nav-exit{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--white);background:var(--gold-dark);border:none;padding:7px 12px;cursor:pointer;display:none}
+
+/* ── SCROLL ── */
+.sb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:32px}
+
+/* ── COLLAPSIBLE ── */
+.hs{margin:16px 16px 0}
+.sh{display:flex;align-items:center;gap:12px;cursor:pointer;padding:6px 0;user-select:none}
+.st{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;font-style:italic;color:var(--warm-brown)}
+.sr{flex:1;height:1px;background:linear-gradient(90deg,var(--gold-light),transparent);opacity:.5}
+.schev{font-size:20px;color:var(--gold-light);transition:transform .3s;line-height:1;margin-left:4px}
+.sh.open .schev{transform:rotate(180deg)}
+.sc{overflow:hidden;max-height:0;transition:max-height .45s ease}
+.sc.open{max-height:4000px}
+.sc-inner{padding-top:12px}
+
+/* ── DAY CARDS ── */
+.dc{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;cursor:pointer;transition:border-color .2s}
+.dc:hover{border-color:var(--gold-light)}
+.dci{padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
+.dl{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.dn{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--warm-brown)}
+.dp{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);margin-top:3px}
+.darr{color:var(--gold-light);font-size:22px}
+.dc.ann .dn{color:var(--gold-dark)}
+.dc.ann .dp{color:var(--gold)}
+
+/* ── OPTION CARDS ── */
+.oc{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;cursor:pointer;transition:border-color .2s}
+.oc:hover{border-color:var(--gold-light)}
+.oci{padding:16px 18px;display:flex;align-items:center;justify-content:space-between}
+.ol{flex:1}
+.on_{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--warm-brown);margin-bottom:3px}
+.od{font-size:13px;letter-spacing:.1em;color:var(--text-soft)}
+.odist{font-size:11px;letter-spacing:.16em;color:var(--gold);background:rgba(168,120,64,.1);padding:4px 9px;white-space:nowrap;margin-left:12px}
+
+/* ── KNOW CARDS ── */
+.kc{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;padding:16px 18px}
+.kh{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--warm-brown);margin-bottom:7px}
+.kb{font-size:14px;line-height:1.85;color:var(--text);letter-spacing:.04em}
+
+/* ── WEATHER MULTI-CARD ── */
+.wx-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.wx-card{flex:0 0 auto;background:var(--card-bg);border:1px solid var(--border);padding:14px 16px;min-width:150px}
+.wx-loc{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px}
+.wx{display:flex;align-items:center;gap:12px}
+.wi{font-size:30px}
+.wt{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--warm-brown)}
+.ws{font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-top:3px}
+
+/* ── PHILIP EXTRAS ── */
+.rci{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);margin-bottom:9px;padding:18px 20px}
+.rt{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--warm-brown);line-height:1.75}
+.hcc{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;padding:16px 18px}
+.hstop{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.hstop:last-child{border-bottom:none}
+.hnum{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);min-width:28px}
+.hname{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--warm-brown)}
+.hstat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px;color:var(--gold-light)}
+.hstat.done{color:var(--gold)}
+
+/* ── DETAIL VIEW ── */
+#detail-view{background:var(--cream)}
+.dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
+.back{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
+.dvt{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--warm-brown)}
+.ai{background:var(--card-bg);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
+.at{font-size:12px;letter-spacing:.28em;color:var(--gold);margin-bottom:5px}
+.an{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--warm-brown)}
+.ano{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text-soft);margin-top:5px}
+.philip-note{background:var(--sand);border-left:3px solid var(--gold);padding:16px 18px;margin-top:12px}
+.pn-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pn-body{font-size:14px;line-height:1.8;color:var(--text);white-space:pre-line}
+.maps-btn{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:12px 22px;cursor:pointer;text-decoration:none}
+.detail-hero{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);padding:26px 22px;margin-bottom:12px}
+.dh-tag{font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.dh-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,44px);font-weight:700;font-style:italic;color:var(--warm-brown);margin-bottom:8px}
+.dh-sub{font-size:14px;letter-spacing:.12em;color:var(--text-soft);margin-bottom:18px}
+.dh-rule{height:1px;background:linear-gradient(90deg,var(--gold-light),transparent);margin-bottom:18px;opacity:.6}
+.dh-body{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);line-height:1.75;font-style:italic;margin-bottom:20px}
+.dh-meta{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);padding-top:16px}
+.dh-meta-item{font-size:14px;letter-spacing:.08em;color:var(--text)}
+.dh-meta-item span{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-right:6px}
+
+/* ── INTRO SLIDES ── */
+#intro{position:fixed;inset:0;z-index:200;background:#1a0e04;display:none;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+#intro.on{display:flex}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 48px;opacity:0;transition:opacity 1.1s ease;pointer-events:none}
+.slide.on{opacity:1;pointer-events:all}
+.sd{font-size:clamp(12px,1.5vw,17px);letter-spacing:.52em;text-transform:uppercase;color:rgba(200,168,112,.65);margin-bottom:30px}
+.sb2{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,10vw,110px);font-weight:700;font-style:italic;color:#f5e8d0;line-height:.9;margin-bottom:20px}
+.sth{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,44px);font-style:italic;color:#c8a870;line-height:1.5;max-width:560px}
+.ssub{font-size:clamp(11px,1.2vw,14px);letter-spacing:.4em;text-transform:uppercase;color:rgba(200,168,112,.48);margin-top:22px}
+.sph{width:clamp(210px,40vw,330px);height:clamp(155px,27vw,225px);background:rgba(200,168,112,.1);border:1px solid rgba(200,168,112,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:22px;position:relative}
+.pc2{position:absolute;width:14px;height:14px;border-color:rgba(200,168,112,.28);border-style:solid}
+.pc2.tl{top:5px;left:5px;border-width:1px 0 0 1px}.pc2.tr{top:5px;right:5px;border-width:1px 1px 0 0}
+.pc2.bl{bottom:5px;left:5px;border-width:0 0 1px 1px}.pc2.br{bottom:5px;right:5px;border-width:0 1px 1px 0}
+.spi{font-size:34px;opacity:.3}.spl{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(200,168,112,.3);margin-top:5px}
+.spc{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.8vw,30px);font-style:italic;color:#c8a870;max-width:460px}
+.snav{position:fixed;bottom:38px;left:50%;transform:translateX(-50%);display:flex;gap:10px}
+.snd{width:7px;height:7px;border-radius:50%;background:rgba(200,168,112,.28);transition:all .3s}
+.snd.on{background:#c8a870;transform:scale(1.4)}
+.staph{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(200,168,112,.4);white-space:nowrap}
+
+/* ── HUNT VIEW ── */
+#hunt-view{background:linear-gradient(160deg,#fdf7ee 0%,#f5e8d0 55%,#ecdbb8 100%)}
+body.pm #hunt-view{background:linear-gradient(160deg,#eaecf2 0%,#d8dce8 55%,#c8d0dc 100%)}
+.hunt-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(253,247,238,.85)}
+body.pm .hunt-top{background:rgba(234,236,242,.85)}
+.hunt-back{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
+.hunt-logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--warm-brown)}
+.hv-head{padding:24px 20px 16px;text-align:center}
+.hve{font-size:11px;letter-spacing:.48em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.hvt{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6.5vw,58px);font-weight:700;font-style:italic;color:var(--warm-brown);line-height:1}
+.hvrule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto}
+
+/* ── PROGRESS BAR — future stops hidden ── */
+.hunt-progress{margin:0 16px 18px;display:flex;align-items:center}
+.hp-step{text-align:center;position:relative;flex:0 0 auto}
+.hp-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold-light);background:var(--cream);margin:0 auto 6px;transition:background .4s,border-color .4s;position:relative;z-index:1}
+.hp-dot.done{background:var(--gold);border-color:var(--gold)}
+.hp-dot.active{background:var(--gold-dark);border-color:var(--gold-dark);box-shadow:0 0 0 3px rgba(168,120,64,.2)}
+.hp-line{width:28px;height:2px;background:var(--border);display:inline-block;vertical-align:middle;margin-bottom:6px;transition:background .4s}
+.hp-line.done{background:var(--gold-light)}
+.hp-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light)}
+.hp-label.active{color:var(--gold-dark)}
+.hp-label.done{color:var(--gold)}
+
+/* ── CLUE CARD ── */
+.clue{margin:0 16px 18px;background:var(--card-bg);border:1px solid var(--border);padding:28px 24px}
+.clue-lbl{font-size:11px;letter-spacing:.44em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.clue-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.4vw,28px);font-style:italic;color:var(--text);line-height:1.75;margin-bottom:28px}
+.clue-acts{display:flex;gap:12px}
+.cbtn{flex:1;font-size:12px;letter-spacing:.28em;text-transform:uppercase;padding:16px 10px;border:none;cursor:pointer;transition:background .22s}
+.cbtn.hint-btn{background:var(--gold);color:var(--white)}
+.cbtn.hint-btn:hover{background:var(--gold-dark)}
+.cbtn.reveal-btn{background:transparent;color:var(--gold-dark);border:2px solid var(--gold)}
+.cbtn.reveal-btn:hover{background:rgba(168,120,64,.06)}
+.hbox{background:var(--sand);border-left:3px solid var(--gold);padding:16px 18px;margin-top:16px;display:none}
+.hbox p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);line-height:1.7}
+.hbox p+p{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.hint-subtle{font-size:11px;letter-spacing:.12em;color:var(--gold-light);opacity:.5;text-align:center;cursor:pointer;margin-top:12px;user-select:none}
+
+/* ── REVEAL CONFIRM ── */
+#reveal-confirm{position:fixed;inset:0;z-index:500;background:rgba(42,26,8,.75);display:none;align-items:center;justify-content:center}
+body.pm #reveal-confirm{background:rgba(13,30,46,.8)}
+#reveal-confirm.on{display:flex}
+.rc-box{background:var(--card-bg);padding:44px 40px;text-align:center;max-width:300px;width:88%}
+.rc-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--warm-brown);margin-bottom:10px}
+.rc-sub{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text-soft);line-height:1.6;margin-bottom:28px}
+.rc-rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);margin-bottom:28px}
+.rc-btns{display:flex;gap:10px}
+.rc-yes{flex:1;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px;cursor:pointer}
+.rc-no{flex:1;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:transparent;color:var(--gold);border:1px solid var(--border);padding:14px;cursor:pointer}
+
+/* ── LOCATION REVEAL ── */
+.loc-rev{margin:0 16px 18px;background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;text-align:center;display:none}
+.loc-rev.on{display:block}
+.le{font-size:11px;letter-spacing:.48em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.ln{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,50px);font-weight:700;font-style:italic;color:var(--warm-brown);margin-bottom:8px}
+.ld{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text-soft);line-height:1.65;margin-bottom:24px}
+.wh-btn{font-size:12px;letter-spacing:.38em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:17px 32px;cursor:pointer;width:100%}
+.wh-btn:hover{background:var(--gold-dark)}
+
+/* ── ARRIVAL ── */
+.arr{margin:0 16px 18px;background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);padding:32px 24px;text-align:center;display:none}
+.arr.on{display:block}
+.ao{font-size:13px;letter-spacing:10px;color:var(--gold);margin-bottom:20px}
+.at2{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.9vw,26px);font-style:italic;color:var(--text);line-height:1.85;margin-bottom:20px}
+.asig{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--gold-dark)}
+.next-clue-btn{margin-top:24px;font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:15px 32px;cursor:pointer;width:100%}
+.next-clue-btn:hover{background:var(--gold-dark)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes expand{from{width:0}to{width:180px}}
+@keyframes breathe{0%,100%{opacity:.28}50%{opacity:.72}}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH -->
+<div class="view active" id="launch">
+  <p class="l-orn">✦ &nbsp; ✦ &nbsp; ✦</p>
+  <p class="l-eye">October 18 – 23 · 2026</p>
+  <h1 class="l-title">Maui</h1>
+  <p class="l-sub">Our Adventure</p>
+  <div class="l-rule"></div>
+  <p class="l-tap">Touch anywhere to begin</p>
+  <div class="secret" id="sec-launch"></div>
+</div>
+
+<!-- PIN -->
+<div id="pin-ov">
+  <div class="pin-box">
+    <p class="pin-t">Philip</p>
+    <p class="pin-s">Enter your PIN</p>
+    <p class="pin-err" id="perr"></p>
+    <div class="pin-dots">
+      <div class="pd" id="pd0"></div><div class="pd" id="pd1"></div>
+      <div class="pd" id="pd2"></div><div class="pd" id="pd3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pb" onclick="pt('1')">1</button><button class="pb" onclick="pt('2')">2</button><button class="pb" onclick="pt('3')">3</button>
+      <button class="pb" onclick="pt('4')">4</button><button class="pb" onclick="pt('5')">5</button><button class="pb" onclick="pt('6')">6</button>
+      <button class="pb" onclick="pt('7')">7</button><button class="pb" onclick="pt('8')">8</button><button class="pb" onclick="pt('9')">9</button>
+      <button class="pb" onclick="pt('b')" style="font-size:16px">⌫</button><button class="pb" onclick="pt('0')">0</button><button class="pb" style="border:none" onclick=""></button>
+    </div>
+    <button class="pin-cancel" onclick="cancelPin()">Cancel</button>
+  </div>
+</div>
+
+<!-- REVEAL CONFIRM -->
+<div id="reveal-confirm">
+  <div class="rc-box">
+    <div class="rc-title">Ready to find out?</div>
+    <div class="rc-sub">"Once you see it, the adventure begins..."</div>
+    <div class="rc-rule"></div>
+    <div class="rc-btns">
+      <button class="rc-yes" onclick="confirmReveal()">Yes, reveal ✦</button>
+      <button class="rc-no" onclick="cancelReveal()">Not yet</button>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="slide on" id="sl0"><p class="sd">October 20 · 2006</p><h2 class="sb2">Twenty<br>Years</h2><p class="sth">Today we celebrate.</p></div>
+  <div class="slide" id="sl1"><div class="sph"><div class="pc2 tl"></div><div class="pc2 tr"></div><div class="pc2 bl"></div><div class="pc2 br"></div><div class="spi">💍</div><div class="spl">Your photo here</div></div><p class="spc">"From the moment I met you, I knew."</p></div>
+  <div class="slide" id="sl2"><p class="sd">Twenty years of mornings</p><h2 class="sb2">Us.</h2><p class="sth">Every single one.</p></div>
+  <div class="slide" id="sl3"><div class="sph"><div class="pc2 tl"></div><div class="pc2 tr"></div><div class="pc2 bl"></div><div class="pc2 br"></div><div class="spi">👨‍👩‍👦</div><div class="spl">Your photo here</div></div><p class="spc">"Look at everything we've built."</p></div>
+  <div class="slide" id="sl4"><p class="sd">And now</p><h2 class="sb2">Maui.</h2><p class="sth">Today, the adventure is yours to lead.</p><p class="ssub">Tap to begin ✦</p></div>
+  <p class="staph">Tap anywhere to continue</p>
+  <div class="snav"><div class="snd on" id="nd0"></div><div class="snd" id="nd1"></div><div class="snd" id="nd2"></div><div class="snd" id="nd3"></div><div class="snd" id="nd4"></div></div>
+</div>
+
+<!-- MAIN VIEW -->
+<div class="view" id="main-view">
+  <div id="banner">Philip mode — you are viewing Daria's app <span class="bx" onclick="exitGod()">✕ Exit</span></div>
+  <div class="top-nav">
+    <div>
+      <div class="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+      <div class="nav-logo">Maui 2026</div>
+    </div>
+    <div class="nav-right">
+      <button class="nav-btn" id="previewBtn" onclick="togglePreview()">Preview Daria</button>
+      <button class="nav-exit" id="exitBtn" onclick="exitPhilip()">Exit Philip Mode</button>
+    </div>
+    <!-- v5.2: secret tap zone on main screen -->
+    <div class="secret" id="sec-main"></div>
+  </div>
+  <div class="sb">
+
+    <!-- OUR ADVENTURE — starts closed -->
+    <div class="hs">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Our Adventure</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="dc" onclick="showDay('sun')"><div class="dci"><div><div class="dl">Sunday · Oct 18</div><div class="dn">Arrival Day</div><div class="dp">Touch down in paradise</div></div><div class="darr">›</div></div></div>
+        <div class="dc" onclick="showDay('mon')"><div class="dci"><div><div class="dl">Monday · Oct 19</div><div class="dn">Haleakalā</div><div class="dp">Sunset above the clouds</div></div><div class="darr">›</div></div></div>
+        <div class="dc ann" onclick="showDay('tue')"><div class="dci"><div><div class="dl">Tuesday · Oct 20 · Anniversary</div><div class="dn" id="tue-dn">Your Day</div><div class="dp" id="tue-dp">Twenty years in the making...</div></div><div class="darr">›</div></div></div>
+        <div class="dc" onclick="showDay('wed')"><div class="dci"><div><div class="dl">Wednesday · Oct 21</div><div class="dn">No Plan Day</div><div class="dp">Golden hour photos at dusk</div></div><div class="darr">›</div></div></div>
+        <div class="dc" onclick="showDay('thu')"><div class="dci"><div><div class="dl">Thursday · Oct 22</div><div class="dn">Snorkel + Luau</div><div class="dp">Old Lahaina Luau · 5:15 PM</div></div><div class="darr">›</div></div></div>
+        <div class="dc" onclick="showDay('fri')"><div class="dci"><div><div class="dl">Friday · Oct 23</div><div class="dn">Aloha</div><div class="dp">Flight home · 1:10 PM</div></div><div class="darr">›</div></div></div>
+      </div></div>
+    </div>
+
+    <!-- DINING OPTIONS — starts closed -->
+    <div class="hs">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Dining Options</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="oc" onclick="showDetail('dining','mala')"><div class="oci"><div class="ol"><div class="on_">Mala Ocean Tavern</div><div class="od">Ocean view · Lahaina</div></div><div class="odist">1.2 mi</div></div></div>
+        <div class="oc" onclick="showDetail('dining','gazebo')"><div class="oci"><div class="ol"><div class="on_">The Gazebo</div><div class="od">Breakfast & lunch · Napili · Walk-in</div></div><div class="odist">2.8 mi</div></div></div>
+        <div class="oc" onclick="showDetail('dining','mamas')"><div class="oci"><div class="ol"><div class="on_">Mama's Fish House</div><div class="od">Iconic · Paia · Walk-in</div></div><div class="odist">4.1 mi</div></div></div>
+        <div class="oc" onclick="showDetail('dining','tinroof')"><div class="oci"><div class="ol"><div class="on_">Tin Roof</div><div class="od">Local favorite · Kahului · Casual</div></div><div class="odist">5.6 mi</div></div></div>
+      </div></div>
+    </div>
+
+    <!-- THINGS TO EXPLORE — starts closed -->
+    <div class="hs">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Things To Explore</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="oc" onclick="showDetail('activity','blackrock')"><div class="oci"><div class="ol"><div class="on_">Black Rock Beach</div><div class="od">Snorkeling · Torch lighting at sunset</div></div><div class="odist">0.4 mi</div></div></div>
+        <div class="oc" onclick="showDetail('activity','honolua')"><div class="oci"><div class="ol"><div class="on_">Honolua Bay</div><div class="od">World-class snorkeling · North shore</div></div><div class="odist">3.2 mi</div></div></div>
+        <div class="oc" onclick="showDetail('activity','kapalua')"><div class="oci"><div class="ol"><div class="on_">Kapalua Bay</div><div class="od">Calm waters · Sea turtles</div></div><div class="odist">7.4 mi</div></div></div>
+      </div></div>
+    </div>
+
+    <!-- WEATHER — starts closed -->
+    <div class="hs">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Weather</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner" id="weather-content"></div></div>
+    </div>
+
+    <!-- GOOD TO KNOW — starts closed, general tips only -->
+    <div class="hs">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Good To Know</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="kc"><div class="kh">Getting Around</div><div class="kb">You have a BMW 430i Convertible for the week — top down is the only way to drive Maui's coast roads. Fill the tank before heading up Haleakalā; no gas on the mountain. Drive times from Ka'anapali: Lahaina 10 min · Kapalua 15 min · Iao Valley 25 min · Paia 55 min.</div></div>
+        <div class="kc"><div class="kh">Signal & Offline Areas</div><div class="kb">No cell signal at Haleakalā summit or Nakalele Blowhole. Download offline maps before heading out on those days. This app works fully offline.</div></div>
+        <div class="kc"><div class="kh">Sun & Water</div><div class="kb">Reef-safe sunscreen is required on Maui — standard sunscreen is banned to protect coral. Reapply often; the Hawaiian sun is stronger than it feels. Stay hydrated — humidity hits different after the Pacific Northwest.</div></div>
+        <div class="kc"><div class="kh">Ocean Safety</div><div class="kb">Check conditions before entering the water each day. Nakalele Blowhole is a serious hazard when active — stay well back from the opening. Sea turtles rest on Ka'anapali Beach; enjoy from 15 feet away, no touching.</div></div>
+        <div class="kc"><div class="kh">Tipping & Local Customs</div><div class="kb">Standard tipping: 18–20% at restaurants. Aloha spirit is real — slow down, make eye contact, say thank you. Most beaches have free parking. Locals call it "shave ice," not "shaved ice.</div></div>
+        <div class="kc"><div class="kh">Packing Reminders</div><div class="kb">Haleakalā summit reaches 30–40°F — bring heavy layers, gloves, and a warm hat even in October. Red-light flashlight for stargazing. Bug spray for the luau evening. Comfortable walking shoes for Tuesday.</div></div>
+      </div></div>
+    </div>
+
+    <!-- PHILIP ONLY sections (hidden by default) -->
+    <div class="hs po" id="romSec" style="display:none">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Romantic &amp; Intimate Ideas</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="rci"><div class="rt">"Room flip by Decorating Destinations Maui — transform the villa while at Merriman's Tuesday evening. Book well in advance."</div></div>
+        <div class="rci"><div class="rt">"Platinum anniversary gift for Daria — needed for Tuesday evening reveal."</div></div>
+        <div class="rci"><div class="rt">"Luxury loungewear packed discreetly — La Perla or Lunya, silver/platinum tones."</div></div>
+        <div class="rci"><div class="rt">"LED tea lights and silk rose petals for the villa."</div></div>
+        <div class="rci"><div class="rt">"Write the fantasy letters before departure — sealed envelopes, raise naturally 1–2 weeks before."</div></div>
+      </div></div>
+    </div>
+
+    <div class="hs po" id="huntSec" style="display:none">
+      <div class="sh" onclick="toggleSec(this)"><span class="st">Hunt God Mode</span><div class="sr"></div><span class="schev">⌄</span></div>
+      <div class="sc"><div class="sc-inner">
+        <div class="hcc" id="godModeStops"></div>
+        <div class="kc"><div class="kh">God Mode</div><div class="kb">Enter god mode on Daria's phone via the hidden tap + PIN to mark stops as skipped. Skipped stops logged in Airtable when signal returns.</div></div>
+      </div></div>
+    </div>
+
+    <div style="height:32px"></div>
+  </div>
+</div>
+
+<!-- DETAIL VIEW -->
+<div class="view" id="detail-view">
+  <div class="dv-nav">
+    <button class="back" onclick="sv('main-view')">‹ Back</button>
+    <span class="dvt" id="detailTitle"></span>
+  </div>
+  <div class="sb"><div style="padding:16px 16px 32px" id="detailBody"></div></div>
+</div>
+
+<!-- HUNT VIEW -->
+<div class="view" id="hunt-view">
+  <div class="hunt-top">
+    <button class="hunt-back" onclick="sv('main-view')">‹ Back</button>
+    <span class="hunt-logo">Anniversary Day ✦</span>
+    <span style="width:60px"></span>
+  </div>
+  <div class="sb">
+    <div class="hv-head">
+      <div class="hve">Tuesday · October 20, 2026</div>
+      <div class="hvt">Your Adventure</div>
+      <div class="hvrule"></div>
+    </div>
+    <div class="hunt-progress" id="huntProgress"></div>
+    <div class="clue" id="clueCard">
+      <div class="clue-lbl" id="clueLbl"></div>
+      <div class="clue-txt" id="clueTxt"></div>
+      <div class="hbox" id="hbox"></div>
+      <div class="hint-subtle" id="hintSubtle" onclick="showHint()">need a little help?</div>
+      <div class="clue-acts" style="margin-top:16px">
+        <button class="cbtn hint-btn" onclick="showHint()">Hint ✦</button>
+        <button class="cbtn reveal-btn" onclick="askReveal()">Reveal</button>
+      </div>
+    </div>
+    <div class="loc-rev" id="locRev">
+      <div class="le">Your next stop ✦</div>
+      <div class="ln" id="locName"></div>
+      <div class="ld" id="locDesc"></div>
+      <button class="wh-btn" onclick="weHere()">We're here ✦</button>
+    </div>
+    <div class="arr" id="arrMsg">
+      <div class="ao">✦ &nbsp; ✦ &nbsp; ✦</div>
+      <div class="at2" id="arrTxt"></div>
+      <div class="asig">— Philip</div>
+      <button class="next-clue-btn" id="nextBtn" onclick="nextClue()" style="display:none">On to the next clue →</button>
+    </div>
+    <div style="height:32px"></div>
+  </div>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────
+var PM=false, prevDaria=false, dariaPhone=false;
+var pin='', staps=0, stimer=null, cslide=0;
+var currentStop=0, completedIds=[], hintIdx=0;
+var PIN='4242';
+
+// ── STOPS ─────────────────────────────────────────────────
+var stops=[
+  {
+    id:'spa', label:'Your First Clue ✦',
+    clue:'"Hands will hold what your shoulders have carried. In a place where the ancient practice of release meets the island\'s warmth, you will begin to let go. Find where tradition teaches us that sometimes the greatest gift is simply being held."',
+    hints:[
+      '"Where ancient hands have soothed weary travelers for centuries — a tradition carried forward in the warmth of this island."',
+      '"Think of a place where the point is to feel nothing but the present moment. A massage. A release."',
+      '"Ho\'omana Spa, Makawao — couples Lomi Lomi massage."',
+    ],
+    locName:"Ho'omana Spa",
+    locDesc:'"A sanctuary of Lomi Lomi massage and Hawaiian healing traditions. Today begins with being held."',
+    arrival:'"Twenty years of carrying each other. Today, we let someone else carry us for a moment. Let this be the beginning — a day where you are celebrated, pampered, and reminded that you deserve to be cherished. Enjoy every second."',
+    hasNext:true,
+  },
+  {
+    id:'hookipa', label:'Your Second Clue ✦',
+    clue:'"Stand where the land ends and the sky begins. Here the wind carries salt and the surfers below read the water like a language you have yet to learn. Climb to where perspective changes everything — find the place where you can see how far you have come."',
+    hints:[
+      '"Somewhere above the shore, where the view stretches further than you expect and the horizon feels within reach."',
+      '"Famous for windsurfers visible from the road — a lookout on the north shore."',
+      '"Ho\'okipa Beach Lookout, on the way to Paia."',
+    ],
+    locName:"Ho'okipa Lookout",
+    locDesc:'"One of Maui\'s most dramatic vantage points — where the north shore stretches below and world-class surfers dance in the swells."',
+    arrival:'"Twenty years of seeing the world through each other\'s eyes. Every new vantage point is better because you\'re standing in it together. Look out at all of that. Then look at each other."',
+    hasNext:false,
+  },
+];
+
+// ── DAY DATA ──────────────────────────────────────────────
+var days={
+  sun:{t:'Sunday · Oct 18',items:[
+    {t:'10:00 AM',n:'Depart Seattle',o:'Alaska Airlines AS 929 · SEA → OGG',tap:true,
+      daria:'Welcome to Maui! Your adventure starts the moment you land.\n\nFlight AS 929 arrives at 1:20 PM — pick up the rental car and head straight to the resort. The drive from the airport to Ka\'anapali is about 45 minutes along the west coast.\n\nCheck in, drop your bags, and breathe. Tonight is just about arriving.',
+      philip:'Flight: AS 929 SEA→OGG | Conf: CNJDSB\nArrival: 1:20 PM HST\nRental: BMW 430i Convertible — Cruisin\' Maui RA#12181. Pickup OGG 2:00 PM.\nBackup: Enterprise conf #1596585494 — cancel on arrival once BMW confirmed.\nHotel: Westin Ka\'anapali | Conf #73733829',
+      maps:'https://maps.google.com/?q=Westin+Kaanapali+Ocean+Resort+Villas'},
+    {t:'1:20 PM',n:'Arrive Maui',o:'Pick up BMW 430i Convertible · Cruisin\' Maui',tap:true,
+      daria:'You\'ll be cruising Maui in a BMW 430i Convertible. Top down, warm air, open road.\n\nPickup at the airport at 2:00 PM on arrival day. Return by noon on Friday.',
+      philip:'Cruisin\' Maui RA#12181 | $510.42 total\nPickup: OGG Oct 18, 2:00 PM\nReturn: OGG Oct 23, 12:00 PM\nBackup: Enterprise Jeep — conf #1596585494',
+      maps:'https://maps.google.com/?q=Kahului+Airport+Maui'},
+    {t:'3:00 PM',n:'Check In',o:'Westin Ka\'anapali Ocean Resort Villas',tap:false},
+    {t:'Evening',n:'Settle In',o:'Black Rock torch lighting · Whalers Village',tap:false},
+  ]},
+  mon:{t:'Monday · Oct 19',items:[
+    {t:'Morning',n:'Morning Open',o:'TBD',tap:false},
+    {t:'Afternoon',n:'Haleakalā Drive',o:'Begin ascent — allow 2 hours to summit',tap:false},
+    {t:'Sunset',n:'Haleakalā Summit',o:'10,023 ft · Above the clouds · Stargazing after dark',tap:true,
+      daria:'Today you go up.\n\nHaleakalā rises over 10,000 feet above sea level — higher than the clouds. Arrive at the summit around 4:30–5:00 PM to catch the sunset, then stay for stargazing as the sky comes alive.\n\nDress warm — it gets into the 30s and 40s at the top even in October.',
+      philip:'Target arrival: 4:30–5:00 PM\nSunset: ~6:00 PM | Stargazing: ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour code: 49771864\nDescent: Engine braking only. Allow 1.5–2 hrs back.',
+      maps:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center'},
+  ]},
+  tue:{t:'Tuesday · Oct 20',ann:true},
+  wed:{t:'Wednesday · Oct 21',items:[
+    {t:'All day',n:'No Agenda — That\'s the Plan',o:'Explore, relax, wander freely',tap:true,
+      daria:'No agenda today. That\'s the plan.\n\nSleep in. Find a coffee. Walk somewhere. Sit somewhere else. This is your day to wander together with no particular destination in mind.\n\nAround 5 PM, there\'s something special — a golden hour photo session on the beach. Just the two of you.',
+      philip:'No Plans Day — intentionally unstructured.\nEvening: Couples beach photo session ~5:00 PM golden hour.\nBeach location and photographer TBD.\nAlso consider: Blinnk Photography at Westin (808-662-2525).',
+      maps:null},
+    {t:'~5:00 PM',n:'Golden Hour Photos',o:'Couples beach session · Photographer TBD',tap:false},
+  ]},
+  thu:{t:'Thursday · Oct 22',items:[
+    {t:'Morning',n:'Snorkeling',o:'Honolua Bay or Kapalua Bay · Sea turtles',tap:false},
+    {t:'5:15 PM',n:'Old Lāhainā Lū\'au',o:'Confirmed and booked',tap:true,
+      daria:'Tonight is the Old Lāhainā Lū\'au — one of the most celebrated luaus in Hawaii.\n\nCheck-in at 5:15 PM at 1251 Front Street in Lahaina, right on the ocean. Traditional Hawaiian food, storytelling, hula, and fire dancing as the sun sets over the water. Plan for about three hours.',
+      philip:'Old Lāhainā Lū\'au — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink — non-alcoholic options available.',
+      maps:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI'},
+  ]},
+  fri:{t:'Friday · Oct 23',items:[
+    {t:'Morning',n:'Final Morning',o:'Short beach walk or breakfast',tap:false},
+    {t:'11:00 AM',n:'Hotel Checkout',o:'Westin Ka\'anapali',tap:false},
+    {t:'1:10 PM',n:'Depart Maui',o:'Alaska Airlines AS 930 · OGG → SEA',tap:true,
+      daria:'Last morning in Maui. Take it slow.\n\nCheckout is by 11 AM — there\'s time for a short beach walk or a final breakfast before heading to the airport. Flight departs at 1:10 PM.\n\nFive days well spent.',
+      philip:'Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nHotel checkout: by 11 AM\nCar return: OGG by 12:00 PM (Cruisin\' Maui RA#12181)',
+      maps:'https://maps.google.com/?q=Kahului+Airport+Maui'},
+  ]},
+};
+
+// ── DETAIL DATA ───────────────────────────────────────────
+var details={
+  dining:{
+    mala:{name:'Mala Ocean Tavern',tag:'Dining Option',sub:'Ocean view · Lahaina · 1.2 miles',desc:'A beloved oceanfront restaurant known for its farm-to-table philosophy and stunning sunset views. Fresh fish, local produce, warm atmosphere.',meta:[{l:'Type',v:'Dinner (also lunch)'},{l:'Vibe',v:'Romantic, relaxed, ocean view'},{l:'Alcohol',v:'Full bar — also great mocktails'},{l:'Notes',v:'Reservations recommended for dinner'}]},
+    gazebo:{name:'The Gazebo',tag:'Dining Option',sub:'Napili · 2.8 miles',desc:'A legendary breakfast spot perched above Napili Bay with panoramic ocean views. Famous for macadamia nut pancakes and long lines — worth every minute.',meta:[{l:'Type',v:'Breakfast & lunch only'},{l:'Vibe',v:'Casual, iconic, scenic'},{l:'Alcohol',v:'Non-alcoholic options only'},{l:'Notes',v:'Walk-in only · Arrive early · Lines can be 45+ min'}]},
+    mamas:{name:"Mama's Fish House",tag:'Dining Option',sub:'Paia · 4.1 miles',desc:"Arguably the most famous restaurant in Maui. Fresh-caught fish, right on the beach in Paia. The menu changes daily based on what was caught that morning.",meta:[{l:'Type',v:'Lunch & dinner'},{l:'Vibe',v:'Special occasion, iconic, beachside'},{l:'Alcohol',v:'Full bar'},{l:'Notes',v:'Walk-in slots available — arrive early'}]},
+    tinroof:{name:'Tin Roof',tag:'Dining Option',sub:'Kahului · 5.6 miles',desc:"Chef Sheldon Simeon's beloved local spot. Garlic noodles, fried rice, and poke in generous portions. An authentic taste of local Maui.",meta:[{l:'Type',v:'Breakfast & lunch, counter service'},{l:'Vibe',v:'Local, casual, no fuss'},{l:'Alcohol',v:'Non-alcoholic'},{l:'Notes',v:'Lines move fast · Worth the detour'}]},
+  },
+  activity:{
+    blackrock:{name:'Black Rock Beach',tag:'Things To Explore',sub:"Ka'anapali · 0.4 miles",desc:"One of Maui's best snorkeling spots with a dramatic lava rock outcropping. Turtles and tropical fish are common. Torch lighting ceremony each evening at sunset.",meta:[{l:'Best for',v:'Snorkeling, swimming, sunset watching'},{l:'Difficulty',v:'Easy — calm conditions most days'},{l:'Gear',v:'Snorkel rental available at the beach'},{l:'Torch lighting',v:'Nightly at sunset — free to watch'}]},
+    honolua:{name:'Honolua Bay',tag:'Things To Explore',sub:'North shore · 3.2 miles',desc:'One of the most spectacular snorkeling bays in all of Hawaii. A protected marine sanctuary with crystal-clear water, vibrant coral, sea turtles, and an extraordinary variety of tropical fish.',meta:[{l:'Best for',v:'Snorkeling, exploring, nature'},{l:'Difficulty',v:'Moderate — some current possible'},{l:'Access',v:'Short jungle trail to the beach'},{l:'Note',v:'No lifeguard · Check conditions before swimming'}]},
+    kapalua:{name:'Kapalua Bay',tag:'Things To Explore',sub:'Kapalua · 7.4 miles',desc:'A calm, crescent-shaped bay with gentle waters ideal for snorkeling and swimming. Protected by rocky headlands with excellent visibility and frequent sea turtle sightings.',meta:[{l:'Best for',v:'Snorkeling, swimming, relaxing'},{l:'Difficulty',v:'Easy — very calm, protected waters'},{l:'Facilities',v:'Parking, restrooms, gear rental nearby'},{l:'Turtles',v:'Frequent sightings — give them 15 ft of space'}]},
+  },
+};
+
+// ── WEATHER ───────────────────────────────────────────────
+var weather={
+  sun:[{loc:"Ka'anapali",icon:'⛅',temp:'82°F',cond:'Partly Cloudy'}],
+  mon:[{loc:"Ka'anapali",icon:'☀️',temp:'82°F',cond:'Sunny'},{loc:'Haleakalā Summit',icon:'🌬️',temp:'38°F',cond:'Clear · Windy'}],
+  tue:[{loc:"Ka'anapali",icon:'☀️',temp:'83°F',cond:'Sunny'}],
+  wed:[{loc:"Ka'anapali",icon:'🌤️',temp:'81°F',cond:'Mostly Sunny'}],
+  thu:[{loc:"Ka'anapali",icon:'⛅',temp:'80°F',cond:'Partly Cloudy'},{loc:'Lahaina',icon:'🌙',temp:'79°F',cond:'Clear Evening'}],
+  fri:[{loc:"Ka'anapali",icon:'☀️',temp:'82°F',cond:'Sunny'}],
+};
+
+// ── VIEWS ─────────────────────────────────────────────────
+function sv(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+// ── LAUNCH ────────────────────────────────────────────────
+document.getElementById('launch').addEventListener('click',function(e){
+  if(e.target===document.getElementById('sec-launch'))return;
+  sv('main-view');updateUI();
+});
+setupSecretTap(document.getElementById('sec-launch'));
+
+// ── SECRET TAP — works on both launch and main (v5.2) ─────
+function setupSecretTap(el){
+  var taps=0,timer=null;
+  el.addEventListener('click',function(e){
+    e.stopPropagation();
+    taps++;
+    clearTimeout(timer);
+    timer=setTimeout(function(){taps=0;},2000);
+    if(taps>=5){taps=0;openPin();}
+  });
+}
+setupSecretTap(document.getElementById('sec-main'));
+
+// ── SECTIONS ──────────────────────────────────────────────
+function toggleSec(sh){sh.classList.toggle('open');sh.nextElementSibling.classList.toggle('open');}
+
+// ── PIN ───────────────────────────────────────────────────
+function openPin(){pin='';updDots();document.getElementById('perr').textContent='';document.getElementById('pin-ov').classList.add('on');}
+function cancelPin(){document.getElementById('pin-ov').classList.remove('on');pin='';}
+function pt(v){
+  document.getElementById('perr').textContent='';
+  if(v==='b')pin=pin.slice(0,-1);
+  else if(pin.length<4)pin+=v;
+  updDots();
+  if(pin.length===4)setTimeout(checkPin,140);
+}
+function updDots(){for(var i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('on',i<pin.length);}
+function checkPin(){
+  if(pin===PIN){
+    PM=true;document.body.classList.add('pm');
+    document.getElementById('pin-ov').classList.remove('on');
+    sv('main-view');updateUI();
+  }else{
+    document.getElementById('perr').textContent='Incorrect';
+    pin='';updDots();
+    setTimeout(function(){document.getElementById('pin-ov').classList.remove('on');sv('main-view');updateUI();},900);
+  }
+}
+
+// ── MODE UI ───────────────────────────────────────────────
+function updateUI(){
+  var po=document.querySelectorAll('.po');
+  var pb=document.getElementById('previewBtn');
+  var eb=document.getElementById('exitBtn');
+  var showing=PM&&!prevDaria;
+  po.forEach(function(s){s.style.display=showing?'block':'none';});
+  pb.style.display=PM?'block':'none';
+  pb.textContent=prevDaria?'Back to Philip':'Preview Daria';
+  eb.style.display=showing?'block':'none';
+  // Tuesday card text
+  document.getElementById('tue-dp').textContent=showing?'Anniversary day · Hunt route unlocked':'Twenty years in the making...';
+  // Update god mode stops
+  if(showing)updateGodMode();
+}
+function togglePreview(){prevDaria=!prevDaria;updateUI();}
+function exitPhilip(){PM=false;prevDaria=false;dariaPhone=false;document.body.classList.remove('pm');updateUI();}
+function exitGod(){dariaPhone=false;PM=false;prevDaria=false;document.body.classList.remove('pm');document.getElementById('banner').classList.remove('on');updateUI();}
+function updateGodMode(){
+  var el=document.getElementById('godModeStops');
+  el.innerHTML=stops.map(function(s,i){
+    var done=completedIds.includes(s.id);
+    var active=currentStop===i&&!done;
+    return '<div class="hstop"><div class="hnum">'+(i+1)+'</div><div><div class="hname">'+s.locName+'</div><div class="hstat'+(done?' done':'')+'">'+( done?'✓ Completed':active?'● Active':'Upcoming')+'</div></div></div>';
+  }).join('');
+}
+
+// ── BUILD WEATHER ─────────────────────────────────────────
+(function(){
+  var days=['sun','mon','tue','wed','thu','fri'];
+  var names=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
+  var labels=['Oct 18','Oct 19','Oct 20','Oct 21','Oct 22','Oct 23'];
+  var html='';
+  days.forEach(function(d,i){
+    html+='<div style="margin-bottom:16px"><div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px">'+labels[i]+' · '+names[i]+'</div>';
+    html+='<div class="wx-row">';
+    (weather[d]||[]).forEach(function(w){
+      html+='<div class="wx-card"><div class="wx-loc">'+w.loc+'</div><div class="wx"><div class="wi">'+w.icon+'</div><div><div class="wt">'+w.temp+'</div><div class="ws">'+w.cond+'</div></div></div></div>';
+    });
+    html+='</div></div>';
+  });
+  html+='<div style="font-size:11px;color:var(--gold-light);letter-spacing:.1em;opacity:.6;margin-top:4px">Demo data · Live weather in full build</div>';
+  document.getElementById('weather-content').innerHTML=html;
+})();
+
+// ── DAY / DETAIL VIEWS ────────────────────────────────────
+function showDay(d){
+  var data=days[d];
+  if(data.ann){launchIntro();return;}
+  document.getElementById('detailTitle').textContent=data.t;
+  var showing=PM&&!prevDaria;
+  var html=data.items.map(function(item){
+    var note='';
+    if(showing&&item.philip){
+      note='<div class="philip-note"><div class="pn-label">Philip Mode ✦</div><div class="pn-body">'+item.philip+'</div>'+(item.maps?'<a href="'+item.maps+'" target="_blank" class="maps-btn">Open in Maps ↗</a>':'')+'</div>';
+    }else if(!showing&&item.tap&&item.daria){
+      note='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-family:\'Cormorant Garamond\',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.7;white-space:pre-line">'+item.daria+'</div>';
+    }
+    return '<div class="ai"><div class="at">'+item.t+'</div><div class="an">'+item.n+'</div><div class="ano">'+item.o+'</div>'+note+'</div>';
+  }).join('');
+  document.getElementById('detailBody').innerHTML=html;
+  sv('detail-view');
+}
+
+function showDetail(type,key){
+  var d=details[type][key];
+  document.getElementById('detailTitle').textContent='';
+  var meta=d.meta.map(function(m){return '<div class="dh-meta-item"><span>'+m.l+'</span>'+m.v+'</div>';}).join('');
+  document.getElementById('detailBody').innerHTML='<div class="detail-hero"><div class="dh-tag">'+d.tag+' ✦</div><div class="dh-name">'+d.name+'</div><div class="dh-sub">'+d.sub+'</div><div class="dh-rule"></div><div class="dh-body">'+d.desc+'</div><div class="dh-meta">'+meta+'</div></div>';
+  sv('detail-view');
+}
+
+// ── INTRO ─────────────────────────────────────────────────
+function launchIntro(){cslide=0;showSlide(0);document.getElementById('intro').classList.add('on');}
+document.getElementById('intro').addEventListener('click',function(){
+  cslide++;
+  if(cslide>=5){document.getElementById('intro').classList.remove('on');loadStop(0);sv('hunt-view');}
+  else showSlide(cslide);
+});
+function showSlide(n){
+  for(var i=0;i<5;i++){
+    document.getElementById('sl'+i).classList.toggle('on',i===n);
+    document.getElementById('nd'+i).classList.toggle('on',i===n);
+  }
+}
+
+// ── HUNT ─────────────────────────────────────────────────
+function loadStop(n){
+  currentStop=n;hintIdx=0;
+  var s=stops[n];
+  document.getElementById('clueLbl').textContent=s.label;
+  document.getElementById('clueTxt').textContent=s.clue;
+  // Reset hint state
+  var hbox=document.getElementById('hbox');
+  hbox.style.display='none';hbox.innerHTML='';
+  document.getElementById('hintSubtle').style.display='block';
+  document.getElementById('clueCard').style.display='block';
+  document.getElementById('locRev').classList.remove('on');
+  document.getElementById('arrMsg').classList.remove('on');
+  document.getElementById('locName').textContent=s.locName;
+  document.getElementById('locDesc').textContent=s.locDesc;
+  document.getElementById('arrTxt').textContent=s.arrival;
+  var nb=document.getElementById('nextBtn');
+  nb.style.display=s.hasNext?'block':'none';
+  updateProgress();
+  document.querySelector('#hunt-view .sb').scrollTop=0;
+  if(PM&&!prevDaria)updateGodMode();
+}
+
+function updateProgress(){
+  // v5: show only completed + active stops
+  var shown=stops.slice(0,currentStop+1);
+  var html='';
+  shown.forEach(function(s,i){
+    var done=completedIds.includes(s.id);
+    var active=i===currentStop;
+    html+='<div style="display:flex;align-items:center">';
+    html+='<div style="text-align:center"><div class="hp-dot'+(done?' done':active?' active':'')+'"></div><div class="hp-label'+(done?' done':active?' active':'')+'">'+( i+1)+'</div></div>';
+    if(i<shown.length-1)html+='<div class="hp-line'+(done?' done':'')+'"></div>';
+    html+='</div>';
+  });
+  document.getElementById('huntProgress').innerHTML=html;
+}
+
+function showHint(){
+  var s=stops[currentStop];
+  if(hintIdx>=s.hints.length)return;
+  var hbox=document.getElementById('hbox');
+  var p=document.createElement('p');
+  p.textContent=s.hints[hintIdx];
+  hbox.appendChild(p);
+  hbox.style.display='block';
+  hintIdx++;
+  document.getElementById('hintSubtle').style.display=hintIdx<s.hints.length?'block':'none';
+  document.getElementById('hintSubtle').textContent='another hint?';
+}
+
+function askReveal(){document.getElementById('reveal-confirm').classList.add('on');}
+function cancelReveal(){document.getElementById('reveal-confirm').classList.remove('on');}
+function confirmReveal(){
+  document.getElementById('reveal-confirm').classList.remove('on');
+  document.getElementById('clueCard').style.display='none';
+  document.getElementById('locRev').classList.add('on');
+}
+function weHere(){
+  document.getElementById('locRev').classList.remove('on');
+  document.getElementById('arrMsg').classList.add('on');
+  if(!completedIds.includes(stops[currentStop].id))completedIds.push(stops[currentStop].id);
+  updateProgress();
+  if(PM&&!prevDaria)updateGodMode();
+}
+function nextClue(){if(currentStop+1<stops.length)loadStop(currentStop+1);}
+
+// ── SERVICE WORKER REGISTRATION ───────────────────────────
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      console.log('SW registered');
+    }).catch(function(err){
+      console.log('SW failed:',err);
+    });
+  });
+}
+</script>
+</body>
+</html>
