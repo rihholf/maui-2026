@@ -1,4 +1,4 @@
-const CACHE = 'maui-2026-v7';
+const CACHE = 'maui-2026-v7-1';
 const ASSETS = [
   '/maui-2026/',
   '/maui-2026/index.html',
@@ -27,8 +27,11 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Don't intercept Anthropic API calls — those need live network
-  if (e.request.url.includes('api.anthropic.com')) return;
+  const url = e.request.url;
+  // Never intercept live API calls — let them go direct to network
+  if (url.includes('api.open-meteo.com')) return;
+  if (url.includes('api.anthropic.com')) return;
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       return cached || fetch(e.request).then(response => {

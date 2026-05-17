@@ -42,7 +42,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .l-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.8vw,32px);font-style:italic;color:var(--gold);letter-spacing:.1em;margin-bottom:40px;animation:fadeUp 1s ease forwards 1.6s;opacity:0}
 .l-rule{height:2px;width:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 34px;animation:expand 1.2s ease forwards 2s}
 .l-tap{font-size:clamp(12px,1.3vw,16px);letter-spacing:.45em;text-transform:uppercase;color:var(--gold-light);animation:fadeUp 1s ease forwards 2.5s,breathe 3s ease-in-out 3.2s infinite;opacity:0}
-.secret{position:absolute;bottom:0;right:0;width:70px;height:70px}
+.secret{position:absolute;bottom:0;right:0;width:80px;height:80px;background:transparent;border:none;cursor:default;touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline:none;}
 
 /* PIN */
 .pin-ov{position:fixed;inset:0;background:rgba(42,26,8,.87);z-index:1000;display:flex;align-items:center;justify-content:center}
@@ -788,7 +788,7 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <div className="secret" onClick={handleLaunchSecretTap}/>
+          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true"/>
         </div>
       )}
 
@@ -806,13 +806,13 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <div
+            <button
             <div
               onClick={handleLogoTap}
-              style={{cursor:"default",userSelect:"none"}}
+              style={{cursor:"default",userSelect:"none",background:"none",border:"none",padding:0,textAlign:"left"}}
             >
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026</div>
+              <div className="nav-logo">Maui 2026</button>
             </div>
             <div className="nav-right">
               {showingPhilip && <button className="nav-btn" onClick={togglePreview}>Preview Daria</button>}
