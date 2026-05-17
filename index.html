@@ -144,7 +144,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 /* PTR */
 .ptr-indicator{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:center;height:0;overflow:hidden;transition:height .25s ease;z-index:50;background:var(--cream)}
 .ptr-indicator.show{height:52px}
-.ptr-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
+.ptr-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 .ptr-text{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);margin-left:10px}
 /* ANT */
 .ant-ov{position:fixed;inset:0;z-index:600;background:rgba(42,26,8,.82);display:flex;align-items:center;justify-content:center;padding:32px}
@@ -153,6 +153,10 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .ant-msg{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4.5vw,30px);font-style:italic;color:var(--warm-brown);line-height:1.6;margin-bottom:20px}
 .ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
 .ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
+/* WX */
+.wx-loading{display:flex;align-items:center;padding:14px 0}
+.wx-inner{display:flex;align-items:center;gap:12px}
+.wx-status{font-size:10px;letter-spacing:.15em;color:var(--gold-light);opacity:.65;margin-top:8px}
 /* DETAIL VIEW */
 .dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
 .back-btn{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
@@ -473,6 +477,30 @@ function WeatherSection({refreshTick}){
       setWeather(data);setLive(isLive);setCached(isCached);setLoading(false);
     });
   },[refreshTick]);
+  const cards=weather||WEATHER_FALLBACK;
+  return(
+    <div>
+      {loading?(
+        <div className="wx-loading"><div className="wx-spinner"/><span style={{fontSize:11,letterSpacing:'.2em',color:'var(--gold-light)',marginLeft:10}}>Fetching...</span></div>
+      ):(
+        <>
+          <div className="wx-row">
+            {cards.map((w,i)=>(
+              <div key={i} className="wx-card">
+                <div className="wx-loc">{w.loc}</div>
+                <div className="wx-inner">
+                  <div className="wi">{w.icon}</div>
+                  <div><div className="wt">{w.temp}</div><div className="ws">{w.cond}</div></div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="wx-status">{live?'● Live · Maui, HI':cached?'○ Cached · pull to refresh':'○ Offline · default data'}</div>
+        </>
+      )}
+    </div>
+  );
+}
 // ── COMPONENT: Hunt Progress ──────────────────────────────
 function HuntProgress({ currentIdx, completedIds }) {
   const shown = STOPS.slice(0, currentIdx + 1);
@@ -685,13 +713,12 @@ function App() {
   const [showAnt,setShowAnt]=useState(false);
   const [weatherRefreshTick,setWeatherRefreshTick]=useState(0);
   const [ptrVisible,setPtrVisible]=useState(false);
-  const ptrStartY=useRef(0);const ptrActive=useRef(false);
+  const ptrStartY=useRef(0);const ptrActive=useRef(false);const ptrTriggered=useRef(false);
   const isTuesdayModeRef=useRef(false);const isMondayEveModeRef=useRef(false);const showingPhilipRef=useRef(false);
+  const launchTapCount=useRef(0);const launchTapTimer=useRef(null);
+  const logoTapCount=useRef(0);const logoTapTimer=useRef(null);
 
   const PIN = '4242';
-  const tapCounts = useRef({});
-  const tapTimers = useRef({});
-
   const showingPhilip = isPhilip && !prevDaria;
   const isTuesdayMode=isTuesdayAnniversary(simulatedDate);
   const isMondayEveMode=isMondayEve(simulatedDate);
@@ -700,15 +727,6 @@ function App() {
   showingPhilipRef.current=showingPhilip;
 
   // Secret tap handler — works on any zone ID
-  const handleSecretTap = (zoneId) => (e) => {
-    e.stopPropagation();
-    const count = (tapCounts.current[zoneId] || 0) + 1;
-    tapCounts.current[zoneId] = count;
-    clearTimeout(tapTimers.current[zoneId]);
-    tapTimers.current[zoneId] = setTimeout(() => { tapCounts.current[zoneId] = 0; }, 2000);
-    if (count >= 5) { tapCounts.current[zoneId] = 0; setShowPin(true); }
-  };
-
   const handlePinKey = (v) => {
     setPinErr('');
     let next = pin;
@@ -736,19 +754,31 @@ function App() {
     setDetail({type:'day',data:day});setView('detail');
   };
 
-    const handlePtrStart=(e)=>{
+  const handleLaunchSecretTap=(e)=>{
+    e.stopPropagation();
+    launchTapCount.current+=1;clearTimeout(launchTapTimer.current);
+    launchTapTimer.current=setTimeout(()=>{launchTapCount.current=0;},2000);
+    if(launchTapCount.current>=5){launchTapCount.current=0;setShowPin(true);}
+  };
+  const handleLogoTap=(e)=>{
+    e.stopPropagation();
+    logoTapCount.current+=1;clearTimeout(logoTapTimer.current);
+    logoTapTimer.current=setTimeout(()=>{logoTapCount.current=0;},2000);
+    if(logoTapCount.current>=5){logoTapCount.current=0;setShowPin(true);}
+  };
+  const handlePtrStart=(e)=>{
     const sb=document.getElementById('main-sb');
-    if(sb&&sb.scrollTop===0){ptrStartY.current=e.touches?e.touches[0].clientY:e.clientY;ptrActive.current=true;}
+    if(sb&&sb.scrollTop===0){ptrStartY.current=e.touches?e.touches[0].clientY:e.clientY;ptrActive.current=true;ptrTriggered.current=false;}
   };
   const handlePtrMove=(e)=>{
     if(!ptrActive.current)return;
     const y=e.touches?e.touches[0].clientY:e.clientY;
-    if(y-ptrStartY.current>60)setPtrVisible(true);
+    if(y-ptrStartY.current>60){setPtrVisible(true);ptrTriggered.current=true;}
   };
   const handlePtrEnd=()=>{
     if(!ptrActive.current)return;
     ptrActive.current=false;
-    if(ptrVisible){setWeatherRefreshTick(t=>t+1);setTimeout(()=>setPtrVisible(false),900);}
+    if(ptrTriggered.current){ptrTriggered.current=false;setWeatherRefreshTick(t=>t+1);setTimeout(()=>setPtrVisible(false),900);}
   };
   const exitPhilip=()=>{setIsPhilip(false);setPrevDaria(false);setDariaPhone(false);setSimulatedDate(null);};
   const togglePreview = () => setPrevDaria(p => !p);
@@ -787,7 +817,7 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <div className="secret" onClick={handleSecretTap('launch')}/>
+          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true" style={{background:"transparent",border:"none",outline:"none"}}></button>
         </div>
       )}
 
@@ -805,17 +835,16 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <div>
+            <button onClick={handleLogoTap}
+              style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none"}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
               <div className="nav-logo">Maui 2026</div>
-            </div>
+            </button>
             <div className="nav-right">
               {showingPhilip && <button className="nav-btn" onClick={togglePreview}>Preview Daria</button>}
               {isPhilip && prevDaria && <button className="nav-btn" onClick={togglePreview}>Back to Philip</button>}
               {showingPhilip && <button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
             </div>
-            {/* Secret tap zone on main screen */}
-            <div className="secret" onClick={handleSecretTap('main')}/>
           </div>
 
           <div className="sb" id="main-sb"
@@ -947,6 +976,11 @@ function App() {
               </Section>
             )}
 
+            {showingPhilip&&(
+              <div style={{textAlign:'center',padding:'8px 0 4px',fontSize:10,letterSpacing:'.3em',textTransform:'uppercase',color:'var(--gold-light)',opacity:.5}}>
+                v7.4
+              </div>
+            )}
             <div style={{height:24}}/>
           </div>
         </div>
