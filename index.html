@@ -446,7 +446,7 @@ function WeatherSection() {
         const { data, ts } = JSON.parse(cached);
         // Use cache if less than 30 min old
         if (Date.now() - ts < 30 * 60 * 1000) {
-          setWeather(data); setLive(true); setLoading(false); return;
+          setWeather(data); setLive(false); setLoading(false); return; // cached, not live
         }
       }
     } catch(e) {}
@@ -715,8 +715,14 @@ function App() {
   };
   // Long-press on nav logo (1 second) triggers Philip mode
   const logoTimer = useRef(null);
-  const handleLogoPress = () => { logoTimer.current = setTimeout(() => setShowPin(true), 1000); };
-  const handleLogoRelease = () => clearTimeout(logoTimer.current);
+  const logoTapCount = useRef(0);
+  const logoTapTimer = useRef(null);
+  const handleLogoTap = () => {
+    logoTapCount.current += 1;
+    clearTimeout(logoTapTimer.current);
+    logoTapTimer.current = setTimeout(() => { logoTapCount.current = 0; }, 2000);
+    if (logoTapCount.current >= 5) { logoTapCount.current = 0; setShowPin(true); }
+  };
 
   const showingPhilip = isPhilip && !prevDaria;
   const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
@@ -747,7 +753,7 @@ function App() {
     setView('detail');
   };
 
-  const exitPhilip = () => { setIsPhilip(false); setPrevDaria(false); setDariaPhone(false); };
+  const exitPhilip = () => { setIsPhilip(false); setPrevDaria(false); setDariaPhone(false); setSimulatedDate(null); };
   const togglePreview = () => setPrevDaria(p => !p);
 
   const rootClass = `app-root${isPhilip ? ' pm' : ''}`;
@@ -801,8 +807,8 @@ function App() {
           {/* Top nav */}
           <div className="top-nav">
             <div
-              onMouseDown={handleLogoPress} onMouseUp={handleLogoRelease} onMouseLeave={handleLogoRelease}
-              onTouchStart={handleLogoPress} onTouchEnd={handleLogoRelease}
+            <div
+              onClick={handleLogoTap}
               style={{cursor:"default",userSelect:"none"}}
             >
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
@@ -932,7 +938,7 @@ function App() {
                     <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={() => setSimulatedDate('2026-10-21')}>Oct 21 (Wed)</button>
                   </div>
                   <div style={{marginTop:10,fontSize:11,color:'var(--gold-light)',letterSpacing:'.1em'}}>
-                    Active: {simulatedDate ? simulatedDate : 'real date · ' + new Date().toISOString().slice(0,10)}
+                    Active: {simulatedDate ? simulatedDate : 'real date · ' + (() => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); })()}
                     {isTuesdayMode ? ' · ✦ Tuesday mode ON' : ''}
                   </div>
                 </div>
