@@ -42,7 +42,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .l-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.8vw,32px);font-style:italic;color:var(--gold);letter-spacing:.1em;margin-bottom:40px;animation:fadeUp 1s ease forwards 1.6s;opacity:0}
 .l-rule{height:2px;width:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 34px;animation:expand 1.2s ease forwards 2s}
 .l-tap{font-size:clamp(12px,1.3vw,16px);letter-spacing:.45em;text-transform:uppercase;color:var(--gold-light);animation:fadeUp 1s ease forwards 2.5s,breathe 3s ease-in-out 3.2s infinite;opacity:0}
-.secret{position:absolute;bottom:0;right:0;width:80px;height:80px;background:transparent;border:none;cursor:default;touch-action:manipulation;-webkit-tap-highlight-color:transparent;outline:none;}
+.secret{position:absolute;bottom:0;right:0;width:70px;height:70px}
 
 /* PIN */
 .pin-ov{position:fixed;inset:0;background:rgba(42,26,8,.87);z-index:1000;display:flex;align-items:center;justify-content:center}
@@ -386,19 +386,19 @@ function isTuesdayAnniversary(simulatedDate) {
 
 // ── WEATHER via Open-Meteo (free, no key, no CORS, NOAA data for Hawaii) ──
 const WEATHER_FALLBACK = [
-  { loc:"Ka'anapali", icon:'☀️', temp:'82°F', cond:'Sunny · Maui, HI' },
+  { loc:"Ka\u2019anapali", icon:'\u2600\ufe0f', temp:'82\u00b0F', cond:'Sunny \u00b7 Maui, HI' },
 ];
 
 function wmoToCondition(code) {
-  if (code === 0) return { cond:'Clear Sky', icon:'☀️' };
-  if (code <= 2) return { cond:'Partly Cloudy', icon:'🌤️' };
-  if (code === 3) return { cond:'Overcast', icon:'☁️' };
-  if (code <= 49) return { cond:'Foggy', icon:'🌫️' };
-  if (code <= 59) return { cond:'Drizzle', icon:'🌦️' };
-  if (code <= 69) return { cond:'Rain', icon:'🌧️' };
-  if (code <= 82) return { cond:'Rain Showers', icon:'🌦️' };
-  if (code <= 99) return { cond:'Thunderstorm', icon:'⛈️' };
-  return { cond:'Mixed', icon:'⛅' };
+  if (code === 0) return { cond:'Clear Sky', icon:'\u2600\ufe0f' };
+  if (code <= 2) return { cond:'Partly Cloudy', icon:'\u26c5' };
+  if (code === 3) return { cond:'Overcast', icon:'\u2601\ufe0f' };
+  if (code <= 49) return { cond:'Foggy', icon:'\uD83C\uDF2B\uFE0F' };
+  if (code <= 59) return { cond:'Drizzle', icon:'\uD83C\uDF26\uFE0F' };
+  if (code <= 69) return { cond:'Rain', icon:'\uD83C\uDF27\uFE0F' };
+  if (code <= 82) return { cond:'Rain Showers', icon:'\uD83C\uDF26\uFE0F' };
+  if (code <= 99) return { cond:'Thunderstorm', icon:'\u26C8\uFE0F' };
+  return { cond:'Mixed', icon:'\u26c5' };
 }
 
 async function fetchLiveWeather() {
@@ -408,13 +408,12 @@ async function fetchLiveWeather() {
     const json = await resp.json();
     const cur = json.current;
     const { cond, icon } = wmoToCondition(cur.weathercode);
-    const temp = Math.round(cur.temperature_2m) + '°F';
-    const wind = cur.windspeed_10m > 15 ? ' · Wind ' + Math.round(cur.windspeed_10m) + ' mph' : '';
-    return { data: [{ loc:"Ka'anapali", icon, temp, cond: cond + wind }], live: true };
+    const temp = Math.round(cur.temperature_2m) + '\u00b0F';
+    const wind = cur.windspeed_10m > 15 ? ' \u00b7 Wind ' + Math.round(cur.windspeed_10m) + ' mph' : '';
+    return { data: [{ loc:"Ka\u2019anapali", icon, temp, cond: cond + wind }], live: true };
   } catch(e) {}
   return { data: WEATHER_FALLBACK, live: false };
 }
-
 // ── COMPONENT: Section ────────────────────────────────────
 function Section({ title, children, defaultOpen=false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -446,7 +445,7 @@ function WeatherSection() {
         const { data, ts } = JSON.parse(cached);
         // Use cache if less than 30 min old
         if (Date.now() - ts < 30 * 60 * 1000) {
-          setWeather(data); setLive(false); setLoading(false); return; // cached, not live
+          setWeather(data); setLive(false); setLoading(false); return;
         }
       }
     } catch(e) {}
@@ -703,7 +702,6 @@ function App() {
   const [showIntro, setShowIntro] = useState(false);
 
   const PIN = '4242';
-  // Secret tap — launch screen corner (5 taps)
   const launchTapCount = useRef(0);
   const launchTapTimer = useRef(null);
   const handleLaunchSecretTap = (e) => {
@@ -713,11 +711,10 @@ function App() {
     launchTapTimer.current = setTimeout(() => { launchTapCount.current = 0; }, 2000);
     if (launchTapCount.current >= 5) { launchTapCount.current = 0; setShowPin(true); }
   };
-  // Long-press on nav logo (1 second) triggers Philip mode
-  const logoTimer = useRef(null);
   const logoTapCount = useRef(0);
   const logoTapTimer = useRef(null);
-  const handleLogoTap = () => {
+  const handleLogoTap = (e) => {
+    e.stopPropagation();
     logoTapCount.current += 1;
     clearTimeout(logoTapTimer.current);
     logoTapTimer.current = setTimeout(() => { logoTapCount.current = 0; }, 2000);
@@ -727,6 +724,7 @@ function App() {
   const showingPhilip = isPhilip && !prevDaria;
   const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
 
+;
 
   const handlePinKey = (v) => {
     setPinErr('');
@@ -788,7 +786,7 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true"/>
+          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true" style={{background:"transparent",border:"none",outline:"none"}}></button>
         </div>
       )}
 
@@ -806,7 +804,8 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <button onClick={handleLogoTap} style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none",display:"block"}}>
+            <button onClick={handleLogoTap}
+              style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none"}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
               <div className="nav-logo">Maui 2026</div>
             </button>
