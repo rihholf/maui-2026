@@ -1,4 +1,4 @@
-const CACHE = 'maui-2026-v7-3';
+const CACHE = 'maui-2026-v7-4';
 const ASSETS = [
   '/maui-2026/',
   '/maui-2026/index.html',

@@ -133,15 +133,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hstat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px;color:var(--gold-light)}
 .hstat.done{color:var(--gold)}
 
-/* ANTICIPATION OVERLAY */
-.ant-ov{position:fixed;inset:0;z-index:600;background:rgba(42,26,8,.82);display:flex;align-items:center;justify-content:center;padding:32px;animation:fadeIn .4s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.ant-box{background:var(--card-bg);padding:44px 36px;text-align:center;max-width:320px;width:100%;position:relative}
-.ant-orn{font-size:12px;letter-spacing:14px;color:var(--gold);margin-bottom:20px}
-.ant-msg{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4.5vw,30px);font-style:italic;color:var(--warm-brown);line-height:1.6;margin-bottom:28px}
-.ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
-.ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
-
 /* DATE OVERRIDE — Philip mode only */
 .date-override{background:var(--sand);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
 .do-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
@@ -150,6 +141,18 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .do-btn.active{background:var(--gold);color:var(--white);border-color:var(--gold)}
 .do-btn:hover:not(.active){background:var(--card-bg)}
 
+/* PTR */
+.ptr-indicator{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:center;height:0;overflow:hidden;transition:height .25s ease;z-index:50;background:var(--cream)}
+.ptr-indicator.show{height:52px}
+.ptr-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
+.ptr-text{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);margin-left:10px}
+/* ANT */
+.ant-ov{position:fixed;inset:0;z-index:600;background:rgba(42,26,8,.82);display:flex;align-items:center;justify-content:center;padding:32px}
+.ant-box{background:var(--card-bg);padding:44px 36px;text-align:center;max-width:320px;width:100%}
+.ant-orn{font-size:12px;letter-spacing:14px;color:var(--gold);margin-bottom:20px}
+.ant-msg{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4.5vw,30px);font-style:italic;color:var(--warm-brown);line-height:1.6;margin-bottom:20px}
+.ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
+.ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
 /* DETAIL VIEW */
 .dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
 .back-btn{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
@@ -381,32 +384,14 @@ const ROMANTIC_IDEAS = [
   'Write the fantasy letters before departure — sealed envelopes, raise naturally 1–2 weeks before.',
 ];
 
-// ── ANTICIPATION MESSAGES ─────────────────────────────────
-const MSGS_GENERIC = [
-  "Something extraordinary is being planned. Just not yet.",
-  "The best things are worth waiting for. One more sleep.",
-  "Patience, love. Something beautiful is coming your way.",
-  "October 20 is almost here. Rest well until then.",
-  "Your adventure is written. The first page turns soon.",
-  "Not yet. But soon. Very soon.",
-];
-const MSGS_MONDAY = [
-  "Tomorrow. It begins tomorrow.",
-  "Sleep well tonight. Tomorrow is yours.",
-  "By this time tomorrow, everything changes.",
-  "One more sunrise. Then your adventure begins.",
-  "Tomorrow morning, everything you need to know will be revealed.",
-];
-
-function getAntMessage(isMondayEve) {
-  const pool = isMondayEve ? MSGS_MONDAY : MSGS_GENERIC;
-  return pool[Math.floor(Math.random() * pool.length)];
-}
-
-function AntOverlay({ msg, onClose }) {
-  return (
+// ── ANTICIPATION MESSAGES
+const MSGS_GENERIC=['Something extraordinary is being planned. Just not yet.','The best things are worth waiting for. One more sleep.','Patience, love. Something beautiful is coming your way.','October 20 is almost here. Rest well until then.','Your adventure is written. The first page turns soon.','Not yet. But soon. Very soon.'];
+const MSGS_MONDAY=['Tomorrow. It begins tomorrow.','Sleep well tonight. Tomorrow is yours.','By this time tomorrow, everything changes.','One more sunrise. Then your adventure begins.','Tomorrow morning, everything will be revealed.'];
+function getAntMessage(mon){const p=mon?MSGS_MONDAY:MSGS_GENERIC;return p[Math.floor(Math.random()*p.length)];}
+function AntOverlay({msg,onClose}){
+  return(
     <div className="ant-ov" onClick={onClose}>
-      <div className="ant-box" onClick={e => e.stopPropagation()}>
+      <div className="ant-box" onClick={e=>e.stopPropagation()}>
         <div className="ant-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
         <div className="ant-msg">{msg}</div>
         <div className="ant-date">October 20 &nbsp;·&nbsp; 2026</div>
@@ -418,54 +403,46 @@ function AntOverlay({ msg, onClose }) {
 
 // ── DATE HELPERS ──────────────────────────────────────────
 // Oct 20 2026 = Tuesday anniversary date
-const ANNIVERSARY_DATE = '2026-10-20';
-const MONDAY_EVE_DATE = '2026-10-19';
+const ANNIVERSARY_DATE='2026-10-20';
+const MONDAY_EVE_DATE='2026-10-19';
 function isTuesdayAnniversary(simulatedDate) {
   if (simulatedDate) return simulatedDate === ANNIVERSARY_DATE;
-  const today = new Date();
-  const ymd = today.getFullYear() + '-' +
-    String(today.getMonth() + 1).padStart(2, '0') + '-' +
-    String(today.getDate()).padStart(2, '0');
-  return ymd === ANNIVERSARY_DATE;
+  const today=new Date();
+  const ymd=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  return ymd===ANNIVERSARY_DATE;
 }
-function isMondayEve(simulatedDate) {
-  if (simulatedDate) return simulatedDate === MONDAY_EVE_DATE;
-  const today = new Date();
-  const ymd = today.getFullYear() + '-' +
-    String(today.getMonth() + 1).padStart(2, '0') + '-' +
-    String(today.getDate()).padStart(2, '0');
-  return ymd === MONDAY_EVE_DATE;
+function isMondayEve(sim){
+  if(sim)return sim===MONDAY_EVE_DATE;
+  const d=new Date();
+  const ymd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return ymd===MONDAY_EVE_DATE;
 }
 
-// ── WEATHER via Open-Meteo (free, no key, no CORS, NOAA data for Hawaii) ──
-const WEATHER_FALLBACK = [
-  { loc:"Ka\u2019anapali", icon:'\u2600\ufe0f', temp:'82\u00b0F', cond:'Sunny \u00b7 Maui, HI' },
-];
-
-function wmoToCondition(code) {
-  if (code === 0) return { cond:'Clear Sky', icon:'\u2600\ufe0f' };
-  if (code <= 2) return { cond:'Partly Cloudy', icon:'\u26c5' };
-  if (code === 3) return { cond:'Overcast', icon:'\u2601\ufe0f' };
-  if (code <= 49) return { cond:'Foggy', icon:'\uD83C\uDF2B\uFE0F' };
-  if (code <= 59) return { cond:'Drizzle', icon:'\uD83C\uDF26\uFE0F' };
-  if (code <= 69) return { cond:'Rain', icon:'\uD83C\uDF27\uFE0F' };
-  if (code <= 82) return { cond:'Rain Showers', icon:'\uD83C\uDF26\uFE0F' };
-  if (code <= 99) return { cond:'Thunderstorm', icon:'\u26C8\uFE0F' };
-  return { cond:'Mixed', icon:'\u26c5' };
+// ── WEATHER via Open-Meteo ──
+const WEATHER_FALLBACK=[{loc:"Ka’anapali",icon:'☀️',temp:'82°F',cond:'Sunny · Maui, HI'}];
+function wmoToCondition(code){
+  if(code===0)return{cond:'Clear Sky',icon:'☀️'};
+  if(code<=2)return{cond:'Partly Cloudy',icon:'⛅'};
+  if(code===3)return{cond:'Overcast',icon:'☁️'};
+  if(code<=49)return{cond:'Foggy',icon:'⛅'};
+  if(code<=69)return{cond:'Rain',icon:'☔️'};
+  if(code<=82)return{cond:'Showers',icon:'☔️'};
+  if(code<=99)return{cond:'Thunderstorm',icon:'⛈️'};
+  return{cond:'Mixed',icon:'⛅'};
 }
-
-async function fetchLiveWeather() {
-  try {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=20.9281&longitude=-156.6942&current=temperature_2m,weathercode,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=Pacific%2FHonolulu';
-    const resp = await fetch(url);
-    const json = await resp.json();
-    const cur = json.current;
-    const { cond, icon } = wmoToCondition(cur.weathercode);
-    const temp = Math.round(cur.temperature_2m) + '\u00b0F';
-    const wind = cur.windspeed_10m > 15 ? ' \u00b7 Wind ' + Math.round(cur.windspeed_10m) + ' mph' : '';
-    return { data: [{ loc:"Ka\u2019anapali", icon, temp, cond: cond + wind }], live: true };
-  } catch(e) {}
-  return { data: WEATHER_FALLBACK, live: false };
+async function fetchLiveWeather(skipCache){
+  if(!skipCache){try{const c=localStorage.getItem('maui_weather_v1');if(c){const{data,ts}=JSON.parse(c);if(Date.now()-ts<30*60*1000)return{data,live:false,cached:true};}}catch(e){}}
+  try{
+    const url='https://api.open-meteo.com/v1/forecast?latitude=20.9281&longitude=-156.6942&current=temperature_2m,weathercode,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=Pacific%2FHonolulu';
+    const resp=await fetch(url);const json=await resp.json();const cur=json.current;
+    const{cond,icon}=wmoToCondition(cur.weathercode);
+    const temp=Math.round(cur.temperature_2m)+'°F';
+    const wind=cur.windspeed_10m>15?' · Wind '+Math.round(cur.windspeed_10m)+' mph':'';
+    const data=[{loc:"Ka’anapali",icon,temp,cond:cond+wind}];
+    try{localStorage.setItem('maui_weather_v1',JSON.stringify({data,ts:Date.now()}));}catch(e){}
+    return{data,live:true,cached:false};
+  }catch(e){}
+  return{data:WEATHER_FALLBACK,live:false,cached:false};
 }
 // ── COMPONENT: Section ────────────────────────────────────
 function Section({ title, children, defaultOpen=false }) {
@@ -485,66 +462,17 @@ function Section({ title, children, defaultOpen=false }) {
 }
 
 // ── COMPONENT: Weather ────────────────────────────────────
-function WeatherSection() {
-  const [weather, setWeather] = useState(null);
-  const [live, setLive] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Try cached first
-    try {
-      const cached = localStorage.getItem('maui_weather_v1');
-      if (cached) {
-        const { data, ts } = JSON.parse(cached);
-        // Use cache if less than 30 min old
-        if (Date.now() - ts < 30 * 60 * 1000) {
-          setWeather(data); setLive(false); setLoading(false); return;
-        }
-      }
-    } catch(e) {}
-
-    // Fetch live
-    fetchLiveWeather().then(({ data, live: isLive }) => {
-      setWeather(data);
-      setLive(isLive);
-      setLoading(false);
-      if (isLive) {
-        try { localStorage.setItem('maui_weather_v1', JSON.stringify({ data, ts: Date.now() })); } catch(e) {}
-      }
+function WeatherSection({refreshTick}){
+  const [weather,setWeather]=useState(null);
+  const [live,setLive]=useState(false);
+  const [cached,setCached]=useState(false);
+  const [loading,setLoading]=useState(true);
+  useEffect(()=>{
+    setLoading(true);
+    fetchLiveWeather(refreshTick>0).then(({data,live:isLive,cached:isCached})=>{
+      setWeather(data);setLive(isLive);setCached(isCached);setLoading(false);
     });
-  }, []);
-
-  const cards = weather || WEATHER_FALLBACK;
-  return (
-    <div>
-      {loading ? (
-        <div className="wx-loading">
-          <div className="wx-spinner"/>
-          <span>Fetching current conditions...</span>
-        </div>
-      ) : (
-        <>
-          <div className="wx-row">
-            {cards.map((w, i) => (
-              <div key={i} className="wx-card">
-                <div className="wx-loc">{w.loc}</div>
-                <div className="wx-inner">
-                  <div className="wi">{w.icon}</div>
-                  <div>
-                    <div className="wt">{w.temp}</div>
-                    <div className="ws">{w.cond}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="wx-status">{live ? '● Live · Maui, HI' : '○ Offline — cached or default data'}</div>
-        </>
-      )}
-    </div>
-  );
-}
-
+  },[refreshTick]);
 // ── COMPONENT: Hunt Progress ──────────────────────────────
 function HuntProgress({ currentIdx, completedIds }) {
   const shown = STOPS.slice(0, currentIdx + 1);
@@ -752,35 +680,34 @@ function App() {
   const [simulatedDate, setSimulatedDate] = useState(null); // null = real date
   // Hunt state — persisted
   const [huntState, setHuntState] = useState(() => loadHuntState());
-  const [showIntro, setShowIntro] = useState(false);
-  const [antMsg, setAntMsg] = useState('');
-  const [showAnt, setShowAnt] = useState(false);
+  const [showIntro,setShowIntro]=useState(false);
+  const [antMsg,setAntMsg]=useState('');
+  const [showAnt,setShowAnt]=useState(false);
+  const [weatherRefreshTick,setWeatherRefreshTick]=useState(0);
+  const [ptrVisible,setPtrVisible]=useState(false);
+  const ptrStartY=useRef(0);const ptrActive=useRef(false);
+  const isTuesdayModeRef=useRef(false);const isMondayEveModeRef=useRef(false);const showingPhilipRef=useRef(false);
 
   const PIN = '4242';
-  const launchTapCount = useRef(0);
-  const launchTapTimer = useRef(null);
-  const handleLaunchSecretTap = (e) => {
-    e.stopPropagation();
-    launchTapCount.current += 1;
-    clearTimeout(launchTapTimer.current);
-    launchTapTimer.current = setTimeout(() => { launchTapCount.current = 0; }, 2000);
-    if (launchTapCount.current >= 5) { launchTapCount.current = 0; setShowPin(true); }
-  };
-  const logoTapCount = useRef(0);
-  const logoTapTimer = useRef(null);
-  const handleLogoTap = (e) => {
-    e.stopPropagation();
-    logoTapCount.current += 1;
-    clearTimeout(logoTapTimer.current);
-    logoTapTimer.current = setTimeout(() => { logoTapCount.current = 0; }, 2000);
-    if (logoTapCount.current >= 5) { logoTapCount.current = 0; setShowPin(true); }
-  };
+  const tapCounts = useRef({});
+  const tapTimers = useRef({});
 
   const showingPhilip = isPhilip && !prevDaria;
-  const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
-  const isMondayEveMode = isMondayEve(simulatedDate);
+  const isTuesdayMode=isTuesdayAnniversary(simulatedDate);
+  const isMondayEveMode=isMondayEve(simulatedDate);
+  isTuesdayModeRef.current=isTuesdayMode;
+  isMondayEveModeRef.current=isMondayEveMode;
+  showingPhilipRef.current=showingPhilip;
 
-;
+  // Secret tap handler — works on any zone ID
+  const handleSecretTap = (zoneId) => (e) => {
+    e.stopPropagation();
+    const count = (tapCounts.current[zoneId] || 0) + 1;
+    tapCounts.current[zoneId] = count;
+    clearTimeout(tapTimers.current[zoneId]);
+    tapTimers.current[zoneId] = setTimeout(() => { tapCounts.current[zoneId] = 0; }, 2000);
+    if (count >= 5) { tapCounts.current[zoneId] = 0; setShowPin(true); }
+  };
 
   const handlePinKey = (v) => {
     setPinErr('');
@@ -801,22 +728,29 @@ function App() {
     }
   };
 
-  const openDay = (day, currentTuesdayMode, currentMondayEveMode, currentShowingPhilip) => {
-    if (day.ann) {
-      if (currentShowingPhilip || currentTuesdayMode) {
-        setShowIntro(true);
-        return;
-      }
-      // Show elegant anticipation overlay
-      setAntMsg(getAntMessage(currentMondayEveMode));
-      setShowAnt(true);
-      return;
+  const openDay=(day)=>{
+    if(day.ann){
+      if(showingPhilipRef.current||isTuesdayModeRef.current){setShowIntro(true);return;}
+      setAntMsg(getAntMessage(isMondayEveModeRef.current));setShowAnt(true);return;
     }
-    setDetail({ type: 'day', data: day });
-    setView('detail');
+    setDetail({type:'day',data:day});setView('detail');
   };
 
-  const exitPhilip = () => { setIsPhilip(false); setPrevDaria(false); setDariaPhone(false); setSimulatedDate(null); };
+    const handlePtrStart=(e)=>{
+    const sb=document.getElementById('main-sb');
+    if(sb&&sb.scrollTop===0){ptrStartY.current=e.touches?e.touches[0].clientY:e.clientY;ptrActive.current=true;}
+  };
+  const handlePtrMove=(e)=>{
+    if(!ptrActive.current)return;
+    const y=e.touches?e.touches[0].clientY:e.clientY;
+    if(y-ptrStartY.current>60)setPtrVisible(true);
+  };
+  const handlePtrEnd=()=>{
+    if(!ptrActive.current)return;
+    ptrActive.current=false;
+    if(ptrVisible){setWeatherRefreshTick(t=>t+1);setTimeout(()=>setPtrVisible(false),900);}
+  };
+  const exitPhilip=()=>{setIsPhilip(false);setPrevDaria(false);setDariaPhone(false);setSimulatedDate(null);};
   const togglePreview = () => setPrevDaria(p => !p);
 
   const rootClass = `app-root${isPhilip ? ' pm' : ''}`;
@@ -837,8 +771,7 @@ function App() {
 
   return (
     <div className={rootClass} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
-      {/* ANTICIPATION OVERLAY */}
-      {showAnt && <AntOverlay msg={antMsg} onClose={() => setShowAnt(false)}/>}
+      {showAnt&&<AntOverlay msg={antMsg} onClose={()=>setShowAnt(false)}/>}
 
       {/* INTRO SLIDES */}
       {showIntro && (
@@ -854,7 +787,7 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true" style={{background:"transparent",border:"none",outline:"none"}}></button>
+          <div className="secret" onClick={handleSecretTap('launch')}/>
         </div>
       )}
 
@@ -872,31 +805,37 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <button onClick={handleLogoTap}
-              style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none"}}>
+            <div>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
               <div className="nav-logo">Maui 2026</div>
-            </button>
+            </div>
             <div className="nav-right">
               {showingPhilip && <button className="nav-btn" onClick={togglePreview}>Preview Daria</button>}
               {isPhilip && prevDaria && <button className="nav-btn" onClick={togglePreview}>Back to Philip</button>}
               {showingPhilip && <button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
             </div>
+            {/* Secret tap zone on main screen */}
+            <div className="secret" onClick={handleSecretTap('main')}/>
           </div>
 
-          <div className="sb">
+          <div className="sb" id="main-sb"
+            onTouchStart={handlePtrStart} onTouchMove={handlePtrMove} onTouchEnd={handlePtrEnd}
+            style={{position:'relative'}}>
+            <div className={`ptr-indicator${ptrVisible?' show':''}`}>
+              <div className="ptr-spinner"/><span className="ptr-text">Refreshing...</span>
+            </div>
             {/* OUR ADVENTURE */}
             <Section title="Our Adventure">
               {DAYS.map(d => (
-                <div key={d.id} className={`dc${d.ann?' ann':''}`} onClick={() => openDay(d, isTuesdayMode, isMondayEveMode, showingPhilip)}>
+                <div key={d.id} className={`dc${d.ann?' ann':''}`} onClick={() => openDay(d)}>
                   <div className="dci">
                     <div>
                       <div className="dl">{d.label}</div>
                       <div className="dn">{d.name}</div>
                       <div className="dp">
-                        {d.ann && !showingPhilip
-                          ? (isTuesdayMode ? 'Today is your day. Tap to begin.' : 'Twenty years in the making. Today unfolds one step at a time.')
-                          : d.tagline}
+                        {d.ann&&!showingPhilip
+                          ?(isTuesdayMode?'Today is your day. Tap to begin.':isMondayEveMode?'Tomorrow. Your adventure begins.':'Twenty years in the making. Today unfolds one step at a time.')
+                          :d.tagline}
                       </div>
                     </div>
                     <div className="darr">›</div>
@@ -937,7 +876,7 @@ function App() {
 
             {/* WEATHER — live */}
             <Section title="Weather">
-              <WeatherSection/>
+              <WeatherSection refreshTick={weatherRefreshTick}/>
             </Section>
 
             {/* GOOD TO KNOW */}
@@ -996,7 +935,7 @@ function App() {
                   <div className="do-label">Simulate App Date</div>
                   <div className="do-btns">
                     <button className={`do-btn${simulatedDate===null?' active':''}`} onClick={() => setSimulatedDate(null)}>Today (Real)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={() => setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve ✦)</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-20'?' active':''}`} onClick={() => setSimulatedDate('2026-10-20')}>Oct 20 (Tue ✦)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={() => setSimulatedDate('2026-10-21')}>Oct 21 (Wed)</button>
                   </div>
