@@ -806,14 +806,10 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <button
-            <div
-              onClick={handleLogoTap}
-              style={{cursor:"default",userSelect:"none",background:"none",border:"none",padding:0,textAlign:"left"}}
-            >
+            <button onClick={handleLogoTap} style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none",display:"block"}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026</button>
-            </div>
+              <div className="nav-logo">Maui 2026</div>
+            </button>
             <div className="nav-right">
               {showingPhilip && <button className="nav-btn" onClick={togglePreview}>Preview Daria</button>}
               {isPhilip && prevDaria && <button className="nav-btn" onClick={togglePreview}>Back to Philip</button>}
