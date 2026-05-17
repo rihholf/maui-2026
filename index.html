@@ -378,33 +378,39 @@ const ANNIVERSARY_DATE = '2026-10-20';
 function isTuesdayAnniversary(simulatedDate) {
   if (simulatedDate) return simulatedDate === ANNIVERSARY_DATE;
   const today = new Date();
-  const ymd = today.toISOString().slice(0, 10);
+  const ymd = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
   return ymd === ANNIVERSARY_DATE;
 }
 
-// ── WEATHER via Claude API ────────────────────────────────
+// ── WEATHER via Open-Meteo (free, no key, no CORS, NOAA data for Hawaii) ──
 const WEATHER_FALLBACK = [
   { loc:"Ka'anapali", icon:'☀️', temp:'82°F', cond:'Sunny · Maui, HI' },
 ];
 
+function wmoToCondition(code) {
+  if (code === 0) return { cond:'Clear Sky', icon:'☀️' };
+  if (code <= 2) return { cond:'Partly Cloudy', icon:'🌤️' };
+  if (code === 3) return { cond:'Overcast', icon:'☁️' };
+  if (code <= 49) return { cond:'Foggy', icon:'🌫️' };
+  if (code <= 59) return { cond:'Drizzle', icon:'🌦️' };
+  if (code <= 69) return { cond:'Rain', icon:'🌧️' };
+  if (code <= 82) return { cond:'Rain Showers', icon:'🌦️' };
+  if (code <= 99) return { cond:'Thunderstorm', icon:'⛈️' };
+  return { cond:'Mixed', icon:'⛅' };
+}
+
 async function fetchLiveWeather() {
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        system: 'You are a weather assistant. Search for current weather in Kaanapali, Maui, Hawaii. Respond ONLY with a JSON array (no markdown, no backticks, no preamble) like: [{"loc":"Ka\'anapali","icon":"☀️","temp":"82°F","cond":"Sunny"}]. Use one of these icons: ☀️ 🌤️ ⛅ 🌧️ 🌦️ 🌬️. Nothing else.',
-        messages: [{ role: 'user', content: 'Current weather in Kaanapali Maui Hawaii right now' }],
-      }),
-    });
-    const data = await resp.json();
-    const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
-    if (Array.isArray(parsed) && parsed.length > 0) return { data: parsed, live: true };
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=20.9281&longitude=-156.6942&current=temperature_2m,weathercode,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=Pacific%2FHonolulu';
+    const resp = await fetch(url);
+    const json = await resp.json();
+    const cur = json.current;
+    const { cond, icon } = wmoToCondition(cur.weathercode);
+    const temp = Math.round(cur.temperature_2m) + '°F';
+    const wind = cur.windspeed_10m > 15 ? ' · Wind ' + Math.round(cur.windspeed_10m) + ' mph' : '';
+    return { data: [{ loc:"Ka'anapali", icon, temp, cond: cond + wind }], live: true };
   } catch(e) {}
   return { data: WEATHER_FALLBACK, live: false };
 }
@@ -697,21 +703,24 @@ function App() {
   const [showIntro, setShowIntro] = useState(false);
 
   const PIN = '4242';
-  const tapCounts = useRef({});
-  const tapTimers = useRef({});
+  // Secret tap — launch screen corner (5 taps)
+  const launchTapCount = useRef(0);
+  const launchTapTimer = useRef(null);
+  const handleLaunchSecretTap = (e) => {
+    e.stopPropagation();
+    launchTapCount.current += 1;
+    clearTimeout(launchTapTimer.current);
+    launchTapTimer.current = setTimeout(() => { launchTapCount.current = 0; }, 2000);
+    if (launchTapCount.current >= 5) { launchTapCount.current = 0; setShowPin(true); }
+  };
+  // Long-press on nav logo (1 second) triggers Philip mode
+  const logoTimer = useRef(null);
+  const handleLogoPress = () => { logoTimer.current = setTimeout(() => setShowPin(true), 1000); };
+  const handleLogoRelease = () => clearTimeout(logoTimer.current);
 
   const showingPhilip = isPhilip && !prevDaria;
   const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
 
-  // Secret tap handler — works on any zone ID
-  const handleSecretTap = (zoneId) => (e) => {
-    e.stopPropagation();
-    const count = (tapCounts.current[zoneId] || 0) + 1;
-    tapCounts.current[zoneId] = count;
-    clearTimeout(tapTimers.current[zoneId]);
-    tapTimers.current[zoneId] = setTimeout(() => { tapCounts.current[zoneId] = 0; }, 2000);
-    if (count >= 5) { tapCounts.current[zoneId] = 0; setShowPin(true); }
-  };
 
   const handlePinKey = (v) => {
     setPinErr('');
@@ -773,7 +782,7 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <div className="secret" onClick={handleSecretTap('launch')}/>
+          <div className="secret" onClick={handleLaunchSecretTap}/>
         </div>
       )}
 
@@ -791,7 +800,11 @@ function App() {
 
           {/* Top nav */}
           <div className="top-nav">
-            <div>
+            <div
+              onMouseDown={handleLogoPress} onMouseUp={handleLogoRelease} onMouseLeave={handleLogoRelease}
+              onTouchStart={handleLogoPress} onTouchEnd={handleLogoRelease}
+              style={{cursor:"default",userSelect:"none"}}
+            >
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
               <div className="nav-logo">Maui 2026</div>
             </div>
@@ -800,8 +813,6 @@ function App() {
               {isPhilip && prevDaria && <button className="nav-btn" onClick={togglePreview}>Back to Philip</button>}
               {showingPhilip && <button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
             </div>
-            {/* Secret tap zone on main screen */}
-            <div className="secret" onClick={handleSecretTap('main')}/>
           </div>
 
           <div className="sb">
