@@ -746,7 +746,12 @@ function App() {
   };
 
   const openDay = (day) => {
-    if (day.ann) { setShowIntro(true); return; }
+    if (day.ann && isTuesdayMode) { setShowIntro(true); return; }
+    if (day.ann && !isTuesdayMode) {
+      // Not the anniversary date yet — show teaser, don't launch hunt
+      alert('Your anniversary adventure awaits on October 20. \u2726');
+      return;
+    }
     setDetail({ type: 'day', data: day });
     setView('detail');
   };
