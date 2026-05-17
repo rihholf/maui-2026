@@ -133,6 +133,15 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hstat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px;color:var(--gold-light)}
 .hstat.done{color:var(--gold)}
 
+/* ANTICIPATION OVERLAY */
+.ant-ov{position:fixed;inset:0;z-index:600;background:rgba(42,26,8,.82);display:flex;align-items:center;justify-content:center;padding:32px;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.ant-box{background:var(--card-bg);padding:44px 36px;text-align:center;max-width:320px;width:100%;position:relative}
+.ant-orn{font-size:12px;letter-spacing:14px;color:var(--gold);margin-bottom:20px}
+.ant-msg{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4.5vw,30px);font-style:italic;color:var(--warm-brown);line-height:1.6;margin-bottom:28px}
+.ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
+.ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
+
 /* DATE OVERRIDE — Philip mode only */
 .date-override{background:var(--sand);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
 .do-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
@@ -372,9 +381,45 @@ const ROMANTIC_IDEAS = [
   'Write the fantasy letters before departure — sealed envelopes, raise naturally 1–2 weeks before.',
 ];
 
+// ── ANTICIPATION MESSAGES ─────────────────────────────────
+const MSGS_GENERIC = [
+  "Something extraordinary is being planned. Just not yet.",
+  "The best things are worth waiting for. One more sleep.",
+  "Patience, love. Something beautiful is coming your way.",
+  "October 20 is almost here. Rest well until then.",
+  "Your adventure is written. The first page turns soon.",
+  "Not yet. But soon. Very soon.",
+];
+const MSGS_MONDAY = [
+  "Tomorrow. It begins tomorrow.",
+  "Sleep well tonight. Tomorrow is yours.",
+  "By this time tomorrow, everything changes.",
+  "One more sunrise. Then your adventure begins.",
+  "Tomorrow morning, everything you need to know will be revealed.",
+];
+
+function getAntMessage(isMondayEve) {
+  const pool = isMondayEve ? MSGS_MONDAY : MSGS_GENERIC;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function AntOverlay({ msg, onClose }) {
+  return (
+    <div className="ant-ov" onClick={onClose}>
+      <div className="ant-box" onClick={e => e.stopPropagation()}>
+        <div className="ant-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+        <div className="ant-msg">{msg}</div>
+        <div className="ant-date">October 20 &nbsp;·&nbsp; 2026</div>
+        <button className="ant-btn" onClick={onClose}>I’ll be ready ✦</button>
+      </div>
+    </div>
+  );
+}
+
 // ── DATE HELPERS ──────────────────────────────────────────
 // Oct 20 2026 = Tuesday anniversary date
 const ANNIVERSARY_DATE = '2026-10-20';
+const MONDAY_EVE_DATE = '2026-10-19';
 function isTuesdayAnniversary(simulatedDate) {
   if (simulatedDate) return simulatedDate === ANNIVERSARY_DATE;
   const today = new Date();
@@ -382,6 +427,14 @@ function isTuesdayAnniversary(simulatedDate) {
     String(today.getMonth() + 1).padStart(2, '0') + '-' +
     String(today.getDate()).padStart(2, '0');
   return ymd === ANNIVERSARY_DATE;
+}
+function isMondayEve(simulatedDate) {
+  if (simulatedDate) return simulatedDate === MONDAY_EVE_DATE;
+  const today = new Date();
+  const ymd = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
+  return ymd === MONDAY_EVE_DATE;
 }
 
 // ── WEATHER via Open-Meteo (free, no key, no CORS, NOAA data for Hawaii) ──
@@ -700,6 +753,8 @@ function App() {
   // Hunt state — persisted
   const [huntState, setHuntState] = useState(() => loadHuntState());
   const [showIntro, setShowIntro] = useState(false);
+  const [antMsg, setAntMsg] = useState('');
+  const [showAnt, setShowAnt] = useState(false);
 
   const PIN = '4242';
   const launchTapCount = useRef(0);
@@ -723,6 +778,7 @@ function App() {
 
   const showingPhilip = isPhilip && !prevDaria;
   const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
+  const isMondayEveMode = isMondayEve(simulatedDate);
 
 ;
 
@@ -745,11 +801,15 @@ function App() {
     }
   };
 
-  const openDay = (day) => {
-    if (day.ann && isTuesdayMode) { setShowIntro(true); return; }
-    if (day.ann && !isTuesdayMode) {
-      // Not the anniversary date yet — show teaser, don't launch hunt
-      alert('Your anniversary adventure awaits on October 20. \u2726');
+  const openDay = (day, currentTuesdayMode, currentMondayEveMode, currentShowingPhilip) => {
+    if (day.ann) {
+      if (currentShowingPhilip || currentTuesdayMode) {
+        setShowIntro(true);
+        return;
+      }
+      // Show elegant anticipation overlay
+      setAntMsg(getAntMessage(currentMondayEveMode));
+      setShowAnt(true);
       return;
     }
     setDetail({ type: 'day', data: day });
@@ -777,6 +837,9 @@ function App() {
 
   return (
     <div className={rootClass} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
+      {/* ANTICIPATION OVERLAY */}
+      {showAnt && <AntOverlay msg={antMsg} onClose={() => setShowAnt(false)}/>}
+
       {/* INTRO SLIDES */}
       {showIntro && (
         <IntroSlides onDone={() => { setShowIntro(false); setView('hunt'); }}/>
@@ -825,7 +888,7 @@ function App() {
             {/* OUR ADVENTURE */}
             <Section title="Our Adventure">
               {DAYS.map(d => (
-                <div key={d.id} className={`dc${d.ann?' ann':''}`} onClick={() => openDay(d)}>
+                <div key={d.id} className={`dc${d.ann?' ann':''}`} onClick={() => openDay(d, isTuesdayMode, isMondayEveMode, showingPhilip)}>
                   <div className="dci">
                     <div>
                       <div className="dl">{d.label}</div>
@@ -933,7 +996,7 @@ function App() {
                   <div className="do-label">Simulate App Date</div>
                   <div className="do-btns">
                     <button className={`do-btn${simulatedDate===null?' active':''}`} onClick={() => setSimulatedDate(null)}>Today (Real)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={() => setSimulatedDate('2026-10-19')}>Oct 19 (Mon)</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={() => setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve ✦)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-20'?' active':''}`} onClick={() => setSimulatedDate('2026-10-20')}>Oct 20 (Tue ✦)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={() => setSimulatedDate('2026-10-21')}>Oct 21 (Wed)</button>
                   </div>
