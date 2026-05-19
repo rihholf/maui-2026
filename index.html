@@ -133,7 +133,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hstat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px;color:var(--gold-light)}
 .hstat.done{color:var(--gold)}
 
-/* DATE OVERRIDE — Philip mode only */
+/* DATE OVERRIDE */
 .date-override{background:var(--sand);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
 .do-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .do-btns{display:flex;gap:8px;flex-wrap:wrap}
@@ -146,6 +146,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .ptr-indicator.show{height:52px}
 .ptr-spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 .ptr-text{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);margin-left:10px}
+
 /* ANT */
 .ant-ov{position:fixed;inset:0;z-index:600;background:rgba(42,26,8,.82);display:flex;align-items:center;justify-content:center;padding:32px}
 .ant-box{background:var(--card-bg);padding:44px 36px;text-align:center;max-width:320px;width:100%}
@@ -153,18 +154,37 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .ant-msg{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,4.5vw,30px);font-style:italic;color:var(--warm-brown);line-height:1.6;margin-bottom:20px}
 .ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
 .ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
-/* WX */
-.wx-loading{display:flex;align-items:center;padding:14px 0}
-.wx-inner{display:flex;align-items:center;gap:12px}
-.wx-status{font-size:10px;letter-spacing:.15em;color:var(--gold-light);opacity:.65;margin-top:8px}
-/* DETAIL VIEW */
+
+/* ── ITINERARY DETAIL VIEW ── */
+.itin-view{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--cream)}
+.itin-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;background:var(--cream)}
+.itin-back{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
+.itin-day-label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.itin-day-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--warm-brown)}
+
+/* ITINERARY ITEM CARD */
+.ii{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;position:relative}
+.ii.tappable{cursor:pointer;transition:border-color .2s}
+.ii.tappable:hover{border-color:var(--gold-light)}
+.ii-body{padding:16px 18px}
+.ii-time{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.ii-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--warm-brown);margin-bottom:4px}
+.ii-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);margin-bottom:12px}
+.ii-notes{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.75;white-space:pre-line;border-top:1px solid var(--border);padding-top:12px}
+.ii-philip-badge{position:absolute;top:14px;right:14px;font-size:13px;color:var(--gold);opacity:.7}
+
+/* PHILIP NOTES DRAWER */
+.pn-drawer{background:var(--sand);border-top:2px solid var(--gold);padding:20px 18px;margin-top:0}
+.pn-drawer-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.pn-drawer-body{font-size:14px;line-height:1.85;color:var(--text);white-space:pre-line}
+.pn-drawer-links{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.pn-link-btn{font-size:11px;letter-spacing:.28em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:11px 18px;cursor:pointer;text-decoration:none;display:inline-block;font-family:'Didact Gothic',sans-serif}
+.pn-link-btn.secondary{background:transparent;color:var(--gold-dark);border:1px solid var(--gold)}
+
+/* DETAIL VIEW (dining/activity) — unchanged */
 .dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
 .back-btn{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
 .dvt{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--warm-brown)}
-.ai{background:var(--card-bg);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
-.at_{font-size:12px;letter-spacing:.28em;color:var(--gold);margin-bottom:5px}
-.an_{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--warm-brown)}
-.ano{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text-soft);margin-top:5px}
 .detail-hero{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);padding:26px 22px;margin-bottom:12px}
 .dh-tag{font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .dh-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,44px);font-weight:700;font-style:italic;color:var(--warm-brown);margin-bottom:8px}
@@ -174,10 +194,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .dh-meta{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);padding-top:16px}
 .dh-meta-item{font-size:14px;letter-spacing:.08em;color:var(--text)}
 .dh-meta-item span{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-right:6px}
-.philip-note{background:var(--sand);border-left:3px solid var(--gold);padding:16px 18px;margin-top:12px}
-.pn-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.pn-body{font-size:14px;line-height:1.8;color:var(--text);white-space:pre-line}
-.maps-btn{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:12px 22px;cursor:pointer;text-decoration:none}
 
 /* INTRO SLIDES */
 .intro-ov{position:fixed;inset:0;z-index:200;background:#1a0e04;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
@@ -209,8 +225,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hve{font-size:11px;letter-spacing:.48em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .hvt{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6.5vw,58px);font-weight:700;font-style:italic;color:var(--warm-brown);line-height:1}
 .hvrule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto}
-
-/* PROGRESS BAR */
 .hunt-progress{margin:0 16px 18px;display:flex;align-items:center}
 .hp-step{text-align:center;position:relative;flex:0 0 auto}
 .hp-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold-light);background:var(--cream);margin:0 auto 6px;transition:background .4s,border-color .4s;position:relative;z-index:1}
@@ -221,8 +235,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hp-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light)}
 .hp-label.active{color:var(--gold-dark)}
 .hp-label.done{color:var(--gold)}
-
-/* CLUE CARD */
 .clue{margin:0 16px 18px;background:var(--card-bg);border:1px solid var(--border);padding:28px 24px}
 .clue-lbl{font-size:11px;letter-spacing:.44em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .clue-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.4vw,28px);font-style:italic;color:var(--text);line-height:1.75;margin-bottom:28px}
@@ -236,8 +248,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hbox p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);line-height:1.7}
 .hbox p+p{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
 .hint-subtle{font-size:11px;letter-spacing:.12em;color:var(--gold-light);opacity:.5;text-align:center;cursor:pointer;margin-top:12px;user-select:none}
-
-/* REVEAL CONFIRM */
 .rc-ov{position:fixed;inset:0;z-index:500;background:rgba(42,26,8,.75);display:flex;align-items:center;justify-content:center}
 .pm .rc-ov{background:rgba(13,30,46,.8)}
 .rc-box{background:var(--card-bg);padding:44px 40px;text-align:center;max-width:300px;width:88%}
@@ -247,16 +257,12 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .rc-btns{display:flex;gap:10px}
 .rc-yes{flex:1;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
 .rc-no{flex:1;font-size:11px;letter-spacing:.3em;text-transform:uppercase;background:transparent;color:var(--gold);border:1px solid var(--border);padding:14px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
-
-/* LOCATION REVEAL */
 .loc-rev{margin:0 16px 18px;background:var(--card-bg);border:1px solid var(--border);padding:28px 24px;text-align:center}
 .le{font-size:11px;letter-spacing:.48em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .ln{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,50px);font-weight:700;font-style:italic;color:var(--warm-brown);margin-bottom:8px}
 .ld{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text-soft);line-height:1.65;margin-bottom:24px}
 .wh-btn{font-size:12px;letter-spacing:.38em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:17px 32px;cursor:pointer;width:100%;font-family:'Didact Gothic',sans-serif}
 .wh-btn:hover{background:var(--gold-dark)}
-
-/* ARRIVAL */
 .arr-card{margin:0 16px 18px;background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);padding:32px 24px;text-align:center}
 .ao{font-size:13px;letter-spacing:10px;color:var(--gold);margin-bottom:20px}
 .at2{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.9vw,26px);font-style:italic;color:var(--text);line-height:1.85;margin-bottom:20px}
@@ -273,20 +279,196 @@ const {useState, useEffect, useRef, useCallback} = React;
 
 // ── STORAGE KEY ───────────────────────────────────────────
 const STORAGE_KEY = 'maui2026_hunt_v1';
-
 function loadHuntState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) return JSON.parse(raw); } catch(e) {}
   return { currentStop: 0, completedIds: [], introSeen: false };
 }
-
 function saveHuntState(state) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
 }
 
-// ── DATA ──────────────────────────────────────────────────
+// ── ITINERARY DATA (from Airtable tbl3rVXL4oohjRJtF) ─────
+// Grouped by date, sorted by sortOrder
+const ITINERARY = {
+  '2026-10-18': {
+    label: 'Oct 18', name: 'Sunday', tagline: 'Arrival Day', ann: false,
+    items: [
+      {
+        id: 'recJpXSL5xBDkxJMK', sortOrder: 1,
+        timeLabel: '10:00 AM',
+        displayText: 'Depart Seattle',
+        tagline: 'AS 929 · SEA → OGG · 6h 20min',
+        displayNotes: 'Hawaiian/Alaskan Airlines AS 929\nDeparts: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J\nConfirmation Code: CNJDSB',
+        philipNotes: null,
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'Booked',
+      },
+      {
+        id: 'recfFTeer69Xg9nIo', sortOrder: 2,
+        timeLabel: '1:20 PM',
+        displayText: 'Arrive Maui',
+        tagline: "Welcome to Maui! Our adventure starts the moment we land.",
+        displayNotes: "We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui.\nTop down, warm air, open road.\nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.",
+        philipNotes: "Cruisin' Maui Rent-A-Car\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nRA#: 12181 | Unit #74 | Signed: May 2, 2026\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nLicense Plate: LMR219 | VIN: WBA23AT02NCK97972\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\n\nRENTAL NOTES:\n— Top and windows must ALWAYS be parked CLOSED\n— No smoking — up to $350 fine\n— Sunscreen/salt cleaning fee up to $350 — rinse car after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— No cell phone use unless on mount — it's the law",
+        mapsUrl: null,
+        referenceUrl: 'https://cruisin-maui-rent-a-car.us5.hqrentals.app/integrations/9/social/email/login?ssid=4vW58xrD6e8e',
+        status: 'Confirmed',
+      },
+      {
+        id: 'rec8gau0RPf2HPffw', sortOrder: 3,
+        timeLabel: 'Afternoon',
+        displayText: 'Check In',
+        tagline: "Westin Ka'anapali Ocean Resort Villas",
+        displayNotes: 'One Bedroom King Bed Villa, Ocean view, Balcony',
+        philipNotes: "The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nConfirmation #: 73733829\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River. Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography. Reservations required: 808-662-2525.",
+        mapsUrl: 'https://maps.app.goo.gl/oVJA4vcNxxAomid37',
+        referenceUrl: 'https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/',
+        status: 'Booked',
+      },
+    ]
+  },
+  '2026-10-19': {
+    label: 'Oct 19', name: 'Monday', tagline: 'Haleakalā', ann: false,
+    items: [
+      {
+        id: 'recgUKI7ojFYUywKg', sortOrder: 1,
+        timeLabel: 'Morning',
+        displayText: 'Morning Open',
+        tagline: 'Plans still in motion',
+        displayNotes: "What are we going to do...that's a great question",
+        philipNotes: null,
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'TBD',
+      },
+      {
+        id: 'recMe3ZAaVyHyKZ6z', sortOrder: 2,
+        timeLabel: 'Afternoon – Evening',
+        displayText: 'Haleakalā Summit',
+        tagline: '10,023 ft · Sunset above the clouds · Stargazing',
+        displayNotes: "Today we head above the clouds...\nHaleakalā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n\nA quick note for packing: Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",
+        philipNotes: "Target arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
+        mapsUrl: 'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',
+        referenceUrl: 'https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A',
+        status: 'Confirmed',
+      },
+    ]
+  },
+  '2026-10-20': {
+    label: 'Oct 20', name: 'Tuesday', tagline: 'Our Anniversary', ann: true,
+    items: [
+      {
+        id: 'reczPGENzMgOha6RU', sortOrder: 1,
+        timeLabel: 'All Day',
+        displayText: 'Anniversary Day',
+        tagline: 'Twenty years in the making.',
+        displayNotes: "Today is our day. A special day has been planned — comfortable clothing recommended, you'll be out and about. Dinner in the evening.",
+        philipNotes: 'Be Prepared!',
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'Confirmed',
+      },
+    ]
+  },
+  '2026-10-21': {
+    label: 'Oct 21', name: 'Wednesday', tagline: 'No Plans Day', ann: false,
+    items: [
+      {
+        id: 'rec54iZejrhtCEpnb', sortOrder: 1,
+        timeLabel: 'All Day',
+        displayText: 'No Plans Day',
+        tagline: 'Explore, relax, wander freely',
+        displayNotes: "There is no schedule, no destination, and no alarm clock.\nSleep in as long as you want, and let me slip out to grab some local coffee.\nThis is our day to step outside, walk where the path takes us, sit where the view is beautiful, and simply wander together.",
+        philipNotes: null,
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'Confirmed',
+      },
+      {
+        id: 'recDwfZhnKi9CmeCj', sortOrder: 2,
+        timeLabel: '~5:00 PM',
+        displayText: 'Golden Hour Photos',
+        tagline: 'Couples beach session · Photographer TBD',
+        displayNotes: "Around 5 PM, there's something special planned — a golden hour photo session on the beach. Just the two of us.",
+        philipNotes: "Beach location and photographer TBD — research and book well in advance (books out months).\nAlso consider: complimentary Blinnk Photography session on-property at Westin (808-662-2525, reservations required).",
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'TBD',
+      },
+    ]
+  },
+  '2026-10-22': {
+    label: 'Oct 22', name: 'Thursday', tagline: 'Luau Night', ann: false,
+    items: [
+      {
+        id: 'rec3UWeZ3rcdW9Xfq', sortOrder: 1,
+        timeLabel: 'Morning',
+        displayText: "It's Thursday Morning",
+        tagline: 'Final Full Day on the Island',
+        displayNotes: 'Nothing is planned yet. Still looking at options',
+        philipNotes: "Location TBD — top options: Honolua Bay, Kapalua Bay, Napili Bay, Black Rock, Kahekili Beach.\nThursday AM is the confirmed itinerary slot. Snorkel gear included with Cruisin' Maui rental.",
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'TBD',
+      },
+      {
+        id: 'recfysZRrqZ6o1Tqc', sortOrder: 2,
+        timeLabel: '5:15 PM',
+        displayText: 'Old Lāhainā Lūʻau',
+        tagline: "One of Hawaii's most celebrated luaus · Oceanfront",
+        displayNotes: "Tonight is the Old Lāhainā Lūʻau — one of the most celebrated luaus in Hawaii, right on the ocean.\nThe evening includes traditional Hawaiian food, storytelling, and hula as the sun sets over the water. Plan for about three hours.\nDress comfortably, with some layers. It's an outdoor event on the beach.",
+        philipNotes: "Old Lāhainā Lūʻau — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink alcohol — non-alcoholic options available throughout.",
+        mapsUrl: 'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',
+        referenceUrl: null,
+        status: 'Booked',
+      },
+    ]
+  },
+  '2026-10-23': {
+    label: 'Oct 23', name: 'Friday', tagline: 'Departure', ann: false,
+    items: [
+      {
+        id: 'recmMLe3FhCTiv2sM', sortOrder: 1,
+        timeLabel: 'Morning',
+        displayText: 'Final Morning',
+        tagline: 'Last morning in Maui. Take it slow.',
+        displayNotes: "Checkout is by 11 AM — there's time for a short beach walk or a final breakfast before heading to the airport.",
+        philipNotes: null,
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'Confirmed',
+      },
+      {
+        id: 'recrifv9FtxOwR5CU', sortOrder: 2,
+        timeLabel: 'Heading Back',
+        displayText: "Time's Almost Up",
+        tagline: 'Time to return the convertible and head to the airport',
+        displayNotes: null,
+        philipNotes: null,
+        mapsUrl: null,
+        referenceUrl: null,
+        status: 'Confirmed',
+      },
+      {
+        id: 'recIOlmZSL59AInH0', sortOrder: 3,
+        timeLabel: '1:10 PM',
+        displayText: 'Depart Maui',
+        tagline: 'Alaska Airlines AS 930 · OGG → SEA',
+        displayNotes: "Five days well spent. Now time to head back home like we have for 20 years...Together",
+        philipNotes: "Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
+        mapsUrl: 'https://maps.app.goo.gl/vn36c43q6ei4XZcJ8',
+        referenceUrl: null,
+        status: 'Booked',
+      },
+    ]
+  },
+};
+
+// Day list for the main screen (order matters)
+const DAY_ORDER = ['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
+
+// ── HUNT DATA ─────────────────────────────────────────────
 const STOPS = [
   {
     id:'spa', label:'Your First Clue ✦',
@@ -316,57 +498,7 @@ const STOPS = [
   },
 ];
 
-const DAYS = [
-  { id:'sun', label:'Oct 18', name:'Sunday', tagline:'Arrival Day', ann:false,
-    items:[
-      {t:'10:00 AM', n:'Depart Seattle', o:'Alaska Airlines AS 929 · SEA → OGG', tappable:true,
-        dariaNote:'Welcome to Maui! Your adventure starts the moment you land.\n\nFlight AS 929 arrives at 1:20 PM — pick up the rental car and head straight to the resort. The drive from the airport to Ka\'anapali is about 45 minutes along the west coast.\n\nCheck in, drop your bags, and breathe. Tonight is just about arriving.',
-        philipNote:'Flight: AS 929 SEA→OGG | Conf: CNJDSB\nArrival: 1:20 PM HST\nRental: BMW 430i Convertible — Cruisin\' Maui RA#12181. Pickup OGG 2:00 PM.\nBackup: Enterprise conf #1596585494 — cancel on arrival once BMW confirmed.\nHotel: Westin Ka\'anapali | Conf #73733829',
-        mapsUrl:'https://maps.google.com/?q=Westin+Kaanapali+Ocean+Resort+Villas'},
-      {t:'1:20 PM', n:'Arrive Maui', o:'Pick up BMW 430i Convertible · Cruisin\' Maui', tappable:true,
-        dariaNote:'You\'ll be cruising Maui in a BMW 430i Convertible. Top down, warm air, open road.\n\nPickup at the airport at 2:00 PM on arrival day. Return by noon on Friday.',
-        philipNote:'Cruisin\' Maui RA#12181 | $510.42 total\nPickup: OGG Oct 18, 2:00 PM\nReturn: OGG Oct 23, 12:00 PM\nBackup: Enterprise Jeep — conf #1596585494',
-        mapsUrl:'https://maps.google.com/?q=Kahului+Airport+Maui'},
-      {t:'3:00 PM', n:'Check In', o:'Westin Ka\'anapali Ocean Resort Villas', tappable:false},
-      {t:'Evening', n:'Settle In', o:'Black Rock torch lighting · Whalers Village', tappable:false},
-    ]},
-  { id:'mon', label:'Oct 19', name:'Monday', tagline:'Haleakalā', ann:false,
-    items:[
-      {t:'Morning', n:'Morning Open', o:'TBD', tappable:false},
-      {t:'Afternoon', n:'Haleakalā Drive', o:'Begin ascent — allow 2 hours to summit', tappable:false},
-      {t:'Sunset', n:'Haleakalā Summit', o:'10,023 ft · Above the clouds · Stargazing after dark', tappable:true,
-        dariaNote:'Today you go up.\n\nHaleakalā rises over 10,000 feet above sea level — higher than the clouds. Arrive at the summit around 4:30–5:00 PM to catch the sunset, then stay for stargazing as the sky comes alive.\n\nDress warm — it gets into the 30s and 40s at the top even in October.',
-        philipNote:'Target arrival: 4:30–5:00 PM\nSunset: ~6:00 PM | Stargazing: ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour code: 49771864\nDescent: Engine braking only. Allow 1.5–2 hrs back.',
-        mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center'},
-    ]},
-  { id:'tue', label:'Oct 20', name:'Tuesday', tagline:'Our Anniversary', ann:true, items:[] },
-  { id:'wed', label:'Oct 21', name:'Wednesday', tagline:'No Plans Day', ann:false,
-    items:[
-      {t:'All day', n:'No Agenda — That\'s the Plan', o:'Explore, relax, wander freely', tappable:true,
-        dariaNote:'No agenda today. That\'s the plan.\n\nSleep in. Find a coffee. Walk somewhere. Sit somewhere else. This is your day to wander together with no particular destination in mind.\n\nAround 5 PM, there\'s something special — a golden hour photo session on the beach. Just the two of you.',
-        philipNote:'No Plans Day — intentionally unstructured.\nEvening: Couples beach photo session ~5:00 PM golden hour.\nBeach location and photographer TBD.\nBlinnk Photography at Westin: 808-662-2525.',
-        mapsUrl:null},
-      {t:'~5:00 PM', n:'Golden Hour Photos', o:'Couples beach session · Photographer TBD', tappable:false},
-    ]},
-  { id:'thu', label:'Oct 22', name:'Thursday', tagline:'Luau Night', ann:false,
-    items:[
-      {t:'Morning', n:'Snorkeling', o:'Honolua Bay or Kapalua Bay · Sea turtles', tappable:false},
-      {t:'5:15 PM', n:'Old Lāhainā Lū\'au', o:'Confirmed and booked', tappable:true,
-        dariaNote:'Tonight is the Old Lāhainā Lū\'au — one of the most celebrated luaus in Hawaii.\n\nCheck-in at 5:15 PM at 1251 Front Street in Lahaina, right on the ocean. Traditional Hawaiian food, storytelling, hula, and fire dancing as the sun sets over the water. Plan for about three hours.',
-        philipNote:'Old Lāhainā Lū\'au — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink — non-alcoholic options available.',
-        mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI'},
-    ]},
-  { id:'fri', label:'Oct 23', name:'Friday', tagline:'Departure', ann:false,
-    items:[
-      {t:'Morning', n:'Final Morning', o:'Short beach walk or breakfast', tappable:false},
-      {t:'11:00 AM', n:'Hotel Checkout', o:'Westin Ka\'anapali', tappable:false},
-      {t:'1:10 PM', n:'Depart Maui', o:'Alaska Airlines AS 930 · OGG → SEA', tappable:true,
-        dariaNote:'Last morning in Maui. Take it slow.\n\nCheckout is by 11 AM — there\'s time for a short beach walk or a final breakfast before heading to the airport. Flight departs at 1:10 PM.\n\nFive days well spent.',
-        philipNote:'Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nHotel checkout: by 11 AM\nCar return: OGG by 12:00 PM (Cruisin\' Maui RA#12181)',
-        mapsUrl:'https://maps.google.com/?q=Kahului+Airport+Maui'},
-    ]},
-];
-
+// ── OTHER SECTIONS (unchanged) ────────────────────────────
 const DINING = [
   {key:'mala', name:'Mala Ocean Tavern', dist:'Lahaina · 1.2 mi', desc:'A beloved oceanfront restaurant known for its farm-to-table philosophy and stunning sunset views. Fresh fish, local produce, warm atmosphere.', meta:[{l:'Type',v:'Dinner (also lunch)'},{l:'Vibe',v:'Romantic, relaxed, ocean view'},{l:'Alcohol',v:'Full bar — also great mocktails'},{l:'Notes',v:'Reservations recommended for dinner'}]},
   {key:'gazebo', name:'The Gazebo', dist:'Napili · 2.8 mi', desc:'A legendary breakfast spot perched above Napili Bay with panoramic ocean views. Famous for macadamia nut pancakes and long lines — worth every minute.', meta:[{l:'Type',v:'Breakfast & lunch only'},{l:'Vibe',v:'Casual, iconic, scenic'},{l:'Alcohol',v:'Non-alcoholic options only'},{l:'Notes',v:'Walk-in only · Arrive early · Lines can be 45+ min'}]},
@@ -381,17 +513,18 @@ const ACTIVITY = [
 ];
 
 const ROMANTIC_IDEAS = [
-  'Room flip by Decorating Destinations Maui — transform the villa while at Merriman\'s Tuesday evening. Book well in advance.',
+  "Room flip by Decorating Destinations Maui — transform the villa while at Merriman's Tuesday evening. Book well in advance.",
   'Platinum anniversary gift for Daria — needed for Tuesday evening reveal.',
   'Luxury loungewear packed discreetly — La Perla or Lunya, silver/platinum tones.',
   'LED tea lights and silk rose petals for the villa.',
   'Write the fantasy letters before departure — sealed envelopes, raise naturally 1–2 weeks before.',
 ];
 
-// ── ANTICIPATION MESSAGES
+// ── ANTICIPATION MESSAGES ─────────────────────────────────
 const MSGS_GENERIC=['Something extraordinary is being planned. Just not yet.','The best things are worth waiting for. One more sleep.','Patience, love. Something beautiful is coming your way.','October 20 is almost here. Rest well until then.','Your adventure is written. The first page turns soon.','Not yet. But soon. Very soon.'];
 const MSGS_MONDAY=['Tomorrow. It begins tomorrow.','Sleep well tonight. Tomorrow is yours.','By this time tomorrow, everything changes.','One more sunrise. Then your adventure begins.','Tomorrow morning, everything will be revealed.'];
 function getAntMessage(mon){const p=mon?MSGS_MONDAY:MSGS_GENERIC;return p[Math.floor(Math.random()*p.length)];}
+
 function AntOverlay({msg,onClose}){
   return(
     <div className="ant-ov" onClick={onClose}>
@@ -399,31 +532,21 @@ function AntOverlay({msg,onClose}){
         <div className="ant-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
         <div className="ant-msg">{msg}</div>
         <div className="ant-date">October 20 &nbsp;·&nbsp; 2026</div>
-        <button className="ant-btn" onClick={onClose}>I’ll be ready ✦</button>
+        <button className="ant-btn" onClick={onClose}>I'll be ready ✦</button>
       </div>
     </div>
   );
 }
 
 // ── DATE HELPERS ──────────────────────────────────────────
-// Oct 20 2026 = Tuesday anniversary date
 const ANNIVERSARY_DATE='2026-10-20';
 const MONDAY_EVE_DATE='2026-10-19';
-function isTuesdayAnniversary(simulatedDate) {
-  if (simulatedDate) return simulatedDate === ANNIVERSARY_DATE;
-  const today=new Date();
-  const ymd=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-  return ymd===ANNIVERSARY_DATE;
-}
-function isMondayEve(sim){
-  if(sim)return sim===MONDAY_EVE_DATE;
-  const d=new Date();
-  const ymd=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  return ymd===MONDAY_EVE_DATE;
-}
+function todayYMD(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function isTuesdayAnniversary(sim){return(sim||todayYMD())===ANNIVERSARY_DATE;}
+function isMondayEve(sim){return(sim||todayYMD())===MONDAY_EVE_DATE;}
 
-// ── WEATHER via Open-Meteo ──
-const WEATHER_FALLBACK=[{loc:"Ka’anapali",icon:'☀️',temp:'82°F',cond:'Sunny · Maui, HI'}];
+// ── WEATHER ───────────────────────────────────────────────
+const WEATHER_FALLBACK=[{loc:"Ka'anapali",icon:'☀️',temp:'82°F',cond:'Sunny · Maui, HI'}];
 function wmoToCondition(code){
   if(code===0)return{cond:'Clear Sky',icon:'☀️'};
   if(code<=2)return{cond:'Partly Cloudy',icon:'⛅'};
@@ -442,13 +565,14 @@ async function fetchLiveWeather(skipCache){
     const{cond,icon}=wmoToCondition(cur.weathercode);
     const temp=Math.round(cur.temperature_2m)+'°F';
     const wind=cur.windspeed_10m>15?' · Wind '+Math.round(cur.windspeed_10m)+' mph':'';
-    const data=[{loc:"Ka’anapali",icon,temp,cond:cond+wind}];
+    const data=[{loc:"Ka'anapali",icon,temp,cond:cond+wind}];
     try{localStorage.setItem('maui_weather_v1',JSON.stringify({data,ts:Date.now()}));}catch(e){}
     return{data,live:true,cached:false};
   }catch(e){}
   return{data:WEATHER_FALLBACK,live:false,cached:false};
 }
-// ── COMPONENT: Section ────────────────────────────────────
+
+// ── COMPONENTS ────────────────────────────────────────────
 function Section({ title, children, defaultOpen=false }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
@@ -465,7 +589,6 @@ function Section({ title, children, defaultOpen=false }) {
   );
 }
 
-// ── COMPONENT: Weather ────────────────────────────────────
 function WeatherSection({refreshTick}){
   const [weather,setWeather]=useState(null);
   const [live,setLive]=useState(false);
@@ -501,7 +624,7 @@ function WeatherSection({refreshTick}){
     </div>
   );
 }
-// ── COMPONENT: Hunt Progress ──────────────────────────────
+
 function HuntProgress({ currentIdx, completedIds }) {
   const shown = STOPS.slice(0, currentIdx + 1);
   return (
@@ -523,7 +646,6 @@ function HuntProgress({ currentIdx, completedIds }) {
   );
 }
 
-// ── COMPONENT: IntroSlides ────────────────────────────────
 function IntroSlides({ onDone }) {
   const [slide, setSlide] = useState(0);
   const slides = [
@@ -543,38 +665,27 @@ function IntroSlides({ onDone }) {
   );
 }
 
-// ── COMPONENT: Hunt View ──────────────────────────────────
 function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
   const { currentStop, completedIds } = huntState;
   const [phase, setPhase] = useState('clue');
   const [hintIdx, setHintIdx] = useState(0);
   const [showHints, setShowHints] = useState(false);
   const [confirmReveal, setConfirmReveal] = useState(false);
-
   const stop = STOPS[currentStop];
-
   useEffect(() => { setPhase('clue'); setHintIdx(0); setShowHints(false); }, [currentStop]);
-
   const doReveal = () => { setConfirmReveal(false); setPhase('reveal'); };
-
   const doArrived = () => {
     const newCompleted = completedIds.includes(stop.id) ? completedIds : [...completedIds, stop.id];
     const newState = { ...huntState, completedIds: newCompleted };
-    setHuntState(newState);
-    saveHuntState(newState);
-    setPhase('arrived');
+    setHuntState(newState); saveHuntState(newState); setPhase('arrived');
   };
-
   const doNext = () => {
     if (currentStop < STOPS.length - 1) {
       const newState = { ...huntState, currentStop: currentStop + 1 };
-      setHuntState(newState);
-      saveHuntState(newState);
+      setHuntState(newState); saveHuntState(newState);
     }
   };
-
   const showNextHint = () => { if (hintIdx < stop.hints.length - 1) setHintIdx(i => i + 1); };
-
   return (
     <div className={`hunt-bg${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,display:'flex',flexDirection:'column'}}>
       <div className="hunt-top">
@@ -588,9 +699,7 @@ function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
           <div className="hvt">Your Adventure</div>
           <div className="hvrule"/>
         </div>
-
         <HuntProgress currentIdx={currentStop} completedIds={completedIds}/>
-
         {phase === 'clue' && (
           <div className="clue">
             <div className="clue-lbl">{stop.label}</div>
@@ -610,7 +719,6 @@ function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
             {!showHints && <div className="hint-subtle" onClick={() => setShowHints(true)}>need a little help?</div>}
           </div>
         )}
-
         {phase === 'reveal' && (
           <div className="loc-rev" style={{display:'block'}}>
             <div className="le">Your next stop ✦</div>
@@ -619,7 +727,6 @@ function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
             <button className="wh-btn" onClick={doArrived}>We're here ✦</button>
           </div>
         )}
-
         {phase === 'arrived' && (
           <div className="arr-card">
             <div className="ao">✦ &nbsp; ✦ &nbsp; ✦</div>
@@ -628,7 +735,6 @@ function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
             {stop.hasNext && <button className="next-btn" onClick={doNext}>On to the next clue →</button>}
           </div>
         )}
-
         {confirmReveal && (
           <div className="rc-ov">
             <div className="rc-box">
@@ -648,48 +754,92 @@ function HuntView({ isPhilip, onBack, huntState, setHuntState }) {
   );
 }
 
-// ── COMPONENT: Detail View ────────────────────────────────
-function DetailView({ detail, isPhilip, onBack }) {
+// ── ITINERARY ITEM CARD ───────────────────────────────────
+function ItinItem({ item, isPhilip }) {
+  const [philipOpen, setPhilipOpen] = useState(false);
+  const hasPhilipNotes = isPhilip && item.philipNotes && item.philipNotes.trim();
+  const hasDisplayNotes = item.displayNotes && item.displayNotes.trim();
+
+  const handleTap = () => {
+    if (hasPhilipNotes) setPhilipOpen(o => !o);
+  };
+
+  return (
+    <div className={`ii${hasPhilipNotes ? ' tappable' : ''}`} onClick={handleTap}>
+      <div className="ii-body">
+        {item.timeLabel && <div className="ii-time">{item.timeLabel}</div>}
+        <div className="ii-name">{item.displayText}</div>
+        {item.tagline && <div className="ii-tagline">{item.tagline}</div>}
+        {hasDisplayNotes && <div className="ii-notes">{item.displayNotes}</div>}
+        {hasPhilipNotes && (
+          <div className="ii-philip-badge" title="Philip notes available">✦</div>
+        )}
+      </div>
+      {philipOpen && hasPhilipNotes && (
+        <div className="pn-drawer">
+          <div className="pn-drawer-label">Philip Mode ✦</div>
+          <div className="pn-drawer-body">{item.philipNotes}</div>
+          {(item.mapsUrl || item.referenceUrl) && (
+            <div className="pn-drawer-links">
+              {item.mapsUrl && (
+                <a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="pn-link-btn"
+                  onClick={e => e.stopPropagation()}>Open in Maps ↗</a>
+              )}
+              {item.referenceUrl && (
+                <a href={item.referenceUrl} target="_blank" rel="noopener noreferrer" className="pn-link-btn secondary"
+                  onClick={e => e.stopPropagation()}>Reference ↗</a>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── ITINERARY DAY VIEW ────────────────────────────────────
+function ItinDayView({ dateKey, isPhilip, onBack }) {
+  const day = ITINERARY[dateKey];
+  if (!day) return null;
+  return (
+    <div className="itin-view">
+      <div className="itin-nav">
+        <button className="itin-back" onClick={onBack}>← Back</button>
+        <div>
+          <div className="itin-day-label">{day.label}</div>
+          <div className="itin-day-name">{day.name}</div>
+        </div>
+      </div>
+      <div className="sb" style={{padding:'16px 16px 32px'}}>
+        {day.items.map(item => (
+          <ItinItem key={item.id} item={item} isPhilip={isPhilip} />
+        ))}
+        <div style={{height:16}}/>
+      </div>
+    </div>
+  );
+}
+
+// ── DINING / ACTIVITY DETAIL VIEW (unchanged) ─────────────
+function DetailView({ detail, onBack }) {
   if (!detail) return null;
   const { type, data } = detail;
   return (
     <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
       <div className="dv-nav">
         <button className="back-btn" onClick={onBack}>← Back</button>
-        {type === 'day' && <div className="dvt">{data.name}</div>}
       </div>
       <div className="sb" style={{padding:'16px 16px 32px'}}>
-        {type === 'day' && data.items.map((item, i) => (
-          <div key={i} className="ai">
-            <div className="at_">{item.t}</div>
-            <div className="an_">{item.n}</div>
-            <div className="ano">{item.o}</div>
-            {isPhilip && item.philipNote && (
-              <div className="philip-note">
-                <div className="pn-label">Philip Mode ✦</div>
-                <div className="pn-body">{item.philipNote}</div>
-                {item.mapsUrl && <a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="maps-btn">Open in Maps ↗</a>}
-              </div>
-            )}
-            {!isPhilip && item.tappable && item.dariaNote && (
-              <div style={{marginTop:12,paddingTop:12,borderTop:'1px solid var(--border)',fontFamily:"'Cormorant Garamond',serif",fontSize:17,fontStyle:'italic',color:'var(--text)',lineHeight:1.7,whiteSpace:'pre-line'}}>
-                {item.dariaNote}
-              </div>
-            )}
+        <div className="detail-hero">
+          <div className="dh-tag">{type === 'dining' ? 'Dining Option' : 'Things To Explore'} ✦</div>
+          <div className="dh-name">{data.name}</div>
+          <div className="dh-sub">{data.dist}</div>
+          <div className="dh-rule"/>
+          <div className="dh-body">{data.desc}</div>
+          <div className="dh-meta">
+            {data.meta.map((m, i) => <div key={i} className="dh-meta-item"><span>{m.l}</span>{m.v}</div>)}
           </div>
-        ))}
-        {(type === 'dining' || type === 'activity') && (
-          <div className="detail-hero">
-            <div className="dh-tag">{type === 'dining' ? 'Dining Option' : 'Things To Explore'} ✦</div>
-            <div className="dh-name">{data.name}</div>
-            <div className="dh-sub">{data.dist}</div>
-            <div className="dh-rule"/>
-            <div className="dh-body">{data.desc}</div>
-            <div className="dh-meta">
-              {data.meta.map((m, i) => <div key={i} className="dh-meta-item"><span>{m.l}</span>{m.v}</div>)}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -704,29 +854,29 @@ function App() {
   const [showPin, setShowPin] = useState(false);
   const [pin, setPin] = useState('');
   const [pinErr, setPinErr] = useState('');
-  const [detail, setDetail] = useState(null);
-  const [simulatedDate, setSimulatedDate] = useState(null); // null = real date
-  // Hunt state — persisted
+  const [detail, setDetail] = useState(null);       // dining/activity detail
+  const [itinDateKey, setItinDateKey] = useState(null); // itinerary day detail
+  const [simulatedDate, setSimulatedDate] = useState(null);
   const [huntState, setHuntState] = useState(() => loadHuntState());
-  const [showIntro,setShowIntro]=useState(false);
-  const [antMsg,setAntMsg]=useState('');
-  const [showAnt,setShowAnt]=useState(false);
-  const [weatherRefreshTick,setWeatherRefreshTick]=useState(0);
-  const [ptrVisible,setPtrVisible]=useState(false);
-  const ptrStartY=useRef(0);const ptrActive=useRef(false);const ptrTriggered=useRef(false);
-  const isTuesdayModeRef=useRef(false);const isMondayEveModeRef=useRef(false);const showingPhilipRef=useRef(false);
-  const launchTapCount=useRef(0);const launchTapTimer=useRef(null);
-  const logoTapCount=useRef(0);const logoTapTimer=useRef(null);
+  const [showIntro, setShowIntro] = useState(false);
+  const [antMsg, setAntMsg] = useState('');
+  const [showAnt, setShowAnt] = useState(false);
+  const [weatherRefreshTick, setWeatherRefreshTick] = useState(0);
+  const [ptrVisible, setPtrVisible] = useState(false);
+
+  const ptrStartY = useRef(0); const ptrActive = useRef(false); const ptrTriggered = useRef(false);
+  const isTuesdayModeRef = useRef(false); const isMondayEveModeRef = useRef(false); const showingPhilipRef = useRef(false);
+  const launchTapCount = useRef(0); const launchTapTimer = useRef(null);
+  const logoTapCount = useRef(0); const logoTapTimer = useRef(null);
 
   const PIN = '4242';
   const showingPhilip = isPhilip && !prevDaria;
-  const isTuesdayMode=isTuesdayAnniversary(simulatedDate);
-  const isMondayEveMode=isMondayEve(simulatedDate);
-  isTuesdayModeRef.current=isTuesdayMode;
-  isMondayEveModeRef.current=isMondayEveMode;
-  showingPhilipRef.current=showingPhilip;
+  const isTuesdayMode = isTuesdayAnniversary(simulatedDate);
+  const isMondayEveMode = isMondayEve(simulatedDate);
+  isTuesdayModeRef.current = isTuesdayMode;
+  isMondayEveModeRef.current = isMondayEveMode;
+  showingPhilipRef.current = showingPhilip;
 
-  // Secret tap handler — works on any zone ID
   const handlePinKey = (v) => {
     setPinErr('');
     let next = pin;
@@ -746,64 +896,68 @@ function App() {
     }
   };
 
-  const openDay=(day)=>{
-    if(day.ann){
-      if(showingPhilipRef.current||isTuesdayModeRef.current){setShowIntro(true);return;}
-      setAntMsg(getAntMessage(isMondayEveModeRef.current));setShowAnt(true);return;
+  const openDay = (dateKey) => {
+    const day = ITINERARY[dateKey];
+    if (!day) return;
+    if (day.ann) {
+      if (showingPhilipRef.current || isTuesdayModeRef.current) { setShowIntro(true); return; }
+      setAntMsg(getAntMessage(isMondayEveModeRef.current)); setShowAnt(true); return;
     }
-    setDetail({type:'day',data:day});setView('detail');
+    setItinDateKey(dateKey);
+    setView('itin-day');
   };
 
-  const handleLaunchSecretTap=(e)=>{
+  const handleLaunchSecretTap = (e) => {
     e.stopPropagation();
-    launchTapCount.current+=1;clearTimeout(launchTapTimer.current);
-    launchTapTimer.current=setTimeout(()=>{launchTapCount.current=0;},2000);
-    if(launchTapCount.current>=5){launchTapCount.current=0;setShowPin(true);}
+    launchTapCount.current += 1; clearTimeout(launchTapTimer.current);
+    launchTapTimer.current = setTimeout(() => { launchTapCount.current = 0; }, 2000);
+    if (launchTapCount.current >= 5) { launchTapCount.current = 0; setShowPin(true); }
   };
-  const handleLogoTap=(e)=>{
+  const handleLogoTap = (e) => {
     e.stopPropagation();
-    logoTapCount.current+=1;clearTimeout(logoTapTimer.current);
-    logoTapTimer.current=setTimeout(()=>{logoTapCount.current=0;},2000);
-    if(logoTapCount.current>=5){logoTapCount.current=0;setShowPin(true);}
+    logoTapCount.current += 1; clearTimeout(logoTapTimer.current);
+    logoTapTimer.current = setTimeout(() => { logoTapCount.current = 0; }, 2000);
+    if (logoTapCount.current >= 5) { logoTapCount.current = 0; setShowPin(true); }
   };
-  const handlePtrStart=(e)=>{
-    const sb=document.getElementById('main-sb');
-    if(sb&&sb.scrollTop===0){ptrStartY.current=e.touches?e.touches[0].clientY:e.clientY;ptrActive.current=true;ptrTriggered.current=false;}
+  const handlePtrStart = (e) => {
+    const sb = document.getElementById('main-sb');
+    if (sb && sb.scrollTop === 0) { ptrStartY.current = e.touches ? e.touches[0].clientY : e.clientY; ptrActive.current = true; ptrTriggered.current = false; }
   };
-  const handlePtrMove=(e)=>{
-    if(!ptrActive.current)return;
-    const y=e.touches?e.touches[0].clientY:e.clientY;
-    if(y-ptrStartY.current>60){setPtrVisible(true);ptrTriggered.current=true;}
+  const handlePtrMove = (e) => {
+    if (!ptrActive.current) return;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    if (y - ptrStartY.current > 60) { setPtrVisible(true); ptrTriggered.current = true; }
   };
-  const handlePtrEnd=()=>{
-    if(!ptrActive.current)return;
-    ptrActive.current=false;
-    if(ptrTriggered.current){ptrTriggered.current=false;setWeatherRefreshTick(t=>t+1);setTimeout(()=>setPtrVisible(false),900);}
+  const handlePtrEnd = () => {
+    if (!ptrActive.current) return;
+    ptrActive.current = false;
+    if (ptrTriggered.current) { ptrTriggered.current = false; setWeatherRefreshTick(t => t + 1); setTimeout(() => setPtrVisible(false), 900); }
   };
-  const exitPhilip=()=>{setIsPhilip(false);setPrevDaria(false);setDariaPhone(false);setSimulatedDate(null);};
-  const togglePreview = () => setPrevDaria(p => !p);
+  const exitPhilip = () => { setIsPhilip(false); setPrevDaria(false); setDariaPhone(false); setSimulatedDate(null); };
 
-  const rootClass = `app-root${isPhilip ? ' pm' : ''}`;
-
-  // Hunt view
+  // ── RENDER VIEWS ──
   if (view === 'hunt') return (
-    <div className={rootClass}>
+    <div className={`app-root${isPhilip?' pm':''}`}>
       <HuntView isPhilip={isPhilip} onBack={() => setView('main')} huntState={huntState} setHuntState={setHuntState}/>
     </div>
   );
 
-  // Detail view
+  if (view === 'itin-day') return (
+    <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
+      <ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={() => setView('main')}/>
+    </div>
+  );
+
   if (view === 'detail') return (
-    <div className={rootClass}>
-      <DetailView detail={detail} isPhilip={showingPhilip} onBack={() => setView('main')}/>
+    <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
+      <DetailView detail={detail} onBack={() => setView('main')}/>
     </div>
   );
 
   return (
-    <div className={rootClass} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
-      {showAnt&&<AntOverlay msg={antMsg} onClose={()=>setShowAnt(false)}/>}
+    <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
+      {showAnt && <AntOverlay msg={antMsg} onClose={() => setShowAnt(false)}/>}
 
-      {/* INTRO SLIDES */}
       {showIntro && (
         <IntroSlides onDone={() => { setShowIntro(false); setView('hunt'); }}/>
       )}
@@ -817,14 +971,13 @@ function App() {
           <div className="l-sub">Our Adventure</div>
           <div className="l-rule"/>
           <div className="l-tap">Touch anywhere to begin</div>
-          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true" style={{background:"transparent",border:"none",outline:"none"}}></button>
+          <button className="secret" onClick={handleLaunchSecretTap} aria-hidden="true" style={{background:'transparent',border:'none',outline:'none'}}/>
         </div>
       )}
 
       {/* MAIN */}
       {view === 'main' && (
         <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'var(--cream)'}}>
-          {/* God mode banner */}
           {dariaPhone && (
             <div className="banner">
               Philip mode — you are viewing Daria's app &nbsp;
@@ -832,17 +985,13 @@ function App() {
                 onClick={() => { setDariaPhone(false); setIsPhilip(false); setPrevDaria(false); }}>✕ Exit</span>
             </div>
           )}
-
-          {/* Top nav */}
           <div className="top-nav">
-            <button onClick={handleLogoTap}
-              style={{background:"none",border:"none",padding:0,textAlign:"left",cursor:"default",userSelect:"none"}}>
+            <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026</div>
+              <div className="nav-logo">Maui 2026{showingPhilip ? ' · v8' : ''}</div>
             </button>
             <div className="nav-right">
-              {showingPhilip && <button className="nav-btn" onClick={togglePreview}>Preview Daria</button>}
-              {isPhilip && prevDaria && <button className="nav-btn" onClick={togglePreview}>Back to Philip</button>}
+              {showingPhilip && <button className="nav-btn" onClick={() => setPrevDaria(p => !p)}>{prevDaria ? 'Back to Philip' : 'Preview Daria'}</button>}
               {showingPhilip && <button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
             </div>
           </div>
@@ -853,24 +1002,28 @@ function App() {
             <div className={`ptr-indicator${ptrVisible?' show':''}`}>
               <div className="ptr-spinner"/><span className="ptr-text">Refreshing...</span>
             </div>
+
             {/* OUR ADVENTURE */}
-            <Section title="Our Adventure">
-              {DAYS.map(d => (
-                <div key={d.id} className={`dc${d.ann?' ann':''}`} onClick={() => openDay(d)}>
-                  <div className="dci">
-                    <div>
-                      <div className="dl">{d.label}</div>
-                      <div className="dn">{d.name}</div>
-                      <div className="dp">
-                        {d.ann&&!showingPhilip
-                          ?(isTuesdayMode?'Today is your day. Tap to begin.':isMondayEveMode?'Tomorrow. Your adventure begins.':'Twenty years in the making. Today unfolds one step at a time.')
-                          :d.tagline}
+            <Section title="Our Adventure" defaultOpen={true}>
+              {DAY_ORDER.map(dateKey => {
+                const day = ITINERARY[dateKey];
+                return (
+                  <div key={dateKey} className={`dc${day.ann?' ann':''}`} onClick={() => openDay(dateKey)}>
+                    <div className="dci">
+                      <div>
+                        <div className="dl">{day.label}</div>
+                        <div className="dn">{day.name}</div>
+                        <div className="dp">
+                          {day.ann && !showingPhilip
+                            ? (isTuesdayMode ? 'Today is our day. Tap to begin.' : isMondayEveMode ? 'Tomorrow. Your adventure begins.' : 'Twenty years in the making. Today unfolds one step at a time.')
+                            : day.tagline}
+                        </div>
                       </div>
+                      <div className="darr">›</div>
                     </div>
-                    <div className="darr">›</div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </Section>
 
             {/* DINING */}
@@ -878,10 +1031,7 @@ function App() {
               {DINING.map(d => (
                 <div key={d.key} className="oc" onClick={() => { setDetail({ type:'dining', data:d }); setView('detail'); }}>
                   <div className="oci">
-                    <div className="ol">
-                      <div className="on_">{d.name}</div>
-                      <div className="od">{d.dist}</div>
-                    </div>
+                    <div className="ol"><div className="on_">{d.name}</div><div className="od">{d.dist}</div></div>
                     <div className="odist">›</div>
                   </div>
                 </div>
@@ -893,17 +1043,14 @@ function App() {
               {ACTIVITY.map(a => (
                 <div key={a.key} className="oc" onClick={() => { setDetail({ type:'activity', data:a }); setView('detail'); }}>
                   <div className="oci">
-                    <div className="ol">
-                      <div className="on_">{a.name}</div>
-                      <div className="od">{a.dist}</div>
-                    </div>
+                    <div className="ol"><div className="on_">{a.name}</div><div className="od">{a.dist}</div></div>
                     <div className="odist">›</div>
                   </div>
                 </div>
               ))}
             </Section>
 
-            {/* WEATHER — live */}
+            {/* WEATHER */}
             <Section title="Weather">
               <WeatherSection refreshTick={weatherRefreshTick}/>
             </Section>
@@ -918,10 +1065,7 @@ function App() {
                 {h:'Tipping & Local Customs', b:"Standard tipping: 18–20% at restaurants. Aloha spirit is real — slow down, make eye contact, say thank you. Most beaches have free parking. Locals call it 'shave ice,' not 'shaved ice.'"},
                 {h:'Packing Reminders', b:"Haleakalā summit reaches 30–40°F — bring heavy layers, gloves, and a warm hat even in October. Red-light flashlight for stargazing. Bug spray for the luau evening. Comfortable walking shoes for Tuesday."},
               ].map((k, i) => (
-                <div key={i} className="kc">
-                  <div className="kh">{k.h}</div>
-                  <div className="kb">{k.b}</div>
-                </div>
+                <div key={i} className="kc"><div className="kh">{k.h}</div><div className="kb">{k.b}</div></div>
               ))}
             </Section>
 
@@ -950,37 +1094,28 @@ function App() {
                     </div>
                   ))}
                 </div>
-                <div className="kc">
-                  <div className="kh">God Mode</div>
-                  <div className="kb">Enter god mode on Daria's phone via the hidden tap + PIN to mark stops as skipped. Skipped stops logged in Airtable when signal returns.</div>
-                </div>
               </Section>
             )}
 
-            {/* PHILIP ONLY — Date Override (v7) */}
+            {/* PHILIP ONLY — Date Override */}
             {showingPhilip && (
               <Section title="Test Date Override">
                 <div className="date-override">
                   <div className="do-label">Simulate App Date</div>
                   <div className="do-btns">
                     <button className={`do-btn${simulatedDate===null?' active':''}`} onClick={() => setSimulatedDate(null)}>Today (Real)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve)</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={() => setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-20'?' active':''}`} onClick={() => setSimulatedDate('2026-10-20')}>Oct 20 (Tue ✦)</button>
                     <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={() => setSimulatedDate('2026-10-21')}>Oct 21 (Wed)</button>
                   </div>
                   <div style={{marginTop:10,fontSize:11,color:'var(--gold-light)',letterSpacing:'.1em'}}>
-                    Active: {simulatedDate ? simulatedDate : 'real date · ' + (() => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); })()}
+                    Active: {simulatedDate ? simulatedDate : 'real date · ' + todayYMD()}
                     {isTuesdayMode ? ' · ✦ Tuesday mode ON' : ''}
                   </div>
                 </div>
               </Section>
             )}
 
-            {showingPhilip&&(
-              <div style={{textAlign:'center',padding:'8px 0 4px',fontSize:10,letterSpacing:'.3em',textTransform:'uppercase',color:'var(--gold-light)',opacity:.5}}>
-                v7.4
-              </div>
-            )}
             <div style={{height:24}}/>
           </div>
         </div>
@@ -1014,7 +1149,6 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 
-// Service worker registration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js')
