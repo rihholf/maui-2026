@@ -65,6 +65,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .nav-right{display:flex;gap:8px;align-items:center}
 .nav-btn{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--border);padding:7px 12px;cursor:pointer}
 .nav-exit{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--white);background:var(--gold-dark);border:none;padding:7px 12px;cursor:pointer}
+.nav-preview-exit{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dark);background:transparent;border:1px solid var(--gold-dark);padding:7px 12px;cursor:pointer}
 
 .sb{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:32px}
 .hs{margin:16px 16px 0}
@@ -99,7 +100,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .kh{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--warm-brown);margin-bottom:7px}
 .kb{font-size:14px;line-height:1.85;color:var(--text);letter-spacing:.04em}
 
-/* WEATHER — always visible at bottom */
+/* WEATHER */
 .wx-strip{margin:16px 16px 0}
 .wx-strip-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;opacity:.7}
 .wx-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
@@ -114,7 +115,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .wx-loading{display:flex;align-items:center;gap:10px;padding:14px 0}
 .wx-spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 .wx-status{font-size:10px;letter-spacing:.15em;color:var(--gold-light);opacity:.6;margin-top:8px}
-/* FORECAST DRAWER */
 .wx-forecast{border-top:1px solid var(--border);margin-top:12px;padding-top:12px}
 .wx-forecast-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
 .wx-forecast-row:last-child{border-bottom:none}
@@ -123,8 +123,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .wx-f-temp{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--warm-brown);min-width:44px;text-align:right}
 .wx-f-cond{font-size:10px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;flex:1;text-align:right}
 
-.rci{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);margin-bottom:9px;padding:18px 20px}
-.rt{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--warm-brown);line-height:1.75}
 .hcc{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;padding:16px 18px}
 .hstop{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .hstop:last-child{border-bottom:none}
@@ -133,6 +131,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .hstat{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:3px;color:var(--gold-light)}
 .hstat.done{color:var(--gold)}
 
+/* DATE OVERRIDE */
 .date-override{background:var(--sand);border:1px solid var(--border);padding:16px 18px;margin-bottom:9px}
 .do-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .do-btns{display:flex;gap:8px;flex-wrap:wrap}
@@ -152,14 +151,15 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .ant-date{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-light);margin-bottom:28px}
 .ant-btn{font-size:11px;letter-spacing:.32em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:14px 36px;cursor:pointer;font-family:'Didact Gothic',sans-serif}
 
-/* ITINERARY DAY VIEW */
+/* ITINERARY */
 .itin-view{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--cream)}
 .itin-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;background:var(--cream)}
 .itin-back{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
 .itin-day-label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
 .itin-day-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--warm-brown)}
+/* day footer */
+.itin-footer{text-align:center;padding:16px 0 8px;font-size:11px;letter-spacing:.2em;color:var(--gold-light);opacity:.75}
 
-/* ITINERARY ITEM CARD */
 .ii{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;position:relative;transition:border-color .2s}
 .ii.tappable{cursor:pointer}
 .ii.tappable:hover{border-color:var(--gold-light)}
@@ -167,20 +167,28 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .ii-time{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .ii-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--warm-brown);margin-bottom:4px}
 .ii-tagline{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);margin-bottom:12px}
-/* v9: restored italic on display notes */
 .ii-notes{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text);line-height:1.75;border-top:1px solid var(--border);padding-top:12px}
-.ii-notes em{font-style:normal}
-.ii-notes strong{font-weight:600;font-style:italic}
-/* v9: URLs visible on card in Philip mode */
 .ii-philip-urls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
 .ii-url-btn{font-size:10px;letter-spacing:.22em;text-transform:uppercase;background:var(--gold);color:var(--white);border:none;padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-block;font-family:'Didact Gothic',sans-serif}
 .ii-url-btn.secondary{background:transparent;color:var(--gold-dark);border:1px solid var(--gold)}
 .ii-philip-badge{position:absolute;top:14px;right:14px;font-size:13px;color:var(--gold);opacity:.7}
-
-/* PHILIP NOTES DRAWER */
 .pn-drawer{background:var(--sand);border-top:2px solid var(--gold);padding:20px 18px}
 .pn-drawer-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.pn-drawer-body{font-size:14px;line-height:1.85;color:var(--text);white-space:pre-line}
+.pn-drawer-body{font-size:14px;line-height:1.85;color:var(--text)}
+
+/* ── MARKDOWN RENDERED ELEMENTS ── */
+/* inline italic — upright in italic context */
+.md-em{font-style:normal;font-family:'Cormorant Garamond',serif}
+/* inline bold */
+.md-strong{font-weight:700;font-style:italic;font-family:'Cormorant Garamond',serif}
+/* inline bold+italic */
+.md-strong-em{font-weight:700;font-style:italic;color:var(--gold);font-size:1.05em;font-family:'Cormorant Garamond',serif}
+/* blockquote > */
+.md-blockquote{background:var(--sand);border-left:3px solid var(--gold);padding:12px 14px;margin:10px 0;border-radius:0}
+.md-blockquote p{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text);line-height:1.65}
+/* heading ### */
+.md-h3{font-family:'Didact Gothic',sans-serif;font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;margin-top:14px}
+.md-h3:first-child{margin-top:0}
 
 /* DINING/ACTIVITY DETAIL */
 .dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
@@ -195,7 +203,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .dh-meta-item{font-size:14px;letter-spacing:.08em;color:var(--text)}
 .dh-meta-item span{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-right:6px}
 
-/* INTRO SLIDES */
+/* INTRO */
 .intro-ov{position:fixed;inset:0;z-index:200;background:#1a0e04;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 48px;opacity:0;transition:opacity 1.1s ease;pointer-events:none}
 .slide.on{opacity:1;pointer-events:all}
@@ -281,63 +289,169 @@ const SECTIONS_KEY='maui2026_sections_v1';
 
 function loadHuntState(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r);}catch(e){}return{currentStop:0,completedIds:[],introSeen:false};}
 function saveHuntState(s){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}catch(e){}}
-
-// v9: section open/closed state persistence
-const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:false,romantic:false,huntgod:false,dateoverride:false};
+const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:false,huntgod:false,dateoverride:false};
 function loadSectionState(){try{const r=localStorage.getItem(SECTIONS_KEY);if(r)return{...DEFAULT_SECTIONS,...JSON.parse(r)};}catch(e){}return{...DEFAULT_SECTIONS};}
 function saveSectionState(s){try{localStorage.setItem(SECTIONS_KEY,JSON.stringify(s));}catch(e){}}
 
-// v9: markdown renderer — handles _italic_ and **bold**
+// ── MARKDOWN RENDERER v10 ──
+// Handles: _italic_, **bold**, **_bold-italic_**, > blockquote, ### heading
+// Preserves newlines by processing line by line
 function renderMarkdown(text){
+  if(!text||!text.trim())return null;
+  const lines=text.split('\n');
+  const output=[];
+  let key=0;
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i];
+    // blockquote
+    if(line.startsWith('> ')){
+      output.push(<div key={key++} className="md-blockquote"><p>{renderInline(line.slice(2))}</p></div>);
+    }
+    // h3
+    else if(line.startsWith('### ')){
+      output.push(<div key={key++} className="md-h3">{renderInline(line.slice(4))}</div>);
+    }
+    // empty line — add spacing
+    else if(line.trim()===''){
+      output.push(<div key={key++} style={{height:8}}/>);
+    }
+    // normal line
+    else{
+      output.push(<div key={key++} style={{marginBottom:2}}>{renderInline(line)}</div>);
+    }
+  }
+  return output;
+}
+
+function renderInline(text){
   if(!text)return null;
-  const parts=[];
-  const re=/(\*\*(.+?)\*\*|_(.+?)_)/g;
-  let last=0,m;
+  // Order matters: bold-italic first, then bold, then italic
+  const re=/(\*\*_(.+?)_\*\*|\*\*(.+?)\*\*|_(.+?)_)/g;
+  const parts=[];let last=0;let m;let k=0;
   while((m=re.exec(text))!==null){
-    if(m.index>last)parts.push(text.slice(last,m.index));
-    if(m[0].startsWith('**'))parts.push(<strong key={m.index}>{m[2]}</strong>);
-    else parts.push(<em key={m.index}>{m[3]}</em>);
+    if(m.index>last)parts.push(<span key={k++}>{text.slice(last,m.index)}</span>);
+    if(m[0].startsWith('**_'))parts.push(<span key={k++} className="md-strong-em">{m[2]}</span>);
+    else if(m[0].startsWith('**'))parts.push(<span key={k++} className="md-strong">{m[3]}</span>);
+    else parts.push(<span key={k++} className="md-em">{m[4]}</span>);
     last=m.index+m[0].length;
   }
-  if(last<text.length)parts.push(text.slice(last));
+  if(last<text.length)parts.push(<span key={k++}>{text.slice(last)}</span>);
   return parts;
 }
+
+// ── SUN/MOON DATA per day ──
+const SUN_MOON={
+  '2026-10-18':{sunrise:'6:00',sunset:'5:59',moon:'92%'},
+  '2026-10-19':{sunrise:'6:01',sunset:'5:58',moon:'97%'},
+  '2026-10-20':{sunrise:'6:01',sunset:'5:57',moon:'100%'},
+  '2026-10-21':{sunrise:'6:02',sunset:'5:56',moon:'98%'},
+  '2026-10-22':{sunrise:'6:02',sunset:'5:55',moon:'93%'},
+  '2026-10-23':{sunrise:'6:03',sunset:'5:54',moon:'86%'},
+};
 
 // ── ITINERARY — verbatim from Airtable tbl3rVXL4oohjRJtF ──
 const ITINERARY={
   '2026-10-18':{label:'Oct 18',name:'Sunday',tagline:'Arrival Day',ann:false,items:[
-    {id:'recJpXSL5xBDkxJMK',sortOrder:1,timeLabel:'10:00 AM',displayText:'Depart Seattle',tagline:'AS 929 · SEA → OGG · 6h 20min',displayNotes:'Hawaiian/Alaskan Airlines AS 929\nDeparts: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J\nConfirmation Code: CNJDSB',philipNotes:null,mapsUrl:null,refUrl:null},
-    {id:'recfFTeer69Xg9nIo',sortOrder:2,timeLabel:'1:20 PM',displayText:'Arrive Maui',tagline:'Welcome to Maui! Our adventure starts the moment we land.',displayNotes:"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nTop down, warm air, open road.\nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.",philipNotes:"Cruisin' Maui Rent-A-Car\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nRA#: 12181 | Unit #74 | Signed: May 2, 2026\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nLicense Plate: LMR219 | VIN: WBA23AT02NCK97972\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES (from T&Cs):\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it's the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice",mapsUrl:null,refUrl:'https://cruisin-maui-rent-a-car.us5.hqrentals.app/integrations/9/social/email/login?ssid=4vW58xrD6e8e'},
-    {id:'rec8gau0RPf2HPffw',sortOrder:3,timeLabel:'Afternoon',displayText:'Check In',tagline:"Westin Ka'anapali Ocean Resort Villas",displayNotes:'One Bedroom King Bed Villa, Ocean view, Balcony',philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nConfirmation #: 73733829\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River (Daria will love this). Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography — couples and family, sunrise/sunset, candid/portrait. Reservations required: 808-662-2525. Note: Most likely not using.",mapsUrl:'https://maps.app.goo.gl/oVJA4vcNxxAomid37',refUrl:'https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/'},
+    {id:'recJpXSL5xBDkxJMK',sortOrder:1,timeLabel:'10:00 AM',displayText:'Depart Seattle',tagline:'AS 929 · SEA → OGG · 6h 20min',
+      displayNotes:'Departs: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J\nConfirmation Code: CNJDSB',
+      philipNotes:null,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6',refUrl:null},
+    {id:'recfFTeer69Xg9nIo',sortOrder:2,timeLabel:'1:20 PM',displayText:'Arrive Maui',
+      tagline:"Welcome to Maui! Our adventure starts the moment we land.",
+      displayNotes:"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nTop down, warm air, open road.\nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.",
+      philipNotes:"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nRA#: 12181 | Unit #74 | Signed: May 2, 2026\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nLicense Plate: LMR219 | VIN: WBA23AT02NCK97972\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES (from T&Cs):\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it's the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice",
+      mapsUrl:null,refUrl:'https://cruisin-maui-rent-a-car.us5.hqrentals.app/integrations/9/social/email/login?ssid=4vW58xrD6e8e'},
+    {id:'rec8gau0RPf2HPffw',sortOrder:3,timeLabel:'Afternoon',displayText:'Check In',
+      tagline:"Westin Ka'anapali Ocean Resort Villas",
+      displayNotes:'One Bedroom King Bed Villa, Ocean view, Balcony',
+      philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nConfirmation #: 73733829\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River (Daria will love this). Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography — couples and family, sunrise/sunset, candid/portrait. Reservations required: 808-662-2525. Note: Most likely not using.",
+      mapsUrl:'https://maps.app.goo.gl/oVJA4vcNxxAomid37',refUrl:'https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/'},
   ]},
   '2026-10-19':{label:'Oct 19',name:'Monday',tagline:'Haleakalā',ann:false,items:[
-    {id:'recgUKI7ojFYUywKg',sortOrder:1,timeLabel:'Morning',displayText:'Morning Open',tagline:'Plans still in motion',displayNotes:"What are we going to do...that's a great question",philipNotes:null,mapsUrl:null,refUrl:null},
-    {id:'recMe3ZAaVyHyKZ6z',sortOrder:2,timeLabel:'Afternoon – Evening',displayText:'Haleakalā Summit',tagline:'10,023 ft · Sunset above the clouds · Stargazing',displayNotes:"Today we head above the clouds... \nHaleakalā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n_A quick note for packing:_ Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",philipNotes:"Target arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nSummit webcam: https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A'},
+    {id:'recgUKI7ojFYUywKg',sortOrder:1,timeLabel:'Morning',displayText:'Morning Open',
+      tagline:'Plans still in motion',
+      displayNotes:'**_What are we going to do..._**That\'s a great question',
+      philipNotes:null,mapsUrl:null,refUrl:null},
+    {id:'recMe3ZAaVyHyKZ6z',sortOrder:2,timeLabel:'Afternoon – Evening',displayText:'Haleakalā Summit',
+      tagline:'10,023 ft · Sunset above the clouds · Stargazing',
+      displayNotes:"_Today we head above the clouds... _\nHaleakalā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n> **A quick note for packing.** Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",
+      philipNotes:"Target arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nSummit webcam: https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
+      mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A'},
   ]},
   '2026-10-20':{label:'Oct 20',name:'Tuesday',tagline:'Our Anniversary',ann:true,items:[
-    {id:'reczPGENzMgOha6RU',sortOrder:1,timeLabel:'All Day',displayText:'Anniversary Day',tagline:'Twenty years in the making. ',displayNotes:"Today is our day. A special day has been planned — comfortable clothing recommended, you'll be out and about. Dinner in the evening.",philipNotes:'Be Prepared!',mapsUrl:null,refUrl:null},
+    {id:'reczPGENzMgOha6RU',sortOrder:1,timeLabel:'All Day',displayText:'Anniversary Day',
+      tagline:'Twenty years in the making.',
+      displayNotes:"Today is our day. A special day has been planned — comfortable clothing recommended, you'll be out and about. Dinner in the evening.",
+      philipNotes:'Be Prepared!',mapsUrl:null,refUrl:null},
   ]},
   '2026-10-21':{label:'Oct 21',name:'Wednesday',tagline:'No Plans Day',ann:false,items:[
-    {id:'rec54iZejrhtCEpnb',sortOrder:1,timeLabel:'All Day',displayText:'No Plans Day',tagline:'Explore, relax, wander freely',displayNotes:"There is no schedule, no destination, and no alarm clock. \nSleep in as long as you want, and let me slip out to grab some local coffee.\nThis is our day to step outside, walk where the path takes us, sit where the view is beautiful, and simply wander together.",philipNotes:null,mapsUrl:null,refUrl:null},
-    {id:'recDwfZhnKi9CmeCj',sortOrder:2,timeLabel:'~5:00 PM',displayText:'Golden Hour Photos',tagline:'Couples beach session · Photographer TBD',displayNotes:"Around 5 PM, there's something special planned — a golden hour photo session on the beach. Just the two of us.",philipNotes:"Beach location and photographer TBD — research and book well in advance (books out months).\nAlso consider: complimentary Blinnk Photography session on-property at Westin (808-662-2525, reservations required).",mapsUrl:null,refUrl:null},
+    {id:'rec54iZejrhtCEpnb',sortOrder:1,timeLabel:'All Day',displayText:'No Plans Day',
+      tagline:'Explore, relax, wander freely',
+      displayNotes:"There is no schedule, no destination, and no alarm clock. \nSleep in as long as you want, and let me slip out to grab some local coffee.\nThis is our day to step outside, walk where the path takes us, sit where the view is beautiful, and simply wander together.",
+      philipNotes:null,mapsUrl:null,refUrl:null},
+    {id:'recDwfZhnKi9CmeCj',sortOrder:2,timeLabel:'~5:00 PM',displayText:'Golden Hour Photos',
+      tagline:'Couples beach session · Photographer TBD',
+      displayNotes:"Around 5 PM, there's something special planned — a golden hour photo session on the beach. Just the two of us.",
+      philipNotes:"Beach location and photographer TBD — research and book well in advance (books out months).\nAlso consider: complimentary Blinnk Photography session on-property at Westin (808-662-2525, reservations required).",
+      mapsUrl:null,refUrl:null},
   ]},
   '2026-10-22':{label:'Oct 22',name:'Thursday',tagline:'Luau Night',ann:false,items:[
-    {id:'rec3UWeZ3rcdW9Xfq',sortOrder:1,timeLabel:'Morning',displayText:"It's Thursday Morning",tagline:'Final Full Day on the Island',displayNotes:'Nothing is planned yet. Still looking at options',philipNotes:"Location TBD — top options: Honolua Bay, Kapalua Bay, Napili Bay, Black Rock, Kahekili Beach.\nThursday AM is the confirmed itinerary slot. Snorkel gear included with Cruisin' Maui rental.",mapsUrl:null,refUrl:null},
-    {id:'recfysZRrqZ6o1Tqc',sortOrder:2,timeLabel:'5:15 PM',displayText:'Old Lāhainā Lūʻau',tagline:"One of Hawaii's most celebrated luaus · Oceanfront",displayNotes:"Tonight is the Old Lāhainā Lūʻau — one of the most celebrated luaus in Hawaii, right on the ocean.\nThe evening includes traditional Hawaiian food, storytelling, and hulas the sun sets over the water. Plan for about three hours.\nDress comfortably, with some layers. It's an outdoor event on the beach.",philipNotes:"Old Lāhainā Lūʻau — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink alcohol — non-alcoholic options available throughout.",mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',refUrl:null},
+    {id:'rec3UWeZ3rcdW9Xfq',sortOrder:1,timeLabel:'Morning',displayText:"It's Thursday Morning",
+      tagline:'Final Full Day on the Island',
+      displayNotes:'Nothing is planned yet. Still looking at options',
+      philipNotes:"Location TBD — top options: Honolua Bay, Kapalua Bay, Napili Bay, Black Rock, Kahekili Beach.\nThursday AM is the confirmed itinerary slot. Snorkel gear included with Cruisin' Maui rental.",
+      mapsUrl:null,refUrl:null},
+    {id:'recfysZRrqZ6o1Tqc',sortOrder:2,timeLabel:'5:15 PM',displayText:'Old Lāhainā Lūʻau',
+      tagline:"One of Hawaii's most celebrated luaus · Oceanfront",
+      displayNotes:"Tonight is the Old Lāhainā Lūʻau — one of the most celebrated luaus in Hawaii, right on the ocean.\nThe evening includes traditional Hawaiian food, storytelling, and hulas the sun sets over the water. Plan for about three hours.\nDress comfortably, with some layers. It's an outdoor event on the beach.",
+      philipNotes:"Old Lāhainā Lūʻau — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink alcohol — non-alcoholic options available throughout.",
+      mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',refUrl:null},
   ]},
   '2026-10-23':{label:'Oct 23',name:'Friday',tagline:'Departure',ann:false,items:[
-    {id:'recmMLe3FhCTiv2sM',sortOrder:1,timeLabel:'Morning',displayText:'Final Morning',tagline:'Last morning in Maui. Take it slow.',displayNotes:"Checkout is by 11 AM — there's time for a short beach walk or a final breakfast before heading to the airport.",philipNotes:null,mapsUrl:null,refUrl:null},
-    {id:'recrifv9FtxOwR5CU',sortOrder:2,timeLabel:'Heading Back',displayText:"Time's Almost Up",tagline:'Time to return the convertible and head to the airport',displayNotes:null,philipNotes:null,mapsUrl:null,refUrl:null},
-    {id:'recIOlmZSL59AInH0',sortOrder:3,timeLabel:'1:10 PM',displayText:'Depart Maui',tagline:'Alaska Airlines AS 930 · OGG → SEA',displayNotes:"Five days well spent. Now time to head back home like we have for 20 years...Together",philipNotes:"Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",mapsUrl:'https://maps.app.goo.gl/vn36c43q6ei4XZcJ8',refUrl:null},
+    {id:'recmMLe3FhCTiv2sM',sortOrder:1,timeLabel:'Morning',displayText:'Final Morning',
+      tagline:'Last morning in Maui. Take it slow.',
+      displayNotes:"Checkout is by 11 AM — there's time for a short beach walk or a final breakfast before heading to the airport.",
+      philipNotes:null,mapsUrl:null,refUrl:null},
+    {id:'recrifv9FtxOwR5CU',sortOrder:2,timeLabel:'Heading Back',displayText:"Time's Almost Up",
+      tagline:'Time to return the convertible and head to the airport',
+      displayNotes:null,philipNotes:null,mapsUrl:null,refUrl:null},
+    {id:'recIOlmZSL59AInH0',sortOrder:3,timeLabel:'1:10 PM',displayText:'Depart Maui',
+      tagline:'Alaska Airlines AS 930 · OGG → SEA',
+      displayNotes:"Five days well spent. Now time to head back home like we have for 20 years...Together",
+      philipNotes:"Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
+      mapsUrl:'https://maps.app.goo.gl/vn36c43q6ei4XZcJ8',refUrl:null},
   ]},
 };
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
 
-// ── WEATHER LOCATIONS (v9: 3 locations for testing) ──
-const WX_LOCATIONS=[
-  {id:'kaanapali',name:"Ka'anapali",lat:20.9281,lon:-156.6942},
-  {id:'haleakala',name:'Haleakalā Summit',lat:20.7097,lon:-156.2530},
-  {id:'allyn',name:'Allyn, WA',lat:47.3873,lon:-122.8271},
+// ── GOOD TO KNOW — verbatim from Airtable tbl5KPVIA9DmS9cs2 ──
+const GOOD_TO_KNOW=[
+  {id:'recdYEdqdUrm0Z11l',showFrom:'2026-05-20',showUntil:'2026-10-22',sortOrder:999,
+    title:'Sun & Water',
+    body:'Only reef-safe mineral sunscreens containing zinc oxide or titanium dioxide are allowed. Reapply often; the Hawaiian sun is stronger than it feels. \nStay hydrated because the humidity hits different after the Pacific Northwest.',
+    philipNotes:'Nothing to Say',philipOnly:false},
+  {id:'recVwznGVLiKdWiBL',showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:1,
+    title:'Signal & Offline Areas',
+    body:'No cell signal at Haleakalā summit. Download offline maps before heading out on those days. This app works fully offline.',
+    philipNotes:null,philipOnly:false},
+  {id:'recUVCmHDtA7Vn3vo',showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:2,
+    title:'Packing Reminders',
+    body:'Haleakalā summit reaches 30–40°F — bring heavy layers, gloves, and a warm hat even in October. Red-light flashlight for stargazing.',
+    philipNotes:null,philipOnly:false},
+  {id:'recUHgd6blhUkAiBP',showFrom:'2026-10-19',showUntil:'2026-10-20',sortOrder:1,
+    title:'Get Prepare',
+    body:'No signal in parts tomorrow. Make sure everything is downloaded.',
+    philipNotes:null,philipOnly:true},
+];
+
+// ── WEATHER LOCATIONS — verbatim from Airtable tblTBo16IXXqN03h1 ──
+const WX_LOCS=[
+  {id:'rec9a2efFGtSCtwU3',name:"Ka'anapali",lat:20.9295,lon:-156.7046,showFrom:'2026-05-20',showUntil:'2026-12-31',sortOrder:999,philipOnly:false},
+  {id:'rec4rL8Bw5Vygfslu',name:'Haleakalā Summit',lat:20.7097,lon:-156.253,showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:1,philipOnly:false},
+  {id:'recqI09uSTx2mfdbe',name:"Ho'omana",lat:20.8286402,lon:-156.2892461,showFrom:'2026-10-19',showUntil:'2026-10-20',sortOrder:1,philipOnly:true},
+  {id:'recAxXhVHos1jIwPL',name:'Īao Valley',lat:20.8808837,lon:-156.5477576,showFrom:'2026-10-19',showUntil:'2026-10-20',sortOrder:2,philipOnly:true},
+  {id:'recq8eyVM3Uu5LpgZ',name:"Ho'okipa Beach",lat:20.9179024,lon:-156.4297395,showFrom:'2026-10-19',showUntil:'2026-10-20',sortOrder:3,philipOnly:true},
+  {id:'recfoF1BBt1Qhnl1G',name:'Lahaina',lat:20.8859312,lon:-156.6876527,showFrom:'2026-10-22',showUntil:'2026-10-22',sortOrder:1,philipOnly:false},
+  {id:'recscl36SUhQw0Zy8',name:'Allyn',lat:47.3873,lon:-122.8271,showFrom:'2026-10-23',showUntil:'2026-10-23',sortOrder:5,philipOnly:false},
 ];
 
 // ── HUNT DATA ──
@@ -357,53 +471,43 @@ const ACTIVITY=[
   {key:'honolua',name:'Honolua Bay',dist:'3.2 mi',desc:'One of the most spectacular snorkeling bays in all of Hawaii. A protected marine sanctuary with crystal-clear water, vibrant coral, sea turtles, and an extraordinary variety of tropical fish.',meta:[{l:'Best for',v:'Snorkeling, exploring, nature'},{l:'Difficulty',v:'Moderate — some current possible'},{l:'Access',v:'Short jungle trail to the beach'},{l:'Note',v:'No lifeguard · Check conditions before swimming'}]},
   {key:'kapalua',name:'Kapalua Bay',dist:'7.4 mi',desc:'A calm, crescent-shaped bay with gentle waters ideal for snorkeling and swimming. Protected by rocky headlands with excellent visibility and frequent sea turtle sightings.',meta:[{l:'Best for',v:'Snorkeling, swimming, relaxing'},{l:'Difficulty',v:'Easy — very calm, protected waters'},{l:'Facilities',v:'Parking, restrooms, gear rental nearby'},{l:'Turtles',v:'Frequent sightings — give them 15 ft of space'}]},
 ];
-const ROMANTIC_IDEAS=["Room flip by Decorating Destinations Maui — transform the villa while at Merriman's Tuesday evening. Book well in advance.",'Platinum anniversary gift for Daria — needed for Tuesday evening reveal.','Luxury loungewear packed discreetly — La Perla or Lunya, silver/platinum tones.','LED tea lights and silk rose petals for the villa.','Write the fantasy letters before departure — sealed envelopes, raise naturally 1–2 weeks before.'];
 
+// ── ANTICIPATION ──
 const MSGS_GENERIC=['Something extraordinary is being planned. Just not yet.','The best things are worth waiting for. One more sleep.','Patience, love. Something beautiful is coming your way.','October 20 is almost here. Rest well until then.','Your adventure is written. The first page turns soon.','Not yet. But soon. Very soon.'];
 const MSGS_MONDAY=['Tomorrow. It begins tomorrow.','Sleep well tonight. Tomorrow is yours.','By this time tomorrow, everything changes.','One more sunrise. Then your adventure begins.','Tomorrow morning, everything will be revealed.'];
 function getAntMessage(mon){const p=mon?MSGS_MONDAY:MSGS_GENERIC;return p[Math.floor(Math.random()*p.length)];}
 function AntOverlay({msg,onClose}){return(<div className="ant-ov" onClick={onClose}><div className="ant-box" onClick={e=>e.stopPropagation()}><div className="ant-orn">✦ &nbsp; ✦ &nbsp; ✦</div><div className="ant-msg">{msg}</div><div className="ant-date">October 20 &nbsp;·&nbsp; 2026</div><button className="ant-btn" onClick={onClose}>I'll be ready ✦</button></div></div>);}
 
-const ANNIVERSARY_DATE='2026-10-20';const MONDAY_EVE_DATE='2026-10-19';
+// ── DATE HELPERS ──
+const TRIP_DATES=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
+const ANNIVERSARY_DATE='2026-10-20';
+const MONDAY_EVE_DATE='2026-10-19';
 function todayYMD(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function isTuesdayAnniversary(sim){return(sim||todayYMD())===ANNIVERSARY_DATE;}
-function isMondayEve(sim){return(sim||todayYMD())===MONDAY_EVE_DATE;}
+function effectiveDate(sim){return sim||todayYMD();}
+function isTuesdayAnniversary(sim){return effectiveDate(sim)===ANNIVERSARY_DATE;}
+function isMondayEve(sim){return effectiveDate(sim)===MONDAY_EVE_DATE;}
+function dateInRange(dateStr,from,until){return dateStr>=from&&dateStr<=until;}
 
 // ── WEATHER ──
 function wmoToCondition(code){
-  if(code===0)return{cond:'Clear',icon:'☀️'};
-  if(code<=2)return{cond:'Partly Cloudy',icon:'⛅'};
-  if(code===3)return{cond:'Overcast',icon:'☁️'};
-  if(code<=49)return{cond:'Foggy',icon:'🌫️'};
-  if(code<=69)return{cond:'Rain',icon:'🌧️'};
-  if(code<=82)return{cond:'Showers',icon:'🌦️'};
-  if(code<=99)return{cond:'Storm',icon:'⛈️'};
-  return{cond:'Mixed',icon:'⛅'};
+  if(code===0)return{cond:'Clear',icon:'☀️'};if(code<=2)return{cond:'Partly Cloudy',icon:'⛅'};
+  if(code===3)return{cond:'Overcast',icon:'☁️'};if(code<=49)return{cond:'Foggy',icon:'🌫️'};
+  if(code<=69)return{cond:'Rain',icon:'🌧️'};if(code<=82)return{cond:'Showers',icon:'🌦️'};
+  if(code<=99)return{cond:'Storm',icon:'⛈️'};return{cond:'Mixed',icon:'⛅'};
 }
-
 async function fetchWeatherForLocation(loc,skipCache){
   const cacheKey=`maui_wx_${loc.id}_v1`;
-  if(!skipCache){
-    try{const c=localStorage.getItem(cacheKey);if(c){const{data,ts}=JSON.parse(c);if(Date.now()-ts<30*60*1000)return{...data,cached:true,live:false};}}catch(e){}
-  }
+  if(!skipCache){try{const c=localStorage.getItem(cacheKey);if(c){const{data,ts}=JSON.parse(c);if(Date.now()-ts<30*60*1000)return{...data,cached:true,live:false};}}catch(e){}}
   try{
     const url=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weathercode,windspeed_10m&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto&forecast_days=1`;
-    const resp=await fetch(url);const json=await resp.json();
-    const cur=json.current;
+    const resp=await fetch(url);const json=await resp.json();const cur=json.current;
     const{cond,icon}=wmoToCondition(cur.weathercode);
     const temp=Math.round(cur.temperature_2m)+'°F';
     const wind=cur.windspeed_10m>15?' · '+Math.round(cur.windspeed_10m)+' mph wind':'';
-    // Build hourly forecast — next 12 hours
-    const now=new Date();const nowH=now.getHours();
-    const hourly=[];
+    const now=new Date();const hourly=[];
     for(let i=0;i<json.hourly.time.length&&hourly.length<12;i++){
       const t=new Date(json.hourly.time[i]);
-      if(t>now){
-        const h=t.getHours();
-        const ampm=h>=12?'PM':'AM';const h12=h%12||12;
-        const{cond:hcond,icon:hicon}=wmoToCondition(json.hourly.weathercode[i]);
-        hourly.push({time:`${h12}${ampm}`,icon:hicon,temp:Math.round(json.hourly.temperature_2m[i])+'°F',cond:hcond});
-      }
+      if(t>now){const h=t.getHours();const ampm=h>=12?'PM':'AM';const h12=h%12||12;const{cond:hcond,icon:hicon}=wmoToCondition(json.hourly.weathercode[i]);hourly.push({time:`${h12}${ampm}`,icon:hicon,temp:Math.round(json.hourly.temperature_2m[i])+'°F',cond:hcond});}
     }
     const data={loc:loc.name,temp,cond:cond+wind,icon,hourly,live:true,cached:false};
     try{localStorage.setItem(cacheKey,JSON.stringify({data,ts:Date.now()}));}catch(e){}
@@ -413,65 +517,42 @@ async function fetchWeatherForLocation(loc,skipCache){
 }
 
 // ── COMPONENTS ──
-
-// v9: Section with persisted open state
 function Section({id,title,sectionState,setSectionState,children}){
   const open=sectionState[id]||false;
-  const toggle=()=>{
-    const next={...sectionState,[id]:!open};
-    setSectionState(next);
-    saveSectionState(next);
-  };
-  return(
-    <div className="hs">
-      <div className={`sh${open?' open':''}`} onClick={toggle}>
-        <div className="st">{title}</div><div className="sr"/><div className={`schev${open?' open':''}`}>›</div>
-      </div>
-      <div className={`sc${open?' open':''}`}><div className="sc-inner">{children}</div></div>
-    </div>
-  );
+  const toggle=()=>{const next={...sectionState,[id]:!open};setSectionState(next);saveSectionState(next);};
+  return(<div className="hs"><div className={`sh${open?' open':''}`} onClick={toggle}><div className="st">{title}</div><div className="sr"/><div className={`schev${open?' open':''}`}>›</div></div><div className={`sc${open?' open':''}`}><div className="sc-inner">{children}</div></div></div>);
 }
 
-// v9: Weather card with forecast tap
 function WxCard({loc,skipCache}){
-  const[wx,setWx]=useState(null);
-  const[expanded,setExpanded]=useState(false);
-  useEffect(()=>{
-    fetchWeatherForLocation(loc,skipCache).then(setWx);
-  },[loc.id,skipCache]);
+  const[wx,setWx]=useState(null);const[expanded,setExpanded]=useState(false);
+  useEffect(()=>{fetchWeatherForLocation(loc,skipCache).then(setWx);},[loc.id,skipCache]);
   if(!wx)return(<div className="wx-card"><div className="wx-loc">{loc.name}</div><div className="wx-loading"><div className="wx-spinner"/></div></div>);
   return(
     <div className={`wx-card${expanded?' expanded':''}`} onClick={()=>setExpanded(o=>!o)}>
       <div className="wx-loc">{wx.loc}</div>
-      <div className="wx-inner">
-        <div className="wi">{wx.icon}</div>
-        <div><div className="wt">{wx.temp}</div><div className="ws">{wx.cond}</div></div>
-      </div>
+      <div className="wx-inner"><div className="wi">{wx.icon}</div><div><div className="wt">{wx.temp}</div><div className="ws">{wx.cond}</div></div></div>
       {expanded&&wx.hourly.length>0&&(
         <div className="wx-forecast">
-          {wx.hourly.map((h,i)=>(
-            <div key={i} className="wx-forecast-row">
-              <span className="wx-f-time">{h.time}</span>
-              <span className="wx-f-icon">{h.icon}</span>
-              <span className="wx-f-temp">{h.temp}</span>
-              <span className="wx-f-cond">{h.cond}</span>
-            </div>
-          ))}
+          {wx.hourly.map((h,i)=>(<div key={i} className="wx-forecast-row"><span className="wx-f-time">{h.time}</span><span className="wx-f-icon">{h.icon}</span><span className="wx-f-temp">{h.temp}</span><span className="wx-f-cond">{h.cond}</span></div>))}
         </div>
       )}
     </div>
   );
 }
 
-function WeatherStrip({refreshTick}){
+function WeatherStrip({simDate,isPhilip,refreshTick}){
   const[skip,setSkip]=useState(false);
   useEffect(()=>{if(refreshTick>0)setSkip(true);},[refreshTick]);
+  const eDate=effectiveDate(simDate);
+  const visible=WX_LOCS.filter(l=>{
+    if(l.philipOnly&&!isPhilip)return false;
+    return dateInRange(eDate,l.showFrom,l.showUntil);
+  }).sort((a,b)=>a.sortOrder-b.sortOrder);
+  if(visible.length===0)return null;
   return(
     <div className="wx-strip">
       <div className="wx-strip-label">Weather · Tap for forecast</div>
-      <div className="wx-row">
-        {WX_LOCATIONS.map(loc=><WxCard key={loc.id+skip} loc={loc} skipCache={skip}/>)}
-      </div>
+      <div className="wx-row">{visible.map(loc=><WxCard key={loc.id+skip+eDate} loc={loc} skipCache={skip}/>)}</div>
     </div>
   );
 }
@@ -505,7 +586,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState}){
   return(<div className={`hunt-bg${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,display:'flex',flexDirection:'column'}}><div className="hunt-top"><button className="hunt-back" onClick={onBack}>← Back</button><div className="hunt-logo">Anniversary Day ✦</div><div style={{width:60}}/></div><div className="sb"><div className="hv-head"><div className="hve">October 20 · 2026</div><div className="hvt">Your Adventure</div><div className="hvrule"/></div><HuntProgress currentIdx={currentStop} completedIds={completedIds}/>{phase==='clue'&&(<div className="clue"><div className="clue-lbl">{stop.label}</div><div className="clue-txt">{stop.clue}</div>{showHints&&(<div className="hbox">{stop.hints.slice(0,hintIdx+1).map((h,i)=><p key={i}>{h}</p>)}</div>)}{showHints&&hintIdx<stop.hints.length-1&&(<div className="hint-subtle" onClick={()=>setHintIdx(i=>i+1)}>another hint?</div>)}<div className="clue-acts" style={{marginTop:showHints?16:0}}><button className="cbtn hint-btn" onClick={()=>setShowHints(true)}>Hint ✦</button><button className="cbtn reveal-btn" onClick={()=>setConfirmReveal(true)}>Reveal</button></div>{!showHints&&<div className="hint-subtle" onClick={()=>setShowHints(true)}>need a little help?</div>}</div>)}{phase==='reveal'&&(<div className="loc-rev" style={{display:'block'}}><div className="le">Your next stop ✦</div><div className="ln">{stop.locName}</div><div className="ld">{stop.locDesc}</div><button className="wh-btn" onClick={doArrived}>We're here ✦</button></div>)}{phase==='arrived'&&(<div className="arr-card"><div className="ao">✦ &nbsp; ✦ &nbsp; ✦</div><div className="at2">{stop.arrival}</div><div className="asig">— Philip</div>{stop.hasNext&&<button className="next-btn" onClick={doNext}>On to the next clue →</button>}</div>)}{confirmReveal&&(<div className="rc-ov"><div className="rc-box"><div className="rc-title">Reveal the destination?</div><div className="rc-sub">Once revealed, the mystery is gone — but the adventure begins.</div><div className="rc-rule"/><div className="rc-btns"><button className="rc-no" onClick={()=>setConfirmReveal(false)}>Not yet</button><button className="rc-yes" onClick={doReveal}>Yes, reveal</button></div></div></div>)}<div style={{height:32}}/></div></div>);
 }
 
-// v9: ItinItem — italic notes, markdown rendering, URLs on card
+// ── ITINERARY ITEM ──
 function ItinItem({item,isPhilip}){
   const[philipOpen,setPhilipOpen]=useState(false);
   const hasPhilip=isPhilip&&item.philipNotes&&item.philipNotes.trim();
@@ -518,7 +599,6 @@ function ItinItem({item,isPhilip}){
         <div className="ii-name">{item.displayText}</div>
         {item.tagline&&<div className="ii-tagline">{item.tagline}</div>}
         {hasNotes&&<div className="ii-notes">{renderMarkdown(item.displayNotes)}</div>}
-        {/* v9: URLs visible on card in Philip mode */}
         {hasUrls&&(
           <div className="ii-philip-urls">
             {item.mapsUrl&&<a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="ii-url-btn" onClick={e=>e.stopPropagation()}>Maps ↗</a>}
@@ -530,21 +610,58 @@ function ItinItem({item,isPhilip}){
       {philipOpen&&hasPhilip&&(
         <div className="pn-drawer">
           <div className="pn-drawer-label">Philip Mode ✦</div>
-          <div className="pn-drawer-body">{item.philipNotes}</div>
+          <div className="pn-drawer-body">{renderMarkdown(item.philipNotes)}</div>
         </div>
       )}
     </div>
   );
 }
 
+// ── ITINERARY DAY VIEW ──
 function ItinDayView({dateKey,isPhilip,onBack}){
   const day=ITINERARY[dateKey];if(!day)return null;
-  return(<div className="itin-view"><div className="itin-nav"><button className="itin-back" onClick={onBack}>← Back</button><div><div className="itin-day-label">{day.label}</div><div className="itin-day-name">{day.name}</div></div></div><div className="sb" style={{padding:'16px 16px 32px'}}>{day.items.map(item=><ItinItem key={item.id} item={item} isPhilip={isPhilip}/>)}<div style={{height:16}}/></div></div>);
+  const sm=SUN_MOON[dateKey];
+  return(
+    <div className="itin-view">
+      <div className="itin-nav">
+        <button className="itin-back" onClick={onBack}>← Back</button>
+        <div><div className="itin-day-label">{day.label}</div><div className="itin-day-name">{day.name}</div></div>
+      </div>
+      <div className="sb" style={{padding:'16px 16px 32px'}}>
+        {day.items.map(item=><ItinItem key={item.id} item={item} isPhilip={isPhilip}/>)}
+        {sm&&<div className="itin-footer">Sunrise {sm.sunrise} · Sunset {sm.sunset} · Moon {sm.moon}</div>}
+        <div style={{height:16}}/>
+      </div>
+    </div>
+  );
 }
 
 function DetailView({detail,onBack}){
   if(!detail)return null;const{type,data}=detail;
   return(<div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}><div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div><div className="sb" style={{padding:'16px 16px 32px'}}><div className="detail-hero"><div className="dh-tag">{type==='dining'?'Dining Option':'Things To Explore'} ✦</div><div className="dh-name">{data.name}</div><div className="dh-sub">{data.dist}</div><div className="dh-rule"/><div className="dh-body">{data.desc}</div><div className="dh-meta">{data.meta.map((m,i)=><div key={i} className="dh-meta-item"><span>{m.l}</span>{m.v}</div>)}</div></div></div></div>);
+}
+
+// ── GOOD TO KNOW CARD ──
+function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
+  const eDate=effectiveDate(simDate);
+  const visible=GOOD_TO_KNOW.filter(r=>{
+    if(r.philipOnly&&!isPhilip)return false;
+    return dateInRange(eDate,r.showFrom,r.showUntil);
+  }).sort((a,b)=>a.sortOrder-b.sortOrder);
+  if(visible.length===0)return null;
+  return(
+    <Section id="goodtoknow" title="Good to Know" sectionState={sectionState} setSectionState={setSectionState}>
+      {visible.map(r=>(
+        <div key={r.id} className="kc">
+          <div className="kh">{r.title}</div>
+          <div className="kb" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontStyle:'italic',lineHeight:1.75}}>{renderMarkdown(r.body)}</div>
+          {isPhilip&&r.philipNotes&&r.philipNotes.trim()&&(
+            <div style={{marginTop:10,paddingTop:10,borderTop:'1px solid var(--border)',fontSize:12,letterSpacing:'.1em',color:'var(--gold-light)'}}>{r.philipNotes}</div>
+          )}
+        </div>
+      ))}
+    </Section>
+  );
 }
 
 // ── MAIN APP ──
@@ -567,14 +684,19 @@ function App(){
   const[weatherRefreshTick,setWeatherRefreshTick]=useState(0);
   const[ptrVisible,setPtrVisible]=useState(false);
   const ptrStartY=useRef(0);const ptrActive=useRef(false);const ptrTriggered=useRef(false);
-  const isTuesdayModeRef=useRef(false);const isMondayEveModeRef=useRef(false);const showingPhilipRef=useRef(false);
+  const showingPhilipRef=useRef(false);
   const launchTapCount=useRef(0);const launchTapTimer=useRef(null);
   const logoTapCount=useRef(0);const logoTapTimer=useRef(null);
   const PIN='4242';
+
+  // v10: showingPhilip = Philip mode AND not in Preview Daria
   const showingPhilip=isPhilip&&!prevDaria;
-  const isTuesdayMode=isTuesdayAnniversary(simulatedDate);
-  const isMondayEveMode=isMondayEve(simulatedDate);
-  isTuesdayModeRef.current=isTuesdayMode;isMondayEveModeRef.current=isMondayEveMode;showingPhilipRef.current=showingPhilip;
+  // v10: effective date — used throughout for all date-aware features
+  // Preview Daria uses simulated date; true Philip uses simulated date; true Daria always real
+  const simDate=isPhilip?simulatedDate:null;
+  const isTuesdayMode=isTuesdayAnniversary(simDate);
+  const isMondayEveMode=isMondayEve(simDate);
+  showingPhilipRef.current=showingPhilip;
 
   const handlePinKey=(v)=>{
     setPinErr('');let next=pin;
@@ -582,17 +704,26 @@ function App(){
     setPin(next);
     if(next.length===4){setTimeout(()=>{if(next===PIN){setIsPhilip(true);setPrevDaria(false);setDariaPhone(false);setShowPin(false);setPin('');setView('main');}else{setPinErr('Incorrect');setTimeout(()=>{setShowPin(false);setPin('');setPinErr('');setView('main');},900);}},140);}
   };
+
   const openDay=(dateKey)=>{
     const day=ITINERARY[dateKey];if(!day)return;
-    if(day.ann){if(showingPhilipRef.current||isTuesdayModeRef.current){setShowIntro(true);return;}setAntMsg(getAntMessage(isMondayEveModeRef.current));setShowAnt(true);return;}
+    if(day.ann){
+      // v10: Philip mode always opens day view; Daria gets hunt/anticipation
+      if(showingPhilipRef.current){setItinDateKey(dateKey);setView('itin-day');return;}
+      if(prevDaria&&isTuesdayMode){setShowIntro(true);return;}
+      if(!isPhilip&&isTuesdayMode){setShowIntro(true);return;}
+      setAntMsg(getAntMessage(isMondayEveMode));setShowAnt(true);return;
+    }
     setItinDateKey(dateKey);setView('itin-day');
   };
+
   const handleLaunchSecretTap=(e)=>{e.stopPropagation();launchTapCount.current+=1;clearTimeout(launchTapTimer.current);launchTapTimer.current=setTimeout(()=>{launchTapCount.current=0;},2000);if(launchTapCount.current>=5){launchTapCount.current=0;setShowPin(true);}};
   const handleLogoTap=(e)=>{e.stopPropagation();logoTapCount.current+=1;clearTimeout(logoTapTimer.current);logoTapTimer.current=setTimeout(()=>{logoTapCount.current=0;},2000);if(logoTapCount.current>=5){logoTapCount.current=0;setShowPin(true);}};
   const handlePtrStart=(e)=>{const sb=document.getElementById('main-sb');if(sb&&sb.scrollTop===0){ptrStartY.current=e.touches?e.touches[0].clientY:e.clientY;ptrActive.current=true;ptrTriggered.current=false;}};
   const handlePtrMove=(e)=>{if(!ptrActive.current)return;const y=e.touches?e.touches[0].clientY:e.clientY;if(y-ptrStartY.current>60){setPtrVisible(true);ptrTriggered.current=true;}};
   const handlePtrEnd=()=>{if(!ptrActive.current)return;ptrActive.current=false;if(ptrTriggered.current){ptrTriggered.current=false;setWeatherRefreshTick(t=>t+1);setTimeout(()=>setPtrVisible(false),900);}};
   const exitPhilip=()=>{setIsPhilip(false);setPrevDaria(false);setDariaPhone(false);setSimulatedDate(null);};
+  const exitPreviewDaria=()=>{setPrevDaria(false);};
 
   if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
@@ -618,13 +749,16 @@ function App(){
       {view==='main'&&(
         <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'var(--cream)'}}>
           {dariaPhone&&(<div className="banner">Philip mode — you are viewing Daria's app &nbsp;<span style={{opacity:.75,cursor:'pointer',fontSize:10,marginLeft:14}} onClick={()=>{setDariaPhone(false);setIsPhilip(false);setPrevDaria(false);}}>✕ Exit</span></div>)}
+
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v9':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v10':''}</div>
             </button>
             <div className="nav-right">
-              {showingPhilip&&<button className="nav-btn" onClick={()=>setPrevDaria(p=>!p)}>{prevDaria?'Back to Philip':'Preview Daria'}</button>}
+              {/* v10: Preview Daria shows Exit Preview button */}
+              {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
+              {showingPhilip&&<button className="nav-btn" onClick={()=>setPrevDaria(true)}>Preview Daria</button>}
               {showingPhilip&&<button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
             </div>
           </div>
@@ -647,22 +781,8 @@ function App(){
               {ACTIVITY.map(a=>(<div key={a.key} className="oc" onClick={()=>{setDetail({type:'activity',data:a});setView('detail');}}><div className="oci"><div className="ol"><div className="on_">{a.name}</div><div className="od">{a.dist}</div></div><div className="odist">›</div></div></div>))}
             </Section>
 
-            <Section id="goodtoknow" title="Good to Know" sectionState={sectionState} setSectionState={setSectionState}>
-              {[
-                {h:'Getting Around',b:"BMW 430i Convertible for the week — top down is the only way on Maui's coast roads. Fill the tank before heading up Haleakalā; no gas on the mountain. Drive times from Ka'anapali: Lahaina 10 min · Kapalua 15 min · Iao Valley 25 min · Paia 55 min."},
-                {h:'Signal & Offline Areas',b:"No cell signal at Haleakalā summit or Nakalele Blowhole. Download offline maps before heading out on those days. This app works fully offline."},
-                {h:'Sun & Water',b:"Reef-safe sunscreen is required on Maui — standard sunscreen is banned to protect coral. Reapply often; the Hawaiian sun is stronger than it feels. Stay hydrated — humidity hits different after the Pacific Northwest."},
-                {h:'Ocean Safety',b:"Check conditions before entering the water each day. Nakalele Blowhole is a serious hazard when active — stay well back from the opening. Sea turtles rest on Ka'anapali Beach; enjoy from 15 feet away, no touching."},
-                {h:'Tipping & Local Customs',b:"Standard tipping: 18–20% at restaurants. Aloha spirit is real — slow down, make eye contact, say thank you. Most beaches have free parking. Locals call it 'shave ice,' not 'shaved ice.'"},
-                {h:'Packing Reminders',b:"Haleakalā summit reaches 30–40°F — bring heavy layers, gloves, and a warm hat even in October. Red-light flashlight for stargazing. Bug spray for the luau evening. Comfortable walking shoes for Tuesday."},
-              ].map((k,i)=>(<div key={i} className="kc"><div className="kh">{k.h}</div><div className="kb">{k.b}</div></div>))}
-            </Section>
-
-            {showingPhilip&&(
-              <Section id="romantic" title="Romantic & Intimate Ideas" sectionState={sectionState} setSectionState={setSectionState}>
-                {ROMANTIC_IDEAS.map((idea,i)=>(<div key={i} className="rci"><div className="rt">{idea}</div></div>))}
-              </Section>
-            )}
+            {/* v10: Good to Know — date-aware from Airtable */}
+            <GoodToKnowSection simDate={simDate} isPhilip={isPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
 
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt God Mode" sectionState={sectionState} setSectionState={setSectionState}>
@@ -670,23 +790,30 @@ function App(){
               </Section>
             )}
 
+            {/* v10: Universal date override */}
             {showingPhilip&&(
               <Section id="dateoverride" title="Test Date Override" sectionState={sectionState} setSectionState={setSectionState}>
                 <div className="date-override">
-                  <div className="do-label">Simulate App Date</div>
+                  <div className="do-label">Simulate App Date — affects Preview Daria</div>
                   <div className="do-btns">
-                    <button className={`do-btn${simulatedDate===null?' active':''}`} onClick={()=>setSimulatedDate(null)}>Today (Real)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-19')}>Oct 19 (Mon Eve)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-20'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-20')}>Oct 20 (Tue ✦)</button>
-                    <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-21')}>Oct 21 (Wed)</button>
+                    <button className={`do-btn${simulatedDate===null?' active':''}`} onClick={()=>setSimulatedDate(null)}>Today</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-18'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-18')}>Sun Oct 18</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-19'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-19')}>Mon Oct 19</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-20'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-20')}>Tue Oct 20 ✦</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-21'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-21')}>Wed Oct 21</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-22'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-22')}>Thu Oct 22</button>
+                    <button className={`do-btn${simulatedDate==='2026-10-23'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-23')}>Fri Oct 23</button>
                   </div>
-                  <div style={{marginTop:10,fontSize:11,color:'var(--gold-light)',letterSpacing:'.1em'}}>Active: {simulatedDate?simulatedDate:'real date · '+todayYMD()}{isTuesdayMode?' · ✦ Tuesday mode ON':''}</div>
+                  <div style={{marginTop:10,fontSize:11,color:'var(--gold-light)',letterSpacing:'.1em'}}>
+                    Active: {simulatedDate?simulatedDate:'real date · '+todayYMD()}
+                    {isTuesdayMode?' · ✦ Tuesday mode ON':''}
+                  </div>
                 </div>
               </Section>
             )}
 
-            {/* v9: Weather always visible at bottom */}
-            <WeatherStrip refreshTick={weatherRefreshTick}/>
+            {/* v10: Weather — date-aware from Airtable Weather Locations */}
+            <WeatherStrip simDate={simDate} isPhilip={isPhilip} refreshTick={weatherRefreshTick}/>
 
             <div style={{height:32}}/>
           </div>
