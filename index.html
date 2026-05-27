@@ -157,7 +157,6 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .itin-back{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
 .itin-day-label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
 .itin-day-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;font-style:italic;color:var(--warm-brown)}
-/* day footer */
 .itin-footer{text-align:center;padding:16px 0 8px;font-size:11px;letter-spacing:.2em;color:var(--gold-light);opacity:.75}
 
 .ii{background:var(--card-bg);border:1px solid var(--border);margin-bottom:9px;position:relative;transition:border-color .2s}
@@ -176,32 +175,56 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .pn-drawer-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .pn-drawer-body{font-size:14px;line-height:1.85;color:var(--text)}
 
-/* ── MARKDOWN RENDERED ELEMENTS ── */
-/* inline italic — upright in italic context */
+/* MARKDOWN */
 .md-em{font-style:normal;font-family:'Cormorant Garamond',serif}
-/* inline bold */
 .md-strong{font-weight:700;font-style:italic;font-family:'Cormorant Garamond',serif}
-/* inline bold+italic */
 .md-strong-em{font-weight:700;font-style:italic;color:var(--gold);font-size:1.05em;font-family:'Cormorant Garamond',serif}
-/* blockquote > */
-.md-blockquote{background:var(--sand);border-left:3px solid var(--gold);padding:12px 14px;margin:10px 0;border-radius:0}
+.md-blockquote{background:var(--sand);border-left:3px solid var(--gold);padding:12px 14px;margin:10px 0}
 .md-blockquote p{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text);line-height:1.65}
-/* heading ### */
 .md-h3{font-family:'Didact Gothic',sans-serif;font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;margin-top:14px}
 .md-h3:first-child{margin-top:0}
 
-/* DINING/ACTIVITY DETAIL */
+/* DINING/ACTIVITY DETAIL — v11 redesign */
 .dv-nav{padding:18px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0}
 .back-btn{font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);background:none;border:none;cursor:pointer}
-.detail-hero{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border:1px solid var(--border);padding:26px 22px;margin-bottom:12px}
-.dh-tag{font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.dh-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5.5vw,44px);font-weight:700;font-style:italic;color:var(--warm-brown);margin-bottom:8px}
-.dh-sub{font-size:14px;letter-spacing:.12em;color:var(--text-soft);margin-bottom:18px}
-.dh-rule{height:1px;background:linear-gradient(90deg,var(--gold-light),transparent);margin-bottom:18px;opacity:.6}
-.dh-body{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--text);line-height:1.75;font-style:italic;margin-bottom:20px}
-.dh-meta{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);padding-top:16px}
-.dh-meta-item{font-size:14px;letter-spacing:.08em;color:var(--text)}
-.dh-meta-item span{color:var(--gold);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-right:6px}
+
+/* v11 dining detail */
+.dining-detail{padding:0 0 32px}
+.dd-hero{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border-bottom:1px solid var(--border);padding:28px 20px 24px}
+.dd-tag{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.dd-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,6vw,46px);font-weight:700;font-style:italic;color:var(--warm-brown);line-height:1;margin-bottom:6px}
+.dd-dist{font-size:12px;letter-spacing:.18em;color:var(--text-soft);margin-bottom:4px}
+.dd-type{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light)}
+.dd-body{padding:20px 20px 0}
+.dd-desc{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);line-height:1.75;margin-bottom:20px}
+.dd-rule{height:1px;background:linear-gradient(90deg,var(--gold-light),transparent);margin-bottom:20px;opacity:.5}
+.dd-notes{font-size:14px;line-height:1.85;color:var(--text);letter-spacing:.04em;margin-bottom:20px;white-space:pre-line}
+.dd-actions{display:flex;gap:10px;flex-wrap:wrap;padding:0 20px;margin-bottom:16px}
+.dd-btn{font-size:11px;letter-spacing:.28em;text-transform:uppercase;padding:13px 20px;border:none;cursor:pointer;font-family:'Didact Gothic',sans-serif;text-decoration:none;display:inline-block;flex:1;text-align:center;min-width:100px}
+.dd-btn.primary{background:var(--gold);color:var(--white)}
+.dd-btn.primary:hover{background:var(--gold-dark)}
+.dd-btn.secondary{background:transparent;color:var(--gold-dark);border:1px solid var(--gold)}
+.dd-btn.secondary:hover{background:rgba(168,120,64,.06)}
+.dd-btn.phone{background:transparent;color:var(--gold-dark);border:1px solid var(--border)}
+.dd-phone-row{padding:0 20px 20px}
+.dd-phone-link{font-size:14px;letter-spacing:.1em;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:8px}
+.dd-phone-link:hover{color:var(--gold-dark)}
+.dd-philip-note{background:var(--sand);border-left:3px solid var(--gold);padding:16px 20px;margin:0 20px 20px}
+.dd-philip-label{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.dd-philip-body{font-size:13px;line-height:1.8;color:var(--text)}
+
+/* Activity detail — same pattern */
+.activity-detail{padding:0 0 32px}
+.ad-hero{background:linear-gradient(135deg,var(--card-bg) 0%,var(--sand) 100%);border-bottom:1px solid var(--border);padding:28px 20px 24px}
+.ad-tag{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.ad-name{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,6vw,46px);font-weight:700;font-style:italic;color:var(--warm-brown);line-height:1;margin-bottom:6px}
+.ad-dist{font-size:12px;letter-spacing:.18em;color:var(--text-soft)}
+.ad-body{padding:20px 20px 0}
+.ad-desc{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);line-height:1.75;margin-bottom:20px}
+.ad-rule{height:1px;background:linear-gradient(90deg,var(--gold-light),transparent);margin-bottom:20px;opacity:.5}
+.ad-meta{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.ad-meta-item{font-size:14px;letter-spacing:.08em;color:var(--text)}
+.ad-meta-item span{color:var(--gold);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-right:6px}
 
 /* INTRO */
 .intro-ov{position:fixed;inset:0;z-index:200;background:#1a0e04;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
@@ -293,39 +316,22 @@ const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:fal
 function loadSectionState(){try{const r=localStorage.getItem(SECTIONS_KEY);if(r)return{...DEFAULT_SECTIONS,...JSON.parse(r)};}catch(e){}return{...DEFAULT_SECTIONS};}
 function saveSectionState(s){try{localStorage.setItem(SECTIONS_KEY,JSON.stringify(s));}catch(e){}}
 
-// ── MARKDOWN RENDERER v10 ──
-// Handles: _italic_, **bold**, **_bold-italic_**, > blockquote, ### heading
-// Preserves newlines by processing line by line
+// ── MARKDOWN RENDERER ──
 function renderMarkdown(text){
   if(!text||!text.trim())return null;
   const lines=text.split('\n');
-  const output=[];
-  let key=0;
+  const output=[];let key=0;
   for(let i=0;i<lines.length;i++){
     const line=lines[i];
-    // blockquote
-    if(line.startsWith('> ')){
-      output.push(<div key={key++} className="md-blockquote"><p>{renderInline(line.slice(2))}</p></div>);
-    }
-    // h3
-    else if(line.startsWith('### ')){
-      output.push(<div key={key++} className="md-h3">{renderInline(line.slice(4))}</div>);
-    }
-    // empty line — add spacing
-    else if(line.trim()===''){
-      output.push(<div key={key++} style={{height:8}}/>);
-    }
-    // normal line
-    else{
-      output.push(<div key={key++} style={{marginBottom:2}}>{renderInline(line)}</div>);
-    }
+    if(line.startsWith('> ')){output.push(<div key={key++} className="md-blockquote"><p>{renderInline(line.slice(2))}</p></div>);}
+    else if(line.startsWith('### ')){output.push(<div key={key++} className="md-h3">{renderInline(line.slice(4))}</div>);}
+    else if(line.trim()===''){output.push(<div key={key++} style={{height:8}}/>);}
+    else{output.push(<div key={key++} style={{marginBottom:2}}>{renderInline(line)}</div>);}
   }
   return output;
 }
-
 function renderInline(text){
   if(!text)return null;
-  // Order matters: bold-italic first, then bold, then italic
   const re=/(\*\*_(.+?)_\*\*|\*\*(.+?)\*\*|_(.+?)_)/g;
   const parts=[];let last=0;let m;let k=0;
   while((m=re.exec(text))!==null){
@@ -339,7 +345,7 @@ function renderInline(text){
   return parts;
 }
 
-// ── SUN/MOON DATA per day ──
+// ── SUN/MOON DATA ──
 const SUN_MOON={
   '2026-10-18':{sunrise:'6:00',sunset:'5:59',moon:'92%'},
   '2026-10-19':{sunrise:'6:01',sunset:'5:58',moon:'97%'},
@@ -349,22 +355,27 @@ const SUN_MOON={
   '2026-10-23':{sunrise:'6:03',sunset:'5:54',moon:'86%'},
 };
 
-// ── ITINERARY — verbatim from Airtable tbl3rVXL4oohjRJtF ──
+// ── ITINERARY — baked from Airtable tbl3rVXL4oohjRJtF ──
 const ITINERARY={
   '2026-10-18':{label:'Oct 18',name:'Sunday',tagline:'Arrival Day',ann:false,items:[
     {id:'recJpXSL5xBDkxJMK',sortOrder:1,timeLabel:'10:00 AM',displayText:'Depart Seattle',tagline:'AS 929 · SEA → OGG · 6h 20min',
-      displayNotes:'Departs: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J\nConfirmation Code: CNJDSB',
+      displayNotes:'Departs: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J',
       philipNotes:null,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6',refUrl:null},
     {id:'recfFTeer69Xg9nIo',sortOrder:2,timeLabel:'1:20 PM',displayText:'Arrive Maui',
       tagline:"Welcome to Maui! Our adventure starts the moment we land.",
       displayNotes:"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nTop down, warm air, open road.\nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.",
-      philipNotes:"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nRA#: 12181 | Unit #74 | Signed: May 2, 2026\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nLicense Plate: LMR219 | VIN: WBA23AT02NCK97972\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES (from T&Cs):\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it's the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice",
+      philipNotes:"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full)\n\nRENTAL NOTES:\n— Top and windows must ALWAYS be parked CLOSED\n— No smoking — up to $350 fine\n— Rinse car before return after beach days\n— Refuel before return\n— No cell phone use unless on mount",
       mapsUrl:null,refUrl:'https://cruisin-maui-rent-a-car.us5.hqrentals.app/integrations/9/social/email/login?ssid=4vW58xrD6e8e'},
     {id:'rec8gau0RPf2HPffw',sortOrder:3,timeLabel:'Afternoon',displayText:'Check In',
       tagline:"Westin Ka'anapali Ocean Resort Villas",
       displayNotes:'One Bedroom King Bed Villa, Ocean view, Balcony',
-      philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nConfirmation #: 73733829\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River (Daria will love this). Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography — couples and family, sunrise/sunset, candid/portrait. Reservations required: 808-662-2525. Note: Most likely not using.",
+      philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nFree cancellation until ~October 4, 2026.\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River. Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography. Reservations: 808-662-2525. Note: Most likely not using.",
       mapsUrl:'https://maps.app.goo.gl/oVJA4vcNxxAomid37',refUrl:'https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/'},
+    {id:'recSi5xmVCY7oJqrX',sortOrder:4,timeLabel:'Evening',displayText:'Welcome to Our Villa',
+      tagline:"Let's Settle In and Explore",
+      displayNotes:"Sunday evening is intentionally low-key. We've landed, checked in, and the convertible is parked. Three things worth knowing about within easy walking distance:\n**Black Rock Torch Lighting Ceremony**\n> Happens nightly at sunset. A cliff diver lights the torches and leaps into the ocean. It's a Ka'anapali tradition and about 5 to 10 minutes down the beach. \n**Ka'anapali Beach Walk**\n> Is a paved path running the length of the beach. Easy, flat, and a perfect way to stretch after a travel day. Black Rock is right along the route so you can combine both naturally.\n**Whalers Village** \n> Sits at the north end of the walk. Open-air shops and several restaurants right on the beach. A casual no-reservation dinner option if you don't want to go far.",
+      philipNotes:"Probably want to move these to activities",
+      mapsUrl:null,refUrl:null},
   ]},
   '2026-10-19':{label:'Oct 19',name:'Monday',tagline:'Haleakalā',ann:false,items:[
     {id:'recgUKI7ojFYUywKg',sortOrder:1,timeLabel:'Morning',displayText:'Morning Open',
@@ -374,8 +385,8 @@ const ITINERARY={
     {id:'recMe3ZAaVyHyKZ6z',sortOrder:2,timeLabel:'Afternoon – Evening',displayText:'Haleakalā Summit',
       tagline:'10,023 ft · Sunset above the clouds · Stargazing',
       displayNotes:"_Today we head above the clouds... _\nHaleakalā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n> **A quick note for packing.** Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",
-      philipNotes:"Target arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nSummit webcam: https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
-      mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A'},
+      philipNotes:"Leave hotel by: 2:45-3PM\nTarget arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
+      mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/hale/index.htm'},
   ]},
   '2026-10-20':{label:'Oct 20',name:'Tuesday',tagline:'Our Anniversary',ann:true,items:[
     {id:'reczPGENzMgOha6RU',sortOrder:1,timeLabel:'All Day',displayText:'Anniversary Day',
@@ -403,7 +414,7 @@ const ITINERARY={
     {id:'recfysZRrqZ6o1Tqc',sortOrder:2,timeLabel:'5:15 PM',displayText:'Old Lāhainā Lūʻau',
       tagline:"One of Hawaii's most celebrated luaus · Oceanfront",
       displayNotes:"Tonight is the Old Lāhainā Lūʻau — one of the most celebrated luaus in Hawaii, right on the ocean.\nThe evening includes traditional Hawaiian food, storytelling, and hulas the sun sets over the water. Plan for about three hours.\nDress comfortably, with some layers. It's an outdoor event on the beach.",
-      philipNotes:"Old Lāhainā Lūʻau — BOOKED ✅\nCheck-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nNote: Daria does not drink alcohol — non-alcoholic options available throughout.",
+      philipNotes:"Check-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nPhone: (808) 667-1998 | Email: info@oldlahainaluau.com\nFree parking on-site; overflow at Lahaina Cannery Mall across the street.\nCancellation: Must call (not email) at least 24 hours prior.",
       mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',refUrl:null},
   ]},
   '2026-10-23':{label:'Oct 23',name:'Friday',tagline:'Departure',ann:false,items:[
@@ -417,13 +428,13 @@ const ITINERARY={
     {id:'recIOlmZSL59AInH0',sortOrder:3,timeLabel:'1:10 PM',displayText:'Depart Maui',
       tagline:'Alaska Airlines AS 930 · OGG → SEA',
       displayNotes:"Five days well spent. Now time to head back home like we have for 20 years...Together",
-      philipNotes:"Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
+      philipNotes:"Flight: AS 930 OGG→SEA\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
       mapsUrl:'https://maps.app.goo.gl/vn36c43q6ei4XZcJ8',refUrl:null},
   ]},
 };
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
 
-// ── GOOD TO KNOW — verbatim from Airtable tbl5KPVIA9DmS9cs2 ──
+// ── GOOD TO KNOW — baked from Airtable tbl5KPVIA9DmS9cs2 ──
 const GOOD_TO_KNOW=[
   {id:'recdYEdqdUrm0Z11l',showFrom:'2026-05-20',showUntil:'2026-10-22',sortOrder:999,
     title:'Sun & Water',
@@ -441,9 +452,14 @@ const GOOD_TO_KNOW=[
     title:'Get Prepare',
     body:'No signal in parts tomorrow. Make sure everything is downloaded.',
     philipNotes:null,philipOnly:true},
+  {id:'recncva9O2OumsmYT',showFrom:'2026-10-19',showUntil:'2026-10-19',sortOrder:42,
+    title:'Prepare for Tuesday',
+    body:null,
+    philipNotes:"Casually mention to Daria that she should shave tonight. Frame it as 'tomorrow's a full day, won't have time in the morning.' Don't make it a thing — just drop it naturally while settling in after Haleakalā.",
+    philipOnly:true},
 ];
 
-// ── WEATHER LOCATIONS — verbatim from Airtable tblTBo16IXXqN03h1 ──
+// ── WEATHER LOCATIONS — baked from Airtable tblTBo16IXXqN03h1 ──
 const WX_LOCS=[
   {id:'rec9a2efFGtSCtwU3',name:"Ka'anapali",lat:20.9295,lon:-156.7046,showFrom:'2026-05-20',showUntil:'2026-12-31',sortOrder:999,philipOnly:false},
   {id:'rec4rL8Bw5Vygfslu',name:'Haleakalā Summit',lat:20.7097,lon:-156.253,showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:1,philipOnly:false},
@@ -454,23 +470,130 @@ const WX_LOCS=[
   {id:'recscl36SUhQw0Zy8',name:'Allyn',lat:47.3873,lon:-122.8271,showFrom:'2026-10-23',showUntil:'2026-10-23',sortOrder:5,philipOnly:false},
 ];
 
+// ── DINING — baked from Airtable tblOq7ECcM7n9kLjm ──
+// Philip Only records excluded from Daria view at render time
+const DINING=[
+  {id:'recEKOBaXMFEvNWwq',name:"Castaway Cafe",distLabel:"Ka'anapali · 0.3 mi",lat:20.9246,lon:-156.6942,
+    description:"Beachfront cafe at Maui Ka'anapali Villas, essentially walkable from the Westin. Casual open-air dining steps from the sand. One of the more affordable options in Ka'anapali.",
+    type:'Breakfast, Lunch, Dinner',
+    notes:"Hours: Daily 8 AM–8 PM. Breakfast 8–11:30 AM.\nWalk-in only — no reservations.\nStandout: Macadamia nut pancakes with coconut syrup.",
+    phone:'(808) 661-9091',
+    philipNotes:"Not great for coffee",
+    philipOnly:false,
+    restaurantUrl:'https://www.castawaycafe.com',
+    mapsUrl:'https://maps.google.com/?q=Castaway+Cafe+Maui+Kaanapali'},
+  {id:'rec7GA2Ix8CNovXY9',name:"Duke's Beach House",distLabel:"Ka'anapali · 1.1 mi",lat:20.9378,lon:-156.6923,
+    description:"Open-air oceanfront dining at Honua Kai Resort on Ka'anapali North Beach. Hawaiian-influenced cuisine with fresh sustainable seafood and views of Molokai and Lanai. Live entertainment daily.",
+    type:'Breakfast, Lunch, Dinner',
+    notes:"Breakfast 7:30–11:00 · Lunch 11:00-2:30 · Dinner 4:00–9:00\nLive entertainment 3–8 daily.\nReservations recommended, Walk-in waitlist available in person.",
+    phone:'(808) 662-2900',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://www.dukesmaui.com',
+    mapsUrl:'https://maps.google.com/?q=Dukes+Beach+House+Kaanapali+Maui'},
+  {id:'recPvEAKex5GPQ1S8',name:"Island Vintage Coffee",distLabel:"Ka'anapali · 0.8 mi",lat:20.9279,lon:-156.6949,
+    description:"High-quality lattes and 100% Kona pour-overs inside Whalers Village. A short walk from the Westin. Daria's coffee sorted.",
+    type:'Coffee, Light Bites',
+    notes:"Located inside Whalers Village — walkable from Westin.\nAlso good for light meals.\nAlso at The Shops at Wailea",
+    phone:null,
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://islandvintagecoffee.com',
+    mapsUrl:'https://maps.google.com/?q=Island+Vintage+Coffee+Whalers+Village+Maui'},
+  {id:'rec0ertg07feeRbt8',name:"Maui Fish Market",distLabel:"Honokowai · 2.1 mi",lat:20.9486,lon:-156.6726,
+    description:"A combination seafood market and casual counter-service restaurant in Honokowai. Local fishermen bring the catch daily. Fish tacos, poke, burgers, burritos, soups, and fresh-cut steaks. Good quick lunch stop after a morning at Kapalua or Honolua Bay.",
+    type:'Lunch, Dinner',
+    notes:"Hours: Daily 11 AM–7 PM — closes early, plan ahead.\nCounter service, eat inside or outside. Small space.",
+    phone:'(808) 665-9895',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://fishmarketmaui.com',
+    mapsUrl:'https://maps.google.com/?q=Fish+Market+Maui+Honokowai'},
+  {id:'recFlDZkjvmnFKmtS',name:"Bad Ass Coffee",distLabel:"Honokowai · 2.3 mi",lat:20.9502,lon:-156.6713,
+    description:"100% Kona coffee chain with a few west Maui locations. Consistently well rated. Good morning option if heading north toward Kapalua.",
+    type:'Coffee, Light Bites',
+    notes:"Chain with multiple west Maui locations",
+    phone:null,
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://badasscoffee.com',
+    mapsUrl:'https://maps.google.com/?q=Bad+Ass+Coffee+Maui'},
+  {id:'recmEi3y5kzWgNROH',name:"The Gazebo",distLabel:"Napili · 3.8 mi",lat:20.9614,lon:-156.6738,
+    description:"A legendary breakfast spot perched above Napili Bay with panoramic ocean views. Famous for macadamia nut pancakes and lines that start before they open. Tucked into Napili Shores Resort — easy to miss if you don't know where to look.",
+    type:'Breakfast, Lunch',
+    notes:"Hours: Daily 7:30 AM–2 PM. Same menu all day.\nWalk-in only — no reservations.\nLines start forming by 6:30 AM. Expect 30–60 min wait unless you arrive at opening.\nFree coffee served while you wait in line.",
+    phone:'(808) 669-5621',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://www.gazebo-maui.com',
+    mapsUrl:'https://maps.google.com/?q=The+Gazebo+Restaurant+Napili+Shores+Maui'},
+  {id:'recBA8pdTxD5NEINK',name:"Mala Ocean Tavern",distLabel:"Lahaina · 4.8 mi",lat:20.8813,lon:-156.6823,
+    description:"Beloved oceanfront restaurant right on the water at Mala Wharf in Lahaina. Farm-to-table philosophy, fresh-caught seafood, and some of the best sunset views on the west side. One of Maui's most celebrated dining destinations.",
+    type:'Brunch, Dinner',
+    notes:"Hours: Daily 8 AM–9 PM. Brunch 9 AM–2 PM, Live Music Happy Hour 2–4 PM, Dinner 4–9 PM.\nReservations encouraged, walk-ins welcome.\nSignature: Ahi bruschetta, seared scallops, ube pancakes at brunch.",
+    phone:'(808) 667-9394',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://malatavern.com',
+    mapsUrl:'https://maps.google.com/?q=Mala+Ocean+Tavern+Lahaina+Maui'},
+  {id:'recSrluWhkvRSf2ap',name:"Miso Phat Sushi",distLabel:"Lahaina · 5.4 mi",lat:20.9553,lon:-156.6681,
+    description:"Fresh sushi on the west side, featured on Diners, Drive-Ins and Dives. Family owned and operated. Nigiri, sashimi, specialty rolls, and combo platters. BYOB — bring your own unopened bottle.",
+    type:'Lunch, Dinner',
+    notes:"Hours: Daily 11:30 AM–9 PM.\nBYOB (unopened containers only).\nFirst come first served — join waitlist in person, return within 5 min when notified.\nNo reservations, no online ordering.",
+    phone:'(808) 669-9010',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://misophatlahaina.com',
+    mapsUrl:'https://maps.google.com/?q=Miso+Phat+Sushi+Lahaina+Maui'},
+  {id:'recr4iiCIuuwCvwss',name:"Tin Roof",distLabel:"Kahului · 10.2 mi",lat:20.8893,lon:-156.4729,
+    description:"Chef Sheldon Simeon's beloved local spot near the airport. Garlic noodles, mochiko chicken, poke bowls, and plate lunch in generous portions. An authentic taste of local Maui with no pretension.",
+    type:'Breakfast, Lunch',
+    notes:"Hours: Breakfast and lunch, counter service. Lines move fast.\nWalk-in only — no reservations.\nGood arrival day stop — in Kahului near the airport, no advance planning needed.",
+    phone:'(808) 868-0753',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://tinroofmaui.com',
+    mapsUrl:'https://maps.google.com/?q=Tin+Roof+Maui+Kahului'},
+  {id:'recpCTzn8miBZKq3E',name:"Mama's Fish House",distLabel:"Paia · 28 mi",lat:20.9321,lon:-156.3506,
+    description:"Arguably the most famous restaurant in Maui. Right on the beach in Paia, 1.5 miles past town on the road to Hana. Menu changes daily based on what the fishermen brought in that morning. A special occasion in itself.",
+    type:'Lunch, Dinner',
+    notes:"Hours: Lunch from 11 AM, Dinner from 4 PM.\nReservations highly recommended — book on OpenTable well in advance.\nWalk-in slots possible mid-afternoon.\nComplimentary valet parking only — follow signs to main entrance, not service entrance.\nAllow 1 hour from Ka'anapali due to traffic.",
+    phone:'(808) 579-8488',
+    philipNotes:null,
+    philipOnly:false,
+    restaurantUrl:'https://mamasfishhouse.com',
+    mapsUrl:'https://maps.google.com/?q=Mamas+Fish+House+Paia+Maui'},
+  // Philip Only — hidden from Daria
+  {id:'recmOXuBEGQGFiD79',name:"Merriman's Kapalua",distLabel:"Kapalua · 6.8 mi",lat:20.9994,lon:-156.6719,
+    description:"Farm-to-table fine dining perched above Kapalua with sweeping sunset views. One of Maui's premier dining destinations.",
+    type:'Dinner',
+    notes:"",
+    phone:'(808) 669-6400',
+    philipNotes:"ANNIVERSARY DINNER — Tuesday Oct 20. Sunset 5:56 PM.\nReservations open ~Aug 21 at midnight HST — book immediately, target 5:00 PM seating, note special occasion.",
+    philipOnly:true,
+    restaurantUrl:'https://merrimanshawaii.com/location/maui/',
+    mapsUrl:'https://maps.google.com/?q=Merrimans+Kapalua+Maui'},
+];
+
+// ── ACTIVITY data (hardcoded — table not yet built) ──
+const ACTIVITY=[
+  {key:'blackrock',name:'Black Rock Beach',dist:'0.4 mi',desc:"One of Maui's best snorkeling spots with a dramatic lava rock outcropping. Turtles and tropical fish are common. Torch lighting ceremony each evening at sunset.",meta:[{l:'Best for',v:'Snorkeling, swimming, sunset watching'},{l:'Difficulty',v:'Easy — calm conditions most days'},{l:'Gear',v:'Snorkel rental available at the beach'},{l:'Torch lighting',v:'Nightly at sunset — free to watch'}]},
+  {key:'honolua',name:'Honolua Bay',dist:'3.2 mi',desc:'One of the most spectacular snorkeling bays in all of Hawaii. A protected marine sanctuary with crystal-clear water, vibrant coral, sea turtles, and an extraordinary variety of tropical fish.',meta:[{l:'Best for',v:'Snorkeling, exploring, nature'},{l:'Difficulty',v:'Moderate — some current possible'},{l:'Access',v:'Short jungle trail to the beach'},{l:'Note',v:'No lifeguard · Check conditions before swimming'}]},
+  {key:'kapalua',name:'Kapalua Bay',dist:'7.4 mi',desc:'A calm, crescent-shaped bay with gentle waters ideal for snorkeling and swimming. Protected by rocky headlands with excellent visibility and frequent sea turtle sightings.',meta:[{l:'Best for',v:'Snorkeling, swimming, relaxing'},{l:'Difficulty',v:'Easy — very calm, protected waters'},{l:'Facilities',v:'Parking, restrooms, gear rental nearby'},{l:'Turtles',v:'Frequent sightings — give them 15 ft of space'}]},
+];
+
 // ── HUNT DATA ──
 const STOPS=[
   {id:'spa',label:'Your First Clue ✦',clue:'"Hands will hold what your shoulders have carried. In a place where the ancient practice of release meets the island\'s warmth, you will begin to let go. Find where tradition teaches us that sometimes the greatest gift is simply being held."',hints:['"Where ancient hands have soothed weary travelers for centuries — a tradition carried forward in the warmth of this island."','"Think of a place where the point is to feel nothing but the present moment. A massage. A release."','"Ho\'omana Spa, Makawao — couples Lomi Lomi massage."'],locName:"Ho'omana Spa",locDesc:'"A sanctuary of Lomi Lomi massage and Hawaiian healing traditions. Today begins with being held."',arrival:'"Twenty years of carrying each other. Today, we let someone else carry us for a moment. Let this be the beginning — a day where you are celebrated, pampered, and reminded that you deserve to be cherished. Enjoy every second."',hasNext:true},
   {id:'hookipa',label:'Your Second Clue ✦',clue:'"Stand where the land ends and the sky begins. Here the wind carries salt and the surfers below read the water like a language you have yet to learn. Climb to where perspective changes everything — find the place where you can see how far you have come."',hints:['"Somewhere above the shore, where the view stretches further than you expect and the horizon feels within reach."','"Famous for windsurfers visible from the road — a lookout on the north shore."','"Ho\'okipa Beach Lookout, on the way to Paia."'],locName:"Ho'okipa Lookout",locDesc:'"One of Maui\'s most dramatic vantage points — where the north shore stretches below and world-class surfers dance in the swells."',arrival:'"Twenty years of seeing the world through each other\'s eyes. Every new vantage point is better because you\'re standing in it together. Look out at all of that. Then look at each other."',hasNext:false},
 ];
 
-const DINING=[
-  {key:'mala',name:'Mala Ocean Tavern',dist:'Lahaina · 1.2 mi',desc:'A beloved oceanfront restaurant known for its farm-to-table philosophy and stunning sunset views. Fresh fish, local produce, warm atmosphere.',meta:[{l:'Type',v:'Dinner (also lunch)'},{l:'Vibe',v:'Romantic, relaxed, ocean view'},{l:'Alcohol',v:'Full bar — also great mocktails'},{l:'Notes',v:'Reservations recommended for dinner'}]},
-  {key:'gazebo',name:'The Gazebo',dist:'Napili · 2.8 mi',desc:'A legendary breakfast spot perched above Napili Bay with panoramic ocean views. Famous for macadamia nut pancakes and long lines — worth every minute.',meta:[{l:'Type',v:'Breakfast & lunch only'},{l:'Vibe',v:'Casual, iconic, scenic'},{l:'Alcohol',v:'Non-alcoholic options only'},{l:'Notes',v:'Walk-in only · Arrive early · Lines can be 45+ min'}]},
-  {key:'mamas',name:"Mama's Fish House",dist:'Paia · 4.1 mi',desc:"Arguably the most famous restaurant in Maui. Fresh-caught fish, right on the beach in Paia. The menu changes daily based on what was caught that morning.",meta:[{l:'Type',v:'Lunch & dinner'},{l:'Vibe',v:'Special occasion, iconic, beachside'},{l:'Alcohol',v:'Full bar'},{l:'Notes',v:'Walk-in slots available — arrive early'}]},
-  {key:'tinroof',name:'Tin Roof',dist:'Kahului · 5.6 mi',desc:"Chef Sheldon Simeon's beloved local spot. Garlic noodles, fried rice, and poke in generous portions. An authentic taste of local Maui.",meta:[{l:'Type',v:'Breakfast & lunch, counter service'},{l:'Vibe',v:'Local, casual, no fuss'},{l:'Alcohol',v:'Non-alcoholic'},{l:'Notes',v:'Lines move fast · Worth the detour'}]},
-];
-const ACTIVITY=[
-  {key:'blackrock',name:'Black Rock Beach',dist:'0.4 mi',desc:"One of Maui's best snorkeling spots with a dramatic lava rock outcropping. Turtles and tropical fish are common. Torch lighting ceremony each evening at sunset.",meta:[{l:'Best for',v:'Snorkeling, swimming, sunset watching'},{l:'Difficulty',v:'Easy — calm conditions most days'},{l:'Gear',v:'Snorkel rental available at the beach'},{l:'Torch lighting',v:'Nightly at sunset — free to watch'}]},
-  {key:'honolua',name:'Honolua Bay',dist:'3.2 mi',desc:'One of the most spectacular snorkeling bays in all of Hawaii. A protected marine sanctuary with crystal-clear water, vibrant coral, sea turtles, and an extraordinary variety of tropical fish.',meta:[{l:'Best for',v:'Snorkeling, exploring, nature'},{l:'Difficulty',v:'Moderate — some current possible'},{l:'Access',v:'Short jungle trail to the beach'},{l:'Note',v:'No lifeguard · Check conditions before swimming'}]},
-  {key:'kapalua',name:'Kapalua Bay',dist:'7.4 mi',desc:'A calm, crescent-shaped bay with gentle waters ideal for snorkeling and swimming. Protected by rocky headlands with excellent visibility and frequent sea turtle sightings.',meta:[{l:'Best for',v:'Snorkeling, swimming, relaxing'},{l:'Difficulty',v:'Easy — very calm, protected waters'},{l:'Facilities',v:'Parking, restrooms, gear rental nearby'},{l:'Turtles',v:'Frequent sightings — give them 15 ft of space'}]},
-];
+// ── PHONE FORMATTER ──
+function phoneToTel(phone){
+  if(!phone)return null;
+  const digits=phone.replace(/\D/g,'');
+  return digits.length===10?`+1${digits}`:`+${digits}`;
+}
 
 // ── ANTICIPATION ──
 const MSGS_GENERIC=['Something extraordinary is being planned. Just not yet.','The best things are worth waiting for. One more sleep.','Patience, love. Something beautiful is coming your way.','October 20 is almost here. Rest well until then.','Your adventure is written. The first page turns soon.','Not yet. But soon. Very soon.'];
@@ -636,12 +759,100 @@ function ItinDayView({dateKey,isPhilip,onBack}){
   );
 }
 
-function DetailView({detail,onBack}){
-  if(!detail)return null;const{type,data}=detail;
-  return(<div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}><div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div><div className="sb" style={{padding:'16px 16px 32px'}}><div className="detail-hero"><div className="dh-tag">{type==='dining'?'Dining Option':'Things To Explore'} ✦</div><div className="dh-name">{data.name}</div><div className="dh-sub">{data.dist}</div><div className="dh-rule"/><div className="dh-body">{data.desc}</div><div className="dh-meta">{data.meta.map((m,i)=><div key={i} className="dh-meta-item"><span>{m.l}</span>{m.v}</div>)}</div></div></div></div>);
+// ── DINING DETAIL VIEW — v11 ──
+function DiningDetailView({item,isPhilip,onBack}){
+  const telHref=item.phone?`tel:${phoneToTel(item.phone)}`:null;
+  return(
+    <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
+      <div className="dv-nav">
+        <button className="back-btn" onClick={onBack}>← Back</button>
+      </div>
+      <div className="sb">
+        <div className="dining-detail">
+          {/* Hero */}
+          <div className="dd-hero">
+            <div className="dd-tag">Dining Option ✦</div>
+            <div className="dd-name">{item.name}</div>
+            <div className="dd-dist">{item.distLabel}</div>
+            {item.type&&<div className="dd-type">{item.type}</div>}
+          </div>
+
+          {/* Body */}
+          <div className="dd-body">
+            <div className="dd-desc">{item.description}</div>
+            {item.notes&&item.notes.trim()&&(
+              <>
+                <div className="dd-rule"/>
+                <div className="dd-notes">{item.notes}</div>
+              </>
+            )}
+          </div>
+
+          {/* Action buttons — always visible */}
+          <div className="dd-actions">
+            {item.mapsUrl&&(
+              <a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="dd-btn primary">Maps ↗</a>
+            )}
+            {item.restaurantUrl&&(
+              <a href={item.restaurantUrl} target="_blank" rel="noopener noreferrer" className="dd-btn secondary">Website ↗</a>
+            )}
+          </div>
+
+          {/* Phone — always visible */}
+          {telHref&&(
+            <div className="dd-phone-row">
+              <a href={telHref} className="dd-phone-link">
+                <span style={{fontSize:16}}>📞</span>
+                <span>{item.phone}</span>
+              </a>
+            </div>
+          )}
+
+          {/* Philip Notes — Philip mode only */}
+          {isPhilip&&item.philipNotes&&item.philipNotes.trim()&&(
+            <div className="dd-philip-note">
+              <div className="dd-philip-label">Philip Mode ✦</div>
+              <div className="dd-philip-body">{renderMarkdown(item.philipNotes)}</div>
+            </div>
+          )}
+        </div>
+        <div style={{height:16}}/>
+      </div>
+    </div>
+  );
 }
 
-// ── GOOD TO KNOW CARD ──
+// ── ACTIVITY DETAIL VIEW ──
+function ActivityDetailView({item,onBack}){
+  return(
+    <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
+      <div className="dv-nav">
+        <button className="back-btn" onClick={onBack}>← Back</button>
+      </div>
+      <div className="sb">
+        <div className="activity-detail">
+          <div className="ad-hero">
+            <div className="ad-tag">Things To Explore ✦</div>
+            <div className="ad-name">{item.name}</div>
+            <div className="ad-dist">{item.dist}</div>
+          </div>
+          <div className="ad-body">
+            <div className="ad-desc">{item.desc}</div>
+            <div className="ad-rule"/>
+            <div className="ad-meta">
+              {item.meta.map((m,i)=>(
+                <div key={i} className="ad-meta-item"><span>{m.l}</span>{m.v}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div style={{height:16}}/>
+      </div>
+    </div>
+  );
+}
+
+// ── GOOD TO KNOW SECTION ──
 function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
   const eDate=effectiveDate(simDate);
   const visible=GOOD_TO_KNOW.filter(r=>{
@@ -654,9 +865,11 @@ function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
       {visible.map(r=>(
         <div key={r.id} className="kc">
           <div className="kh">{r.title}</div>
-          <div className="kb" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontStyle:'italic',lineHeight:1.75}}>{renderMarkdown(r.body)}</div>
+          {r.body&&r.body.trim()&&(
+            <div className="kb" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontStyle:'italic',lineHeight:1.75}}>{renderMarkdown(r.body)}</div>
+          )}
           {isPhilip&&r.philipNotes&&r.philipNotes.trim()&&(
-            <div style={{marginTop:10,paddingTop:10,borderTop:'1px solid var(--border)',fontSize:12,letterSpacing:'.1em',color:'var(--gold-light)'}}>{r.philipNotes}</div>
+            <div style={{marginTop:10,paddingTop:10,borderTop:'1px solid var(--border)',fontSize:13,lineHeight:1.8,color:'var(--text)'}}>{renderMarkdown(r.philipNotes)}</div>
           )}
         </div>
       ))}
@@ -673,7 +886,8 @@ function App(){
   const[showPin,setShowPin]=useState(false);
   const[pin,setPin]=useState('');
   const[pinErr,setPinErr]=useState('');
-  const[detail,setDetail]=useState(null);
+  const[diningDetail,setDiningDetail]=useState(null);
+  const[activityDetail,setActivityDetail]=useState(null);
   const[itinDateKey,setItinDateKey]=useState(null);
   const[simulatedDate,setSimulatedDate]=useState(null);
   const[huntState,setHuntState]=useState(()=>loadHuntState());
@@ -689,10 +903,7 @@ function App(){
   const logoTapCount=useRef(0);const logoTapTimer=useRef(null);
   const PIN='4242';
 
-  // v10: showingPhilip = Philip mode AND not in Preview Daria
   const showingPhilip=isPhilip&&!prevDaria;
-  // v10: effective date — used throughout for all date-aware features
-  // Preview Daria uses simulated date; true Philip uses simulated date; true Daria always real
   const simDate=isPhilip?simulatedDate:null;
   const isTuesdayMode=isTuesdayAnniversary(simDate);
   const isMondayEveMode=isMondayEve(simDate);
@@ -708,7 +919,6 @@ function App(){
   const openDay=(dateKey)=>{
     const day=ITINERARY[dateKey];if(!day)return;
     if(day.ann){
-      // v10: Philip mode always opens day view; Daria gets hunt/anticipation
       if(showingPhilipRef.current){setItinDateKey(dateKey);setView('itin-day');return;}
       if(prevDaria&&isTuesdayMode){setShowIntro(true);return;}
       if(!isPhilip&&isTuesdayMode){setShowIntro(true);return;}
@@ -725,9 +935,13 @@ function App(){
   const exitPhilip=()=>{setIsPhilip(false);setPrevDaria(false);setDariaPhone(false);setSimulatedDate(null);};
   const exitPreviewDaria=()=>{setPrevDaria(false);};
 
+  // Dining filtered by mode
+  const visibleDining=DINING.filter(d=>showingPhilip||!d.philipOnly);
+
   if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
-  if(view==='detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DetailView detail={detail} onBack={()=>setView('main')}/></div>);
+  if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
+  if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ActivityDetailView item={activityDetail} onBack={()=>setView('main')}/></div>);
 
   return(
     <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
@@ -753,10 +967,9 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v10':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v11':''}</div>
             </button>
             <div className="nav-right">
-              {/* v10: Preview Daria shows Exit Preview button */}
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
               {showingPhilip&&<button className="nav-btn" onClick={()=>setPrevDaria(true)}>Preview Daria</button>}
               {showingPhilip&&<button className="nav-exit" onClick={exitPhilip}>Exit Philip</button>}
@@ -773,15 +986,25 @@ function App(){
               })}
             </Section>
 
+            {/* v11: Dining from Airtable — Merriman's hidden from Daria */}
             <Section id="dining" title="Dining Options" sectionState={sectionState} setSectionState={setSectionState}>
-              {DINING.map(d=>(<div key={d.key} className="oc" onClick={()=>{setDetail({type:'dining',data:d});setView('detail');}}><div className="oci"><div className="ol"><div className="on_">{d.name}</div><div className="od">{d.dist}</div></div><div className="odist">›</div></div></div>))}
+              {visibleDining.map(d=>(
+                <div key={d.id} className="oc" onClick={()=>{setDiningDetail(d);setView('dining-detail');}}>
+                  <div className="oci">
+                    <div className="ol">
+                      <div className="on_">{d.name}</div>
+                      <div className="od">{d.distLabel}</div>
+                    </div>
+                    <div className="odist">›</div>
+                  </div>
+                </div>
+              ))}
             </Section>
 
             <Section id="explore" title="Things to Explore" sectionState={sectionState} setSectionState={setSectionState}>
-              {ACTIVITY.map(a=>(<div key={a.key} className="oc" onClick={()=>{setDetail({type:'activity',data:a});setView('detail');}}><div className="oci"><div className="ol"><div className="on_">{a.name}</div><div className="od">{a.dist}</div></div><div className="odist">›</div></div></div>))}
+              {ACTIVITY.map(a=>(<div key={a.key} className="oc" onClick={()=>{setActivityDetail(a);setView('activity-detail');}}><div className="oci"><div className="ol"><div className="on_">{a.name}</div><div className="od">{a.dist}</div></div><div className="odist">›</div></div></div>))}
             </Section>
 
-            {/* v10: Good to Know — date-aware from Airtable */}
             <GoodToKnowSection simDate={simDate} isPhilip={isPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
 
             {showingPhilip&&(
@@ -790,7 +1013,6 @@ function App(){
               </Section>
             )}
 
-            {/* v10: Universal date override */}
             {showingPhilip&&(
               <Section id="dateoverride" title="Test Date Override" sectionState={sectionState} setSectionState={setSectionState}>
                 <div className="date-override">
@@ -812,7 +1034,6 @@ function App(){
               </Section>
             )}
 
-            {/* v10: Weather — date-aware from Airtable Weather Locations */}
             <WeatherStrip simDate={simDate} isPhilip={isPhilip} refreshTick={weatherRefreshTick}/>
 
             <div style={{height:32}}/>
