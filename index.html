@@ -709,7 +709,7 @@ function WeatherStrip({simDate,isPhilip,refreshTick}){
   const[skip,setSkip]=useState(false);
   useEffect(()=>{if(refreshTick>0)setSkip(true);},[refreshTick]);
   const eDate=effectiveDate(simDate);
-  const visible=WX_LOCS.filter(l=>{if(l.philipOnly&&!showingPhilip)return false;return dateInRange(eDate,l.showFrom,l.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
+  const visible=WX_LOCS.filter(l=>{if(l.philipOnly&&!isPhilip)return false;return dateInRange(eDate,l.showFrom,l.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
   if(visible.length===0)return null;
   return(<div className="wx-strip"><div className="wx-strip-label">Weather · Tap for forecast</div><div className="wx-row">{visible.map(loc=><WxCard key={loc.id+skip+eDate} loc={loc} skipCache={skip}/>)}</div></div>);
 }
@@ -991,7 +991,7 @@ function ActivityDetailView({item,isPhilip,onBack,userPos}){
 
 function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
   const eDate=effectiveDate(simDate);
-  const visible=GOOD_TO_KNOW.filter(r=>{if(r.philipOnly&&!showingPhilip)return false;return dateInRange(eDate,r.showFrom,r.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
+  const visible=GOOD_TO_KNOW.filter(r=>{if(r.philipOnly&&!isPhilip)return false;return dateInRange(eDate,r.showFrom,r.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
   if(visible.length===0)return null;
   return(
     <Section id="goodtoknow" title="Good to Know" sectionState={sectionState} setSectionState={setSectionState}>
@@ -1110,7 +1110,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v14':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v14.2':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1142,7 +1142,7 @@ function App(){
                 </div>
               ))}
             </Section>
-            <GoodToKnowSection simDate={simDate} isPhilip={isPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
+            <GoodToKnowSection simDate={simDate} isPhilip={showingPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt Status" sectionState={sectionState} setSectionState={setSectionState}>
                 <div style={{padding:'8px 0'}}>
@@ -1167,7 +1167,7 @@ function App(){
                 </div>
               </Section>
             )}
-            <WeatherStrip simDate={simDate} isPhilip={isPhilip} refreshTick={weatherRefreshTick}/>
+            <WeatherStrip simDate={simDate} isPhilip={showingPhilip} refreshTick={weatherRefreshTick}/>
             <div style={{height:32}}/>
           </div>
         </div>
