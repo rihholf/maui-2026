@@ -248,7 +248,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .clue-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.4vw,28px);font-style:italic;color:var(--text);line-height:1.75;margin-bottom:28px}
 .clue-acts{display:flex;gap:12px}
 .cbtn{flex:1;font-size:12px;letter-spacing:.28em;text-transform:uppercase;padding:16px 10px;border:none;cursor:pointer;transition:background .22s;font-family:'Didact Gothic',sans-serif}
-.cbtn.reveal-btn{background:var(--gold);color:var(--white)}
+.cbtn.hint-btn,.cbtn.reveal-btn{background:var(--gold);color:var(--white)}
 .cbtn.reveal-btn:hover{background:var(--gold-dark)}
 .hbox{background:var(--sand);border-left:3px solid var(--gold);padding:16px 18px;margin-top:16px}
 .hbox p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);line-height:1.7}
@@ -715,7 +715,7 @@ function WeatherStrip({simDate,isPhilip,refreshTick}){
 }
 
 function HuntProgress({activeStops,currentStopId,completedIds}){
-  return(<div className="hunt-progress">{activeStops.map((s,i)=>{const done=completedIds.includes(s.id);const active=s.id===currentStopId&&!done;return(<div key={s.id} style={{display:'flex',alignItems:'center'}}><div style={{textAlign:'center'}}><div className={`hp-dot${done?' done':active?' active':''}`}/><div className={`hp-label${done?' done':active?' active':''}`}>{i+1}</div></div>{i<activeStops.length-1&&<div className={`hp-line${done?' done':''}`}/>}</div>);})}</div>);
+  return(<div className="hunt-progress">{activeStops.map((s,i)=>{const done=completedIds.includes(s.id);const active=s.id===currentStopId&&!done;return(<div key={s.id} style={{display:'flex',alignItems:'center',gap:0}}><div style={{width:14,height:14,borderRadius:'50%',background:done?'var(--gold)':'transparent',border:active?'2px solid var(--gold-dark)':done?'2px solid var(--gold)':'none',flexShrink:0}}/></div>);})}</div>);
 }
 
 function IntroSlides({onDone}){
@@ -746,6 +746,12 @@ function GodModeView({huntState,setHuntState,onClose}){
   }
 
   function toggleStop(stopId,enable){
+    if(enable){
+      const currentId=huntState.currentStopId||(activeStops[0]&&activeStops[0].id);
+      const activeStop=STOPS.find(s=>s.id===currentId);
+      const targetStop=STOPS.find(s=>s.id===stopId);
+      if(activeStop&&targetStop&&targetStop.stop<activeStop.stop)return;
+    }
     let enabledIds=[...(huntState.enabledIds||[])];
     let disabledIds=[...(huntState.disabledIds||[])];
     if(enable){enabledIds=[...enabledIds.filter(id=>id!==stopId),stopId];disabledIds=disabledIds.filter(id=>id!==stopId);}
@@ -759,18 +765,20 @@ function GodModeView({huntState,setHuntState,onClose}){
     const toReset=newActive.slice(stopIdx).map(s=>s.id);
     const newCompleted=huntState.completedIds.filter(id=>!toReset.includes(id));
     const ns={...huntState,currentStopId:stopId,completedIds:newCompleted};
-    setHuntState(ns);saveHuntState(ns);setResetTarget(null);onClose();
+    setHuntState(ns);saveHuntState(ns);setResetTarget(null);
   }
 
   const statusLabel={done:'✓ Done',active:'● Active',upcoming:'Upcoming',skipped:'○ Skipped'};
   return(
     <div className="gm-ov">
-      <div className="gm-banner">Philip mode — Hunt Control</div>
-      <div className="gm-header"><div className="gm-title">God Mode</div><button className="gm-close" onClick={onClose}>Close ✕</button></div>
+      <div className="gm-banner">Philip Mode — Hunt Control</div>
+      <div className="gm-header"><div className="gm-title">Philip Mode</div><button className="gm-close" onClick={onClose}>Close ✕</button></div>
       <div className="gm-scroll">
         {allStops.map(s=>{
           const status=getStatus(s);
-          const canToggle=status==='upcoming'||status==='skipped';
+          const activeId=huntState.currentStopId||(activeStops[0]&&activeStops[0].id);
+          const activeStopRef=STOPS.find(st=>st.id===activeId);
+          const canToggle=(status==='upcoming'||status==='skipped')&&(!activeStopRef||s.stop>=activeStopRef.stop);
           const canReset=status==='done'||status==='active';
           const isEnabled=activeStops.some(a=>a.id===s.id);
           return(
@@ -786,7 +794,7 @@ function GodModeView({huntState,setHuntState,onClose}){
             </div>
           );
         })}
-        <div style={{marginTop:8,fontSize:11,letterSpacing:'.14em',color:'var(--gold-light)',opacity:.7,lineHeight:1.7}}>Tap Done or Active stops to reset to that stop.<br/>Enable/Disable available for upcoming and skipped stops only.</div>
+        <div style={{marginTop:8,fontSize:11,letterSpacing:'.14em',color:'var(--gold-light)',opacity:.7,lineHeight:1.7}}>Tap Done or Active stops to reset to that stop.<br/>Enable/Disable available for stops at or after the current active stop.</div>
       </div>
       {resetTarget&&(
         <div className="gm-reset-ov" onClick={()=>setResetTarget(null)}>
@@ -804,7 +812,7 @@ function GodModeView({huntState,setHuntState,onClose}){
 
 const ORDINALS=['First','Second','Third','Fourth','Fifth','Sixth','Seventh'];
 
-function HuntView({isPhilip,onBack,huntState,setHuntState}){
+function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   const{completedIds}=huntState;
   const activeStops=getActiveStops(huntState);
   useEffect(()=>{
@@ -865,8 +873,10 @@ function HuntView({isPhilip,onBack,huntState,setHuntState}){
             <div className="clue-txt">{currentStop.clueText}</div>
             {hintIdx>=0&&(<div className="hbox">{hints.slice(0,hintIdx+1).map((h,i)=><p key={i}>{h}</p>)}</div>)}
             {hintIdx>=0&&hintIdx<hints.length-1&&(<div className="hint-subtle" onClick={()=>setHintIdx(i=>i+1)}>another hint?</div>)}
-            <div className="clue-acts" style={{marginTop:hintIdx>=0?16:0}}><button className="cbtn reveal-btn" onClick={()=>setConfirmReveal(true)}>Reveal</button></div>
-            {hintIdx<0&&<div className="hint-subtle" onClick={()=>setHintIdx(0)}>need a little help?</div>}
+            <div className="clue-acts" style={{marginTop:hintIdx>=0?16:0}}>
+              {hintIdx<0&&<button className="cbtn hint-btn" onClick={()=>setHintIdx(0)}>Hint ✦</button>}
+              <button className="cbtn reveal-btn" onClick={()=>setConfirmReveal(true)}>Reveal</button>
+            </div>
           </div>
         )}
         {phase==='reveal'&&(
@@ -885,6 +895,9 @@ function HuntView({isPhilip,onBack,huntState,setHuntState}){
             {hasNext&&<button className="next-btn" onClick={doNext}>On to the next clue →</button>}
           </div>
         )}
+        {!isPhilip&&onReplayIntro&&phase==='clue'&&huntState.introSeen&&(
+          <div className="hint-subtle" style={{marginTop:4,opacity:.4}} onClick={onReplayIntro}>replay intro ↺</div>
+        )}
         {confirmReveal&&(
           <div className="rc-ov"><div className="rc-box">
             <div className="rc-title">Reveal the destination?</div>
@@ -895,7 +908,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState}){
         )}
         {showGodPin&&(
           <div className="pin-ov"><div className="pin-box">
-            <div className="pin-t">God Mode</div><div className="pin-s">Enter PIN</div>
+            <div className="pin-t">Philip Mode</div><div className="pin-s">Enter PIN</div>
             <div className="pin-err">{godPinErr}</div>
             <div className="pin-dots">{[0,1,2,3].map(i=><div key={i} className={`pd${godPin.length>i?' on':''}`}/>)}</div>
             <div className="pin-pad">{[1,2,3,4,5,6,7,8,9,'','0','⌫'].map((k,i)=>(<button key={i} className={`pb${k===''?' empty':''}`} onClick={()=>{if(k==='⌫')handleGodPinKey('b');else if(k!=='')handleGodPinKey(String(k));}}>{k}</button>))}</div>
@@ -944,13 +957,13 @@ function ItinDayView({dateKey,isPhilip,onBack}){
   );
 }
 
-function DiningDetailView({item,isPhilip,onBack}){
+function DiningDetailView({item,isPhilip,onBack,userPos}){
   const telHref=item.phone?`tel:${phoneToTel(item.phone)}`:null;
   return(
     <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
       <div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div>
       <div className="sb"><div className="dining-detail">
-        <div className="dd-hero"><div className="dd-tag">Dining Option ✦</div><div className="dd-name">{item.name}</div><div className="dd-dist">{item.distLabel}</div>{item.type&&<div className="dd-type">{item.type}</div>}</div>
+        <div className="dd-hero"><div className="dd-tag">Dining Option ✦</div><div className="dd-name">{item.name}</div><div className="dd-dist">{getDistLabel(item,userPos)}</div>{item.type&&<div className="dd-type">{item.type}</div>}</div>
         <div className="dd-body"><div className="dd-desc">{renderMarkdown(item.description)}</div>{item.notes&&item.notes.trim()&&(<><div className="dd-rule"/><div className="dd-notes">{renderMarkdown(item.notes)}</div></>)}</div>
         <div className="dd-actions">{item.mapsUrl&&<a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="dd-btn primary">Maps ↗</a>}{item.restaurantUrl&&<a href={item.restaurantUrl} target="_blank" rel="noopener noreferrer" className="dd-btn secondary">Website ↗</a>}</div>
         {telHref&&(<div className="dd-phone-row"><a href={telHref} className="dd-phone-link"><span style={{fontSize:16}}>📞</span><span>{item.phone}</span></a></div>)}
@@ -960,13 +973,13 @@ function DiningDetailView({item,isPhilip,onBack}){
   );
 }
 
-function ActivityDetailView({item,isPhilip,onBack}){
+function ActivityDetailView({item,isPhilip,onBack,userPos}){
   const telHref=item.phone?`tel:${phoneToTel(item.phone)}`:null;
   return(
     <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
       <div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div>
       <div className="sb"><div className="activity-detail">
-        <div className="ad-hero"><div className="ad-tag">Things To Explore ✦</div><div className="ad-name">{item.name}</div><div className="ad-dist">{item.distLabel}</div></div>
+        <div className="ad-hero"><div className="ad-tag">Things To Explore ✦</div><div className="ad-name">{item.name}</div><div className="ad-dist">{getDistLabel(item,userPos)}</div></div>
         <div className="ad-body"><div className="ad-desc">{renderMarkdown(item.description)}</div>{item.details&&item.details.trim()&&(<><div className="ad-rule"/><div className="ad-details">{renderMarkdown(item.details)}</div></>)}</div>
         <div className="ad-actions">{item.mapsUrl&&<a href={item.mapsUrl} target="_blank" rel="noopener noreferrer" className="ad-btn primary">Maps ↗</a>}{item.websiteUrl&&<a href={item.websiteUrl} target="_blank" rel="noopener noreferrer" className="ad-btn secondary">Website ↗</a>}</div>
         {telHref&&(<div className="ad-phone-row"><a href={telHref} className="ad-phone-link"><span style={{fontSize:16}}>📞</span><span>{item.phone}</span></a></div>)}
@@ -1009,6 +1022,7 @@ function App(){
   const[huntState,setHuntState]=useState(()=>loadHuntState());
   const[sectionState,setSectionState]=useState(()=>loadSectionState());
   const[showIntro,setShowIntro]=useState(false);
+  const[philipModeOpen,setPhilipModeOpen]=useState(false);
   const[antMsg,setAntMsg]=useState('');
   const[showAnt,setShowAnt]=useState(false);
   const[weatherRefreshTick,setWeatherRefreshTick]=useState(0);
@@ -1044,7 +1058,7 @@ function App(){
     if(day.ann){
       if(showingPhilipRef.current){setItinDateKey(dateKey);setView('itin-day');return;}
       if(prevDaria&&isTuesdayMode){setShowIntro(true);return;}
-      if(!isPhilip&&isTuesdayMode){setShowIntro(true);return;}
+      if(!isPhilip&&isTuesdayMode){if(huntState.introSeen){setView('hunt');}else{setShowIntro(true);}return;}
       setAntMsg(getAntMessage(isMondayEveMode));setShowAnt(true);return;
     }
     setItinDateKey(dateKey);setView('itin-day');
@@ -1069,15 +1083,16 @@ function App(){
     .map(a=>({...a,_dist:userPos?haversine(userPos.lat,userPos.lon,a.lat,a.lon):null}))
     .sort((a,b)=>a._dist!==null&&b._dist!==null?a._dist-b._dist:a.name.localeCompare(b.name));
 
-  if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState}/></div>);
+  if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState} onReplayIntro={()=>{const ns={...huntState,introSeen:false};setHuntState(ns);saveHuntState(ns);setShowIntro(true);}}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
-  if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
-  if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ActivityDetailView item={activityDetail} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
+  if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
+  if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ActivityDetailView item={activityDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
 
   return(
     <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
       {showAnt&&<AntOverlay msg={antMsg} onClose={()=>setShowAnt(false)}/>}
-      {showIntro&&<IntroSlides onDone={()=>{setShowIntro(false);setView('hunt');}}/>}
+      {isPhilip&&philipModeOpen&&<GodModeView huntState={huntState} setHuntState={setHuntState} onClose={()=>setPhilipModeOpen(false)}/>}
+      {showIntro&&<IntroSlides onDone={()=>{const ns={...huntState,introSeen:true};setHuntState(ns);saveHuntState(ns);setShowIntro(false);setView('hunt');}}/>}}
       {view==='launch'&&(
         <div className="launch" onClick={()=>setView('main')}>
           <div className="l-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
@@ -1095,7 +1110,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' \xb7 v13.2':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' \xb7 v14':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1130,23 +1145,8 @@ function App(){
             <GoodToKnowSection simDate={simDate} isPhilip={isPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt Status" sectionState={sectionState} setSectionState={setSectionState}>
-                <div className="hcc">
-                  {[...STOPS].sort((a,b)=>a.stop-b.stop).map(s=>{
-                    const as_=getActiveStops(huntState);
-                    const inActive=as_.some(a=>a.id===s.id);
-                    const isDone=huntState.completedIds.includes(s.id);
-                    const currentId=huntState.currentStopId||(as_[0]&&as_[0].id);
-                    const isActive=inActive&&s.id===currentId&&!isDone;
-                    const isSkipped=!inActive;
-                    const statusText=isDone?'✓ Done':isActive?'● Active':isSkipped?'○ Skipped':'Upcoming';
-                    return(
-                      <div key={s.id} className="hstop">
-                        <div className={`hnum${isDone?' done':isActive?' act':''}`}>{s.stop}</div>
-                        <div><div className="hname">{s.locName}{s.skip&&isSkipped?<span style={{fontSize:10,marginLeft:6,color:'var(--gold-light)',opacity:.7}}>(default skip)</span>:null}</div><div className={`hstat${isDone?' done':''}`}>{statusText}</div></div>
-                      </div>
-                    );
-                  })}
-                  <div style={{marginTop:12,fontSize:11,letterSpacing:'.14em',color:'var(--gold-light)',opacity:.75}}>Full God Mode controls available in Hunt view — 5-tap header.</div>
+                <div style={{padding:'8px 0'}}>
+                  <button style={{width:'100%',fontFamily:"'Didact Gothic',sans-serif",fontSize:12,letterSpacing:'.32em',textTransform:'uppercase',background:'var(--gold)',color:'var(--white)',border:'none',padding:'16px',cursor:'pointer'}} onClick={()=>setPhilipModeOpen(true)}>Open Philip Mode ✦</button>
                 </div>
               </Section>
             )}
