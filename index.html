@@ -317,7 +317,7 @@ const HUNT_KEY='maui2026_hunt_v2';
 const SECTIONS_KEY='maui2026_sections_v1';
 function loadHuntState(){try{const r=localStorage.getItem(HUNT_KEY);if(r)return JSON.parse(r);}catch(e){}return{currentStopId:null,completedIds:[],enabledIds:[],disabledIds:[],introSeen:false};}
 function saveHuntState(s){try{localStorage.setItem(HUNT_KEY,JSON.stringify(s));}catch(e){}}
-const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:false,huntgod:false,dateoverride:false};
+const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:false,packing:false,huntgod:false,dateoverride:false};
 function loadSectionState(){try{const r=localStorage.getItem(SECTIONS_KEY);if(r)return{...DEFAULT_SECTIONS,...JSON.parse(r)};}catch(e){}return{...DEFAULT_SECTIONS};}
 function saveSectionState(s){try{localStorage.setItem(SECTIONS_KEY,JSON.stringify(s));}catch(e){}}
 
@@ -359,22 +359,26 @@ const SUN_MOON={
 
 const ITINERARY={
   '2026-10-18':{label:'Oct 18',name:'Sunday',tagline:'Arrival Day',ann:false,items:[
-    {id:'recJpXSL5xBDkxJMK',sortOrder:1,timeLabel:'10:00 AM',displayText:'Depart Seattle',tagline:'AS 929 · SEA → OGG · 6h 20min',
+    {id:'recjK9mrK94p8Q1Qg',sortOrder:5,timeLabel:'8:00 AM',displayText:'Parking at SEA Airport',
+      tagline:null,
+      displayNotes:'Confirmation #: SWRP765309',
+      philipNotes:null,philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac',refUrl:'https://reservesea.portseattle.org/book/SEA/QRBarcode?encryptedId=E5DB6C82547F67F575E4F070C3350889&width=240&height=240'},
+    {id:'recJpXSL5xBDkxJMK',sortOrder:10,timeLabel:'10:05 AM',displayText:'Depart Seattle',tagline:'AS 929 · SEA → OGG · 6h 20min',
       displayNotes:'Departs: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J',
-      philipNotes:null,philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6',refUrl:null},
-    {id:'recfFTeer69Xg9nIo',sortOrder:2,timeLabel:'1:20 PM',displayText:'Arrive Maui',
+      philipNotes:null,philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac',refUrl:null},
+    {id:'recfFTeer69Xg9nIo',sortOrder:20,timeLabel:'1:20 PM',displayText:'Arrive Maui',
       tagline:"Welcome to Maui! Our adventure starts the moment we land.",
       displayNotes:"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nTop down, warm air, open road.\nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.",
-      philipNotes:"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full)\n\nRENTAL NOTES:\n— Top and windows must ALWAYS be parked CLOSED\n— No smoking — up to $350 fine\n— Rinse car before return after beach days\n— Refuel before return\n— No cell phone use unless on mount",
+      philipNotes:"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES:\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it's the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice",
       philipOnly:false,mapsUrl:null,refUrl:'https://cruisin-maui-rent-a-car.us5.hqrentals.app/integrations/9/social/email/login?ssid=4vW58xrD6e8e'},
-    {id:'rec8gau0RPf2HPffw',sortOrder:3,timeLabel:'Afternoon',displayText:'Check In',
+    {id:'rec8gau0RPf2HPffw',sortOrder:30,timeLabel:'Afternoon',displayText:'Check In',
       tagline:"Westin Ka'anapali Ocean Resort Villas",
       displayNotes:'One Bedroom King Bed Villa, Ocean view, Balcony',
-      philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nFree cancellation until ~October 4, 2026.\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River. Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography. Reservations: 808-662-2525.",
+      philipNotes:"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nMarriott Bonvoy: Philip Borntrager | Gold Elite\n\nAMENITIES: Heated pool, whirlpool, Lazy River (Daria will love this). Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography — couples and family, sunrise/sunset, candid/portrait. Reservations required: 808-662-2525. Note: Most likely not using.",
       philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oVJA4vcNxxAomid37',refUrl:'https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/'},
-    {id:'recSi5xmVCY7oJqrX',sortOrder:4,timeLabel:'Evening',displayText:'Welcome to Our Villa',
+    {id:'recSi5xmVCY7oJqrX',sortOrder:40,timeLabel:'Evening',displayText:'Welcome to Our Villa',
       tagline:"Let's Settle In and Explore",
-      displayNotes:"Sunday evening is intentionally low-key. We've just landed, checked in, and the convertible is parked. Check out what's around us — there's plenty within easy walking distance.",
+      displayNotes:"Sunday evening is all about keeping it low-key. We've landed, checked in, and parked the convertible. Take a quick stroll around the area; there is plenty to explore within easy walking distance.",
       philipNotes:null,
       philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
@@ -386,14 +390,24 @@ const ITINERARY={
     {id:'recMe3ZAaVyHyKZ6z',sortOrder:2,timeLabel:'Afternoon – Evening',displayText:'Haleakālā Summit',
       tagline:'10,023 ft · Sunset above the clouds · Stargazing',
       displayNotes:"_Today we head above the clouds... _\nHaleakālā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n> **A quick note for packing.** Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",
-      philipNotes:"Leave hotel by: 2:45-3PM\nTarget arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
+      philipNotes:"Leave hotel by: 2:45-3PM\nTarget arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nSummit webcam: https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
       philipOnly:false,mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/hale/index.htm'},
   ]},
   '2026-10-20':{label:'Oct 20',name:'Tuesday',tagline:'Our Anniversary',ann:true,items:[
-    {id:'reczPGENzMgOha6RU',sortOrder:1,timeLabel:'All Day',displayText:'Anniversary Day',
+    {id:'reczPGENzMgOha6RU',sortOrder:5,timeLabel:'All Day',displayText:'Anniversary Day',
       tagline:'Twenty years in the making.',
       displayNotes:"Today is our day. A special day has been planned — comfortable clothing recommended, you'll be out and about. Dinner in the evening.",
       philipNotes:'Be Prepared!',philipOnly:false,mapsUrl:null,refUrl:null},
+    {id:'rec1E52gQSKJF7yqp',sortOrder:10,timeLabel:'10:00-12:00',displayText:"Ho'omana Spa",
+      tagline:null,
+      displayNotes:'**Couples Retreat**\n- Hawaiian Herbal Bath\n- Exfoliating Hawaiian Body Polish\n- Signature Lomi Lomi Massage',
+      philipNotes:null,
+      philipOnly:true,mapsUrl:'https://maps.app.goo.gl/gQQCbgyo53dSghNv5',refUrl:'https://hoomanaspamaui.com/our-services/'},
+    {id:'recgVYfVXZDxh3Yv8',sortOrder:42,timeLabel:'4:45 PM',displayText:"Merriman's Kapalua",
+      tagline:'Anniversary Dinner',
+      displayNotes:"Farm-to-table fine dining perched above Kapalua with sweeping sunset views. One of Maui's premier dining destinations.\nSunset 5:56 PM.",
+      philipNotes:'Reservations open ~Aug 21 at midnight HST — book immediately, target 5:00 PM seating, note special occasion.',
+      philipOnly:true,mapsUrl:'https://maps.google.com/?q=Merrimans+Kapalua+Maui',refUrl:'https://merrimanshawaii.com/location/maui/'},
   ]},
   '2026-10-21':{label:'Oct 21',name:'Wednesday',tagline:'No Plans Day',ann:false,items:[
     {id:'rec54iZejrhtCEpnb',sortOrder:1,timeLabel:'All Day',displayText:'No Plans Day',
@@ -419,18 +433,22 @@ const ITINERARY={
       philipOnly:false,mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',refUrl:null},
   ]},
   '2026-10-23':{label:'Oct 23',name:'Friday',tagline:'Departure',ann:false,items:[
-    {id:'recmMLe3FhCTiv2sM',sortOrder:1,timeLabel:'Morning',displayText:'Final Morning',
+    {id:'recmMLe3FhCTiv2sM',sortOrder:10,timeLabel:'Morning',displayText:'Final Morning',
       tagline:'Last morning in Maui. Take it slow.',
       displayNotes:"Checkout is by 11 AM — there's time for a short beach walk or a final breakfast before heading to the airport.",
       philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
-    {id:'recrifv9FtxOwR5CU',sortOrder:2,timeLabel:'Heading Back',displayText:"Time's Almost Up",
+    {id:'recrifv9FtxOwR5CU',sortOrder:20,timeLabel:'Heading Back',displayText:"Time's Almost Up",
       tagline:'Time to return the convertible and head to the airport',
       displayNotes:null,philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
-    {id:'recIOlmZSL59AInH0',sortOrder:3,timeLabel:'1:10 PM',displayText:'Depart Maui',
+    {id:'recIOlmZSL59AInH0',sortOrder:30,timeLabel:'1:10 PM',displayText:'Depart Maui',
       tagline:'Alaska Airlines AS 930 · OGG → SEA',
       displayNotes:"Five days well spent. Now time to head back home like we have for 20 years...Together",
-      philipNotes:"Flight: AS 930 OGG→SEA\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
+      philipNotes:"Flight: AS 930 OGG→SEA | Conf: CNJDSB\nDeparture: 1:10 PM HST | Arrives SEA 9:45 PM\nAllow 30–40 min drive + check-in buffer from Ka'anapali.",
       philipOnly:false,mapsUrl:'https://maps.app.goo.gl/vn36c43q6ei4XZcJ8',refUrl:null},
+    {id:'recdJaZDKZuQUaD7K',sortOrder:50,timeLabel:'10:00 PM',displayText:'Parking at SEA Airport',
+      tagline:null,
+      displayNotes:'Confirmation #: SWRP765309',
+      philipNotes:null,philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac',refUrl:'https://reservesea.portseattle.org/book/SEA/QRBarcode?encryptedId=E5DB6C82547F67F575E4F070C3350889&width=240&height=240'},
   ]},
 };
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
@@ -520,6 +538,10 @@ const DINING=[
     type:'Dinner',notes:"",phone:'(808) 669-6400',
     philipNotes:"ANNIVERSARY DINNER — Tuesday Oct 20. Sunset 5:56 PM.\nReservations open ~Aug 21 at midnight HST — book immediately, target 5:00 PM seating, note special occasion.",
     philipOnly:true,restaurantUrl:'https://merrimanshawaii.com/location/maui/',mapsUrl:'https://maps.google.com/?q=Merrimans+Kapalua+Maui'},
+  {id:'recfG4ZaTjcyFosc7',name:"The Restaurant at Hotel Wailea",distLabel:"Wailea",lat:20.6773072,lon:-156.4345313,
+    description:"",type:null,notes:"",phone:null,
+    philipNotes:"Reservation #698BWBPBYKBD\nTuesday, October 20, 2026\n5:00 PM",
+    philipOnly:true,restaurantUrl:'https://www.hotelwailea.com/dining/the-restaurant/',mapsUrl:'https://maps.app.goo.gl/bKqSZcozTVwsUnkZ9'},
 ];
 
 const ACTIVITIES=[
@@ -559,7 +581,7 @@ const ACTIVITIES=[
     description:"A secluded cove tucked behind Big Beach in Makena State Park, on Maui’s south shore. Clothing-optional by long-standing local custom — one of the few places in Hawaii where it’s practiced openly and largely unbothered. Golden sand, calm water on good days, and a raw, unhurried atmosphere unlike anything on the west side.",
     details:"**Best For** · A private, off-the-beaten-path afternoon\n**Access** · Park at Big Beach lot #1; short scramble over the rocky headland at the north end\n**Snorkeling** · Good on calm days around the headland between Little and Big Beach\n**Distance from Kaʻanapali** · 45–50 min south via Honoapiilani Hwy\n**Note** · Clothing-optional by longstanding custom; enforcement essentially nonexistent",
     phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Little+Beach+Makena+Maui+Hawaii',
-    philipNotes:"Philip Only — obvious reasons.\n\nWednesday No Plans Day is the natural fit if you want to head south and explore a different part of the island. Pair it with a lunch stop in Kihei or Wailea on the way down.\n\nThe 45–50 min drive from the Westin means it eats a real chunk of a day, so plan accordingly.",
+    philipNotes:"Philip Only — obvious reasons.\n\nWednesday No Plans Day is the natural fit if you want to head south and explore a different part of the island. Pair it with a lunch stop in Kihei or Wailea on the way down — Tin Roof is near the airport if you want to swing through Kahului en route.",
     philipOnly:true},
 ];
 
@@ -580,7 +602,7 @@ const STOPS=[
     hint2:"Did that one faint?",
     hint3:"🐐",
     arrivalMessage:"What did the goat say?"},
-  {id:'recC0GC1rNtHNOuzF',stop:20,skip:false,
+  {id:'recC0GC1rNtHNOuzF',stop:20,skip:true,
     locName:"Hoʻokipa Lookout",
     locDesc:"One of Maui’s most dramatic vantage points — where the north shore stretches below.",
     clueText:"Find the place where the island lifts you up — where the wind comes off the water and you can see how far you’ve traveled. Stand there together and look out.",
@@ -612,6 +634,27 @@ const STOPS=[
     hint2:"A restaurant. West side of the island. Known for local fish and a view that faces the sunset.",
     hint3:"Merriman’s Kapalua. Dinner is waiting.",
     arrivalMessage:"Twenty years ago today, you became my wife. I have loved every version of you since — the young ones, the tired ones, the laughing ones, the ones I didn’t deserve. Tonight I just want to sit across from you, at the edge of the ocean, and tell you that I would choose you again. Every single time."},
+];
+
+const PACKING=[
+  {id:'recqdEPPNCyQhKDoH',seq:10,heading:'Sunday — Travel + Arrival',tagLine:'Comfortable for the flight, ready for a low-key evening arrival.',
+    body:"Wear something comfortable for travel, and bring a real layer for the plane. It'll do double duty at the Haleakalā summit tomorrow, where temps can drop into the 40s and 50s at 10,000 feet. Slip-on shoes make security easier.\n\nFor the evening, keep it light and casual: shorts or chinos with a linen shirt for Philip, a sundress or casual dress for Daria. Sandals or comfortable walking shoes work fine, and bring a light layer for after the sun goes down on the beach.",
+    philipNotes:null,philipOnly:false},
+  {id:'recta5a3TD65M575y',seq:20,heading:'Monday — Daytime + Haleakalā',tagLine:'Swimwear by day, real layers by night. The summit is genuinely cold.',
+    body:"**Daytime**\nBring swimwear, board shorts or quick-dry shorts for Philip, and a lightweight shirt to throw on over it. Sandals or flip flops are fine. Don't forget sunscreen, a hat, and sunglasses.\n\n**Sunset at the Summit**\nThis is where the plane layers earn their keep. A wind layer or light jacket isn't optional up there, and shorts won't cut it, so bring long pants or convertible pants instead. Wear closed-toe shoes: the lava terrain is rough and sandals are a bad idea. Gloves are worth packing if you run cold at all, standing still at 10,000 feet gets old fast. A beanie's optional.",
+    philipNotes:null,philipOnly:false},
+  {id:'recKhqVZZO3rFZqFf',seq:30,heading:'Tuesday — Anniversary',tagLine:'Comfortable enough for a full day of stops, easy to elevate for dinner.',
+    body:"**Daytime**\nKeep it easy and comfortable, you'll be in and out of the car all day. A sundress works at every stop for Daria. Philip can stick with lightweight chinos or casual pants and a linen or breathable shirt. Comfortable walking shoes are worth it, and bring a light layer for the coastline.\n\n**Dinner**\nA resort-casual or dressier look works well tonight. Daria's sundress transforms easily with the right accessories, a wrap, or a shoe swap. Philip can go with a clean linen shirt, or change into something else entirely before dinner. Bring a light wrap for Daria, it cools down fast once the sun's down.",
+    philipNotes:"Something special under the daytime outfit is worth considering. Comfort still matters most, but it's worth a little extra effort today.",philipOnly:false},
+  {id:'recutxw4KNMDTp5Ch',seq:40,heading:'Wednesday — No Plan Day + Photo Session',tagLine:'No rules today, just coordinate ahead for the photo session.',
+    body:"There's no real requirement for today, wear whatever feels right. The one thing worth doing ahead of time is coordinating outfits with the photographer for the session. Once golden hour passes and the sun starts going down, you'll want a light wrap or layer on hand.",
+    philipNotes:null,philipOnly:false},
+  {id:'recI6rBFyyKC07d9S',seq:50,heading:'Thursday — Daytime + Luau',tagLine:'Same easy daytime as Monday, aloha casual for the luau at night.',
+    body:"**Daytime**\nSame as Monday: swimwear, board shorts or quick-dry shorts for Philip, a lightweight shirt over the swimwear, and sandals or flip flops. Sunscreen, a hat, and sunglasses round it out.\n\n**Luau — Old Lahaina (Aloha Casual)**\nPhilip's in an aloha shirt with casual linen pants or chinos. Daria can go with a sundress or a flowy dress. It's open air and oceanside, so bring a light wrap or shawl for Daria once the sun goes down.",
+    philipNotes:null,philipOnly:false},
+  {id:'reclP1IOhFaQmb6V2',seq:60,heading:'Friday — Departure',tagLine:'Maui warmth to a cold cabin to grey Seattle, layer accordingly.',
+    body:"You'll go from Maui warmth (around 80°F) to a cold plane cabin to Seattle in October, which tends to run around 55°F and grey. Keep an accessible layer, ideally in the carry-on rather than buried in checked luggage. Otherwise, stick with comfortable travel clothes and slip-on shoes for security.",
+    philipNotes:null,philipOnly:false},
 ];
 
 function getActiveStops(hs){
@@ -989,6 +1032,19 @@ function ActivityDetailView({item,isPhilip,onBack,userPos}){
   );
 }
 
+function PackingDetailView({item,isPhilip,onBack}){
+  return(
+    <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
+      <div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div>
+      <div className="sb"><div className="dining-detail">
+        <div className="dd-hero"><div className="dd-tag">Packing Suggestion ✦</div><div className="dd-name">{item.heading}</div>{item.tagLine&&<div className="dd-dist" style={{fontStyle:'italic'}}>{item.tagLine}</div>}</div>
+        <div className="dd-body"><div className="ad-details">{renderMarkdown(item.body)}</div></div>
+        {isPhilip&&item.philipNotes&&item.philipNotes.trim()&&(<div className="dd-philip-note"><div className="dd-philip-label">Philip Mode ✦</div><div className="dd-philip-body">{renderMarkdown(item.philipNotes)}</div></div>)}
+      </div><div style={{height:16}}/></div>
+    </div>
+  );
+}
+
 function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
   const eDate=effectiveDate(simDate);
   const visible=GOOD_TO_KNOW.filter(r=>{if(r.philipOnly&&!isPhilip)return false;return dateInRange(eDate,r.showFrom,r.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
@@ -1017,6 +1073,7 @@ function App(){
   const[pinErr,setPinErr]=useState('');
   const[diningDetail,setDiningDetail]=useState(null);
   const[activityDetail,setActivityDetail]=useState(null);
+  const[packingDetail,setPackingDetail]=useState(null);
   const[itinDateKey,setItinDateKey]=useState(null);
   const[simulatedDate,setSimulatedDate]=useState(null);
   const[huntState,setHuntState]=useState(()=>loadHuntState());
@@ -1040,7 +1097,7 @@ function App(){
   showingPhilipRef.current=showingPhilip;
 
   useEffect(()=>{
-    const handlePop=()=>{if(['itin-day','dining-detail','activity-detail'].includes(view)){setView('main');window.history.pushState(null,'',window.location.href);}};
+    const handlePop=()=>{if(['itin-day','dining-detail','activity-detail','packing-detail'].includes(view)){setView('main');window.history.pushState(null,'',window.location.href);}};
     window.history.pushState(null,'',window.location.href);
     window.addEventListener('popstate',handlePop);
     return()=>window.removeEventListener('popstate',handlePop);
@@ -1083,10 +1140,15 @@ function App(){
     .map(a=>({...a,_dist:userPos?haversine(userPos.lat,userPos.lon,a.lat,a.lon):null}))
     .sort((a,b)=>a._dist!==null&&b._dist!==null?a._dist-b._dist:a.name.localeCompare(b.name));
 
+  const visiblePacking=PACKING
+    .filter(p=>showingPhilip||!p.philipOnly)
+    .sort((a,b)=>a.seq-b.seq);
+
   if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState} onReplayIntro={()=>{const ns={...huntState,introSeen:false};setHuntState(ns);saveHuntState(ns);setShowIntro(true);}}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
   if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
   if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ActivityDetailView item={activityDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
+  if(view==='packing-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><PackingDetailView item={packingDetail} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
 
   return(
     <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
@@ -1110,7 +1172,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v14.2':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v15':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1143,6 +1205,14 @@ function App(){
               ))}
             </Section>
             <GoodToKnowSection simDate={simDate} isPhilip={showingPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
+            <Section id="packing" title="Packing Suggestions" sectionState={sectionState} setSectionState={setSectionState}>
+              {visiblePacking.map(p=>(
+                <div key={p.id} className="oc" onClick={()=>{setPackingDetail(p);setView('packing-detail');}}>
+                  {showingPhilip&&p.philipOnly&&<div className="po-badge">✦</div>}
+                  <div className="oci"><div className="ol"><div className="on_">{p.heading}</div>{p.tagLine&&<div className="od">{p.tagLine}</div>}</div><div className="odist">›</div></div>
+                </div>
+              ))}
+            </Section>
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt Status" sectionState={sectionState} setSectionState={setSectionState}>
                 <div style={{padding:'8px 0'}}>
