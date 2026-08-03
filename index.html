@@ -416,6 +416,11 @@ const ITINERARY={
       displayNotes:"Farm-to-table fine dining perched above Kapalua with sweeping sunset views. One of Maui's premier dining destinations.\nSunset 5:56 PM.",
       philipNotes:'Reservations open ~Aug 21 at midnight HST — book immediately, target 5:00 PM seating, note special occasion.',
       philipOnly:true,mapsUrl:'https://maps.google.com/?q=Merrimans+Kapalua+Maui',refUrl:'https://merrimanshawaii.com/location/maui/'},
+    {id:'rec3CgQzRJnbpfTGL',sortOrder:45,timeLabel:'5:00 PM',displayText:'The Restaurant at Hotel Wailea',
+      tagline:'Anniversary Dinner Backup',
+      displayNotes:"Reservation #698BWBPBYKBD\nTuesday, October 20, 2026\nSunset 5:56 PM.",
+      philipNotes:null,
+      philipOnly:true,mapsUrl:'https://maps.app.goo.gl/bKqSZcozTVwsUnkZ9',refUrl:'https://www.hotelwailea.com/dining/the-restaurant/'},
     {id:'reciAqKEfQyfIhHgy',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Comfortable enough for a full day of stops, easy to elevate for dinner.",
       tagline:null,
       displayNotes:"**Daytime**\nKeep it easy and comfortable, you'll be in and out of the car all day. A sundress works at every stop for Daria. Philip can stick with lightweight chinos or casual pants and a linen or breathable shirt. Comfortable walking shoes are worth it, and bring a light layer for the coastline.\n**Dinner**\nA resort-casual or dressier look works well tonight. Daria's sundress transforms easily with the right accessories, a wrap, or a shoe swap. Philip can go with a clean linen shirt, or change into something else entirely before dinner. Bring a light wrap for Daria, it cools down fast once the sun's down.",
@@ -480,6 +485,9 @@ const ITINERARY={
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
 
 const GOOD_TO_KNOW=[
+  {id:'recTphEgBCuJUKgbc',showFrom:'2026-08-02',showUntil:'2026-10-17',sortOrder:0,title:'Packing Recommendations',
+    body:"Prepare for warm days and cooler evenings by packing lightweight daytime clothing alongside a couple of versatile layers for night. Swimwear is a must-have with plenty of snorkeling, pool lounging, and waterfront relaxing on the agenda. It never hurts to tuck away a quiet surprise reserved purely for later, just in case the mood strikes. Round out your bag with comfortable walking shoes for sightseeing and sandals for beach outings or dinners.",
+    philipNotes:null,philipOnly:false},
   {id:'recdYEdqdUrm0Z11l',showFrom:'2026-05-20',showUntil:'2026-10-22',sortOrder:999,title:'Sun & Water',
     body:'Only reef-safe mineral sunscreens containing zinc oxide or titanium dioxide are allowed. Reapply often; the Hawaiian sun is stronger than it feels. \nStay hydrated because the humidity hits different after the Pacific Northwest.',
     philipNotes:'Nothing to Say',philipOnly:false},
@@ -620,6 +628,14 @@ const STOPS=[
     hint2:"It’s a place that works on you with intention. Hands. Oil. Quiet music. You leave lighter than you arrived.",
     hint3:"A spa. We begin the day at Hoʻomana Spa.",
     arrivalMessage:"Twenty years ago you said yes to a life with me. Today I wanted the first thing you felt to be nothing but care — for you, given freely, without agenda. This is just the beginning."},
+  {id:'recFDZv4Wf5O7k1Ng',stop:11,skip:true,
+    locName:"Spa Grande at The Grand Wailea",
+    locDesc:"Description needed.",
+    clueText:"Clue Text Needed",
+    hint1:"Hint 1",
+    hint2:"Hint 2",
+    hint3:"Hint 3",
+    arrivalMessage:"Arrival"},
   {id:'recht72SRsqfG9UBO',stop:15,skip:true,
     locName:"Surfing Goat Diary",
     locDesc:"A working goat dairy on the slopes of Haleakālā — unexpected and entirely worth it.",
@@ -628,7 +644,7 @@ const STOPS=[
     hint2:"Did that one faint?",
     hint3:"🐐",
     arrivalMessage:"What did the goat say?"},
-  {id:'recC0GC1rNtHNOuzF',stop:20,skip:true,
+  {id:'recC0GC1rNtHNOuzF',stop:20,skip:false,
     locName:"Hoʻokipa Lookout",
     locDesc:"One of Maui’s most dramatic vantage points — where the north shore stretches below.",
     clueText:"Find the place where the island lifts you up — where the wind comes off the water and you can see how far you’ve traveled. Stand there together and look out.",
@@ -636,6 +652,22 @@ const STOPS=[
     hint2:"It’s a lookout point on the north shore. Famous for wind and waves and the feeling of standing above it all.",
     hint3:"Hoʻokipa Lookout, on the road toward Paia. Pull over and look down at the waves.",
     arrivalMessage:"Twenty years is a long way to look back from. Standing here with you, I find I’m not looking back at all — only forward, only out at everything still ahead of us."},
+  {id:'recW2Gm3EmRrHQbT9',stop:21,skip:true,
+    locName:"Kamaole Beach Park III",
+    locDesc:"Description needed.",
+    clueText:"Clue Text Needed",
+    hint1:"Hint 1",
+    hint2:"Hint 2",
+    hint3:"Hint 3",
+    arrivalMessage:"Arrival"},
+  {id:'recZh3X53sylsVRja',stop:25,skip:true,
+    locName:"Kalama Park",
+    locDesc:"Description needed.",
+    clueText:"Clue Text Needed",
+    hint1:"Hint 1",
+    hint2:"Hint 2",
+    hint3:"Hint 3",
+    arrivalMessage:"Arrival"},
   {id:'rec2Km9fgZ4UDyUhG',stop:30,skip:false,
     locName:"Iao Valley",
     locDesc:"Ancient and green — a valley older than memory, carved slowly by patient water.",
@@ -644,7 +676,7 @@ const STOPS=[
     hint2:"It’s a state park, inland, surrounded by towering ridgelines. There’s a famous rock formation rising out of the valley.",
     hint3:"Iao Valley State Monument. The needle of rock reaching up through the mist.",
     arrivalMessage:"This valley has held its shape through every storm that ever came through. I think about that when I think about us — not fragile, not loud, just patient and deep and still here."},
-  {id:'recshE5FO7H7g6qKu',stop:40,skip:false,
+  {id:'recshE5FO7H7g6qKu',stop:40,skip:true,
     locName:"Nakalele Blowhole",
     locDesc:"Where the ocean erupts through lava — raw, elemental, extraordinary.",
     clueText:"At the edge of the island, the ocean doesn’t ask permission. It finds its way through stone and erupts — a breath held for a thousand years, released all at once. Go find it.",
@@ -660,6 +692,14 @@ const STOPS=[
     hint2:"A restaurant. West side of the island. Known for local fish and a view that faces the sunset.",
     hint3:"Merriman’s Kapalua. Dinner is waiting.",
     arrivalMessage:"Twenty years ago today, you became my wife. I have loved every version of you since — the young ones, the tired ones, the laughing ones, the ones I didn’t deserve. Tonight I just want to sit across from you, at the edge of the ocean, and tell you that I would choose you again. Every single time."},
+  {id:'reclTO5gMPlWUuJlI',stop:55,skip:true,
+    locName:"The Restaurant at Hotel Wailea",
+    locDesc:"Description needed.",
+    clueText:"Clue Text Needed",
+    hint1:"Hint 1",
+    hint2:"Hint 2",
+    hint3:"Hint 3",
+    arrivalMessage:"Arrival"},
 ];
 
 function getActiveStops(hs){
@@ -1182,7 +1222,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v16':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v16.1':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
