@@ -315,9 +315,9 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 const {useState,useEffect,useRef}=React;
 const HUNT_KEY='maui2026_hunt_v2';
 const SECTIONS_KEY='maui2026_sections_v1';
-function loadHuntState(){try{const r=localStorage.getItem(HUNT_KEY);if(r)return JSON.parse(r);}catch(e){}return{currentStopId:null,completedIds:[],enabledIds:[],disabledIds:[],introSeen:false};}
+function loadHuntState(){try{const r=localStorage.getItem(HUNT_KEY);if(r)return JSON.parse(r);}catch(e){}return{currentStopId:null,completedIds:[],enabledIds:[],disabledIds:[],introSeen:false,phase:'clue',hintIdx:-1};}
 function saveHuntState(s){try{localStorage.setItem(HUNT_KEY,JSON.stringify(s));}catch(e){}}
-const DEFAULT_SECTIONS={adventure:true,dining:false,explore:false,goodtoknow:false,packing:false,huntgod:false,dateoverride:false};
+const DEFAULT_SECTIONS={adventure:false,dining:false,explore:false,goodtoknow:false,huntgod:false,dateoverride:false};
 function loadSectionState(){try{const r=localStorage.getItem(SECTIONS_KEY);if(r)return{...DEFAULT_SECTIONS,...JSON.parse(r)};}catch(e){}return{...DEFAULT_SECTIONS};}
 function saveSectionState(s){try{localStorage.setItem(SECTIONS_KEY,JSON.stringify(s));}catch(e){}}
 
@@ -381,6 +381,10 @@ const ITINERARY={
       displayNotes:"Sunday evening is all about keeping it low-key. We've landed, checked in, and parked the convertible. Take a quick stroll around the area; there is plenty to explore within easy walking distance.",
       philipNotes:null,
       philipOnly:false,mapsUrl:null,refUrl:null},
+    {id:'recYS9D6MbkeSXl8G',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Comfortable for the flight, ready for a low-key evening arrival.",
+      tagline:null,
+      displayNotes:"Wear something comfortable for travel, and bring layers for the plane. It'll do double duty at the Haleakalā summit tomorrow, where temps can drop into the 40s and 50s at 10,000 feet. \nFor the evening, keep it light and casual: shorts or chinos with a linen shirt for Philip, a sundress or casual wear for Daria. Sandals or comfortable walking shoes work fine, and bring a light layer for after the sun goes down on the beach.",
+      philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
   '2026-10-19':{label:'Oct 19',name:'Monday',tagline:'Haleakālā',ann:false,items:[
     {id:'recgUKI7ojFYUywKg',sortOrder:1,timeLabel:'Morning',displayText:'Morning Open',
@@ -392,6 +396,10 @@ const ITINERARY={
       displayNotes:"_Today we head above the clouds... _\nHaleakālā rises over 10,000 feet above the sea, completely capturing the sky. Our plan is to arrive a little early for a quiet hike, then stay to watch the sunset over the crater. Afterward, we'll watch the sky come alive with stars in the silence.\n> **A quick note for packing.** Even in October, the summit routinely drops into the 30s and 40s after dark, often with high winds. You'll definitely want heavy layers, pants, closed-toe shoes, and a warm jacket so you can comfortably enjoy the view.",
       philipNotes:"Leave hotel by: 2:45-3PM\nTarget arrival: 4:30–5:00 PM at summit\nSunset: ~6:00 PM | Stargazing begins ~7:30 PM\nEntrance: America the Beautiful Pass\nAudio tour activation code: 49771864 (Action Tour Guide)\nSummit webcam: https://www.nps.gov/media/webcam/view.htm?id=56F5E0DC-9116-8502-7F673D0FF0B8378A\nViewing: Red Hill Summit (10,023 ft) most exposed; Visitor Center (9,740 ft) better wind shelter\nDescent: Engine braking only, watch for Nene/deer/cattle. Allow 1.5–2 hrs back to Ka'anapali.",
       philipOnly:false,mapsUrl:'https://maps.google.com/?q=Haleakala+Summit+Visitor+Center',refUrl:'https://www.nps.gov/hale/index.htm'},
+    {id:'recB1kfetV9Op7Lfo',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Swimwear by day, real layers by night. The summit is genuinely cold.",
+      tagline:null,
+      displayNotes:"**Daytime**\nSwimwear, board shorts or quick-dry shorts for Philip, and a lightweight shirt to throw on over it. Sandals or flip flops are fine. Don't forget sunscreen, a hat, and sunglasses.\n**Sunset at the Summit**\nA wind layer or light jacket isn't optional up there, and shorts won't cut it, so bring long pants or convertible pants instead. Wear closed-toe shoes: the lava terrain is rough and sandals are a bad idea. Gloves are worth packing for standing at 10,000 feet. A beanie's optional.",
+      philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
   '2026-10-20':{label:'Oct 20',name:'Tuesday',tagline:'Our Anniversary',ann:true,items:[
     {id:'reczPGENzMgOha6RU',sortOrder:5,timeLabel:'All Day',displayText:'Anniversary Day',
@@ -408,6 +416,11 @@ const ITINERARY={
       displayNotes:"Farm-to-table fine dining perched above Kapalua with sweeping sunset views. One of Maui's premier dining destinations.\nSunset 5:56 PM.",
       philipNotes:'Reservations open ~Aug 21 at midnight HST — book immediately, target 5:00 PM seating, note special occasion.',
       philipOnly:true,mapsUrl:'https://maps.google.com/?q=Merrimans+Kapalua+Maui',refUrl:'https://merrimanshawaii.com/location/maui/'},
+    {id:'reciAqKEfQyfIhHgy',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Comfortable enough for a full day of stops, easy to elevate for dinner.",
+      tagline:null,
+      displayNotes:"**Daytime**\nKeep it easy and comfortable, you'll be in and out of the car all day. A sundress works at every stop for Daria. Philip can stick with lightweight chinos or casual pants and a linen or breathable shirt. Comfortable walking shoes are worth it, and bring a light layer for the coastline.\n**Dinner**\nA resort-casual or dressier look works well tonight. Daria's sundress transforms easily with the right accessories, a wrap, or a shoe swap. Philip can go with a clean linen shirt, or change into something else entirely before dinner. Bring a light wrap for Daria, it cools down fast once the sun's down.",
+      philipNotes:"Something special under the daytime outfit is worth considering. Comfort still matters most, but it's worth a little extra effort today.",
+      philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
   '2026-10-21':{label:'Oct 21',name:'Wednesday',tagline:'No Plans Day',ann:false,items:[
     {id:'rec54iZejrhtCEpnb',sortOrder:1,timeLabel:'All Day',displayText:'No Plans Day',
@@ -418,6 +431,11 @@ const ITINERARY={
       tagline:'Couples beach session · Photographer TBD',
       displayNotes:"Around 5 PM, there's something special planned — a golden hour photo session on the beach. Just the two of us.",
       philipNotes:"Beach location and photographer TBD — research and book well in advance (books out months).\nAlso consider: complimentary Blinnk Photography session on-property at Westin (808-662-2525, reservations required).",
+      philipOnly:false,mapsUrl:null,refUrl:null},
+    {id:'recV8XCcOjT22J2Eh',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"No rules today",
+      tagline:null,
+      displayNotes:"There's no real requirement for today, wear whatever feels right. ",
+      philipNotes:"The one thing worth doing ahead of time is coordinating outfits with the photographer for the session. Once golden hour passes and the sun starts going down, you'll want a light wrap or layer on hand.",
       philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
   '2026-10-22':{label:'Oct 22',name:'Thursday',tagline:'Luau Night',ann:false,items:[
@@ -431,6 +449,10 @@ const ITINERARY={
       displayNotes:"Tonight is the Old Lāhainā Lūʿau — one of the most celebrated luaus in Hawaii, right on the ocean.\nThe evening includes traditional Hawaiian food, storytelling, and hulas the sun sets over the water. Plan for about three hours.\nDress comfortably, with some layers. It's an outdoor event on the beach.",
       philipNotes:"Check-in: 5:15 PM | Ends ~8:15 PM\nAddress: 1251 Front Street, Lahaina, HI 96761\nPhone: (808) 667-1998 | Email: info@oldlahainaluau.com\nFree parking on-site; overflow at Lahaina Cannery Mall across the street.\nCancellation: Must call (not email) at least 24 hours prior.",
       philipOnly:false,mapsUrl:'https://maps.google.com/?q=Old+Lahaina+Luau+Lahaina+HI',refUrl:null},
+    {id:'recT8a3Rt69ki2UiH',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Same easy daytime as Monday, aloha casual for the luau at night.",
+      tagline:null,
+      displayNotes:"**Daytime**\nSame as Monday: swimwear, board shorts or quick-dry shorts for Philip, a lightweight shirt over the swimwear, and sandals or flip flops. Sunscreen, a hat, and sunglasses round it out.\n**Luau: Old Lahaina (Aloha Casual)**\nPhilip's in an aloha shirt with casual linen pants or chinos. Daria can go with a sundress or a flowy dress. It's open air and oceanside, so bring a light wrap or shawl for Daria once the sun goes down.",
+      philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
   '2026-10-23':{label:'Oct 23',name:'Friday',tagline:'Departure',ann:false,items:[
     {id:'recmMLe3FhCTiv2sM',sortOrder:10,timeLabel:'Morning',displayText:'Final Morning',
@@ -449,6 +471,10 @@ const ITINERARY={
       tagline:null,
       displayNotes:'Confirmation #: SWRP765309',
       philipNotes:null,philipOnly:false,mapsUrl:'https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac',refUrl:'https://reservesea.portseattle.org/book/SEA/QRBarcode?encryptedId=E5DB6C82547F67F575E4F070C3350889&width=240&height=240'},
+    {id:'rec2Xe0hmJfd04160',sortOrder:1000,timeLabel:'Packing Suggestions',displayText:"Maui warmth to a cold cabin to grey Seattle, layer accordingly.",
+      tagline:null,
+      displayNotes:"You'll go from Maui warmth (around 80°F) to a cold plane cabin to Seattle in October, which tends to run around 55°F and grey. Keep an accessible layer, ideally in the carry-on rather than buried in checked luggage. Otherwise, stick with comfortable travel clothes and slip-on shoes for security.",
+      philipNotes:null,philipOnly:false,mapsUrl:null,refUrl:null},
   ]},
 };
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
@@ -636,27 +662,6 @@ const STOPS=[
     arrivalMessage:"Twenty years ago today, you became my wife. I have loved every version of you since — the young ones, the tired ones, the laughing ones, the ones I didn’t deserve. Tonight I just want to sit across from you, at the edge of the ocean, and tell you that I would choose you again. Every single time."},
 ];
 
-const PACKING=[
-  {id:'recqdEPPNCyQhKDoH',seq:10,heading:'Sunday — Travel + Arrival',tagLine:'Comfortable for the flight, ready for a low-key evening arrival.',
-    body:"Wear something comfortable for travel, and bring a real layer for the plane. It'll do double duty at the Haleakalā summit tomorrow, where temps can drop into the 40s and 50s at 10,000 feet. Slip-on shoes make security easier.\n\nFor the evening, keep it light and casual: shorts or chinos with a linen shirt for Philip, a sundress or casual dress for Daria. Sandals or comfortable walking shoes work fine, and bring a light layer for after the sun goes down on the beach.",
-    philipNotes:null,philipOnly:false},
-  {id:'recta5a3TD65M575y',seq:20,heading:'Monday — Daytime + Haleakalā',tagLine:'Swimwear by day, real layers by night. The summit is genuinely cold.',
-    body:"**Daytime**\nBring swimwear, board shorts or quick-dry shorts for Philip, and a lightweight shirt to throw on over it. Sandals or flip flops are fine. Don't forget sunscreen, a hat, and sunglasses.\n\n**Sunset at the Summit**\nThis is where the plane layers earn their keep. A wind layer or light jacket isn't optional up there, and shorts won't cut it, so bring long pants or convertible pants instead. Wear closed-toe shoes: the lava terrain is rough and sandals are a bad idea. Gloves are worth packing if you run cold at all, standing still at 10,000 feet gets old fast. A beanie's optional.",
-    philipNotes:null,philipOnly:false},
-  {id:'recKhqVZZO3rFZqFf',seq:30,heading:'Tuesday — Anniversary',tagLine:'Comfortable enough for a full day of stops, easy to elevate for dinner.',
-    body:"**Daytime**\nKeep it easy and comfortable, you'll be in and out of the car all day. A sundress works at every stop for Daria. Philip can stick with lightweight chinos or casual pants and a linen or breathable shirt. Comfortable walking shoes are worth it, and bring a light layer for the coastline.\n\n**Dinner**\nA resort-casual or dressier look works well tonight. Daria's sundress transforms easily with the right accessories, a wrap, or a shoe swap. Philip can go with a clean linen shirt, or change into something else entirely before dinner. Bring a light wrap for Daria, it cools down fast once the sun's down.",
-    philipNotes:"Something special under the daytime outfit is worth considering. Comfort still matters most, but it's worth a little extra effort today.",philipOnly:false},
-  {id:'recutxw4KNMDTp5Ch',seq:40,heading:'Wednesday — No Plan Day + Photo Session',tagLine:'No rules today, just coordinate ahead for the photo session.',
-    body:"There's no real requirement for today, wear whatever feels right. The one thing worth doing ahead of time is coordinating outfits with the photographer for the session. Once golden hour passes and the sun starts going down, you'll want a light wrap or layer on hand.",
-    philipNotes:null,philipOnly:false},
-  {id:'recI6rBFyyKC07d9S',seq:50,heading:'Thursday — Daytime + Luau',tagLine:'Same easy daytime as Monday, aloha casual for the luau at night.',
-    body:"**Daytime**\nSame as Monday: swimwear, board shorts or quick-dry shorts for Philip, a lightweight shirt over the swimwear, and sandals or flip flops. Sunscreen, a hat, and sunglasses round it out.\n\n**Luau — Old Lahaina (Aloha Casual)**\nPhilip's in an aloha shirt with casual linen pants or chinos. Daria can go with a sundress or a flowy dress. It's open air and oceanside, so bring a light wrap or shawl for Daria once the sun goes down.",
-    philipNotes:null,philipOnly:false},
-  {id:'reclP1IOhFaQmb6V2',seq:60,heading:'Friday — Departure',tagLine:'Maui warmth to a cold cabin to grey Seattle, layer accordingly.',
-    body:"You'll go from Maui warmth (around 80°F) to a cold plane cabin to Seattle in October, which tends to run around 55°F and grey. Keep an accessible layer, ideally in the carry-on rather than buried in checked luggage. Otherwise, stick with comfortable travel clothes and slip-on shoes for security.",
-    philipNotes:null,philipOnly:false},
-];
-
 function getActiveStops(hs){
   return STOPS
     .filter(s=>{
@@ -807,7 +812,7 @@ function GodModeView({huntState,setHuntState,onClose}){
     const stopIdx=newActive.findIndex(s=>s.id===stopId);
     const toReset=newActive.slice(stopIdx).map(s=>s.id);
     const newCompleted=huntState.completedIds.filter(id=>!toReset.includes(id));
-    const ns={...huntState,currentStopId:stopId,completedIds:newCompleted};
+    const ns={...huntState,currentStopId:stopId,completedIds:newCompleted,phase:'clue',hintIdx:-1};
     setHuntState(ns);saveHuntState(ns);setResetTarget(null);
   }
 
@@ -860,15 +865,17 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   const activeStops=getActiveStops(huntState);
   useEffect(()=>{
     if(!huntState.currentStopId&&activeStops.length>0){
-      const ns={...huntState,currentStopId:activeStops[0].id};setHuntState(ns);saveHuntState(ns);
+      const ns={...huntState,currentStopId:activeStops[0].id,phase:'clue',hintIdx:-1};setHuntState(ns);saveHuntState(ns);
     }
   },[]);
   const currentStopId=huntState.currentStopId||(activeStops[0]&&activeStops[0].id);
   const currentStop=STOPS.find(s=>s.id===currentStopId)||activeStops[0];
   const currentActiveIdx=activeStops.findIndex(s=>s.id===currentStopId);
   const hasNext=currentActiveIdx>=0&&currentActiveIdx<activeStops.length-1;
-  const[phase,setPhase]=useState('clue');
-  const[hintIdx,setHintIdx]=useState(-1);
+  const phase=huntState.phase||'clue';
+  const hintIdx=huntState.hintIdx!==undefined?huntState.hintIdx:-1;
+  const setPhase=(p)=>{const ns={...huntState,phase:p};setHuntState(ns);saveHuntState(ns);};
+  const setHintIdx=(updater)=>{const next=typeof updater==='function'?updater(hintIdx):updater;const ns={...huntState,hintIdx:next};setHuntState(ns);saveHuntState(ns);};
   const[confirmReveal,setConfirmReveal]=useState(false);
   const[showGodPin,setShowGodPin]=useState(false);
   const[godPin,setGodPin]=useState('');
@@ -876,7 +883,6 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   const[godModeOpen,setGodModeOpen]=useState(false);
   const godTapCount=useRef(0);const godTapTimer=useRef(null);
   const PIN='4242';
-  useEffect(()=>{setPhase('clue');setHintIdx(-1);},[currentStopId]);
   const handleGodTap=()=>{
     godTapCount.current+=1;clearTimeout(godTapTimer.current);
     godTapTimer.current=setTimeout(()=>{godTapCount.current=0;},2000);
@@ -891,10 +897,10 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   const doReveal=()=>{setConfirmReveal(false);setPhase('reveal');};
   const doArrived=()=>{
     const nc=completedIds.includes(currentStop.id)?completedIds:[...completedIds,currentStop.id];
-    const ns={...huntState,completedIds:nc};setHuntState(ns);saveHuntState(ns);setPhase('arrived');
+    const ns={...huntState,completedIds:nc,phase:'arrived'};setHuntState(ns);saveHuntState(ns);
   };
   const doNext=()=>{
-    if(hasNext){const nextStop=activeStops[currentActiveIdx+1];const ns={...huntState,currentStopId:nextStop.id};setHuntState(ns);saveHuntState(ns);}
+    if(hasNext){const nextStop=activeStops[currentActiveIdx+1];const ns={...huntState,currentStopId:nextStop.id,phase:'clue',hintIdx:-1};setHuntState(ns);saveHuntState(ns);}
   };
   if(!currentStop)return null;
   const hints=[currentStop.hint1,currentStop.hint2,currentStop.hint3].filter(Boolean);
@@ -992,8 +998,29 @@ function ItinDayView({dateKey,isPhilip,onBack}){
     <div className="itin-view">
       <div className="itin-nav"><button className="itin-back" onClick={onBack}>← Back</button><div><div className="itin-day-label">{day.label}</div><div className="itin-day-name">{day.name}</div></div></div>
       <div className="sb" style={{padding:'16px 16px 32px'}}>
-        {day.items.map(item=><ItinItem key={item.id} item={item} isPhilip={isPhilip}/>)}
+        {day.items.filter(item=>isPhilip||!item.philipOnly).map(item=><ItinItem key={item.id} item={item} isPhilip={isPhilip}/>)}
         {sm&&<div className="itin-footer">Sunrise {sm.sunrise} · Sunset {sm.sunset} · Moon {sm.moon}</div>}
+        <div style={{height:16}}/>
+      </div>
+    </div>
+  );
+}
+
+function TuesdayRecapView({huntState,onBack}){
+  const completed=STOPS.filter(s=>huntState.completedIds.includes(s.id)).sort((a,b)=>a.stop-b.stop);
+  return(
+    <div className="itin-view">
+      <div className="itin-nav"><button className="itin-back" onClick={onBack}>← Back</button><div><div className="itin-day-label">Oct 20</div><div className="itin-day-name">Tuesday, Revisited</div></div></div>
+      <div className="sb" style={{padding:'16px 16px 32px'}}>
+        {completed.length===0&&(<div className="ii"><div className="ii-body"><div className="ii-notes">No stops recorded from that day.</div></div></div>)}
+        {completed.map(s=>(
+          <div key={s.id} className="arr-card" style={{marginBottom:9}}>
+            <div className="ao">✦ &nbsp; ✦ &nbsp; ✦</div>
+            <div className="ln" style={{marginBottom:12}}>{s.locName}</div>
+            <div className="at2">{s.arrivalMessage}</div>
+            <div className="asig">— Philip</div>
+          </div>
+        ))}
         <div style={{height:16}}/>
       </div>
     </div>
@@ -1032,19 +1059,6 @@ function ActivityDetailView({item,isPhilip,onBack,userPos}){
   );
 }
 
-function PackingDetailView({item,isPhilip,onBack}){
-  return(
-    <div style={{position:'fixed',inset:0,display:'flex',flexDirection:'column',background:'var(--cream)'}}>
-      <div className="dv-nav"><button className="back-btn" onClick={onBack}>← Back</button></div>
-      <div className="sb"><div className="dining-detail">
-        <div className="dd-hero"><div className="dd-tag">Packing Suggestion ✦</div><div className="dd-name">{item.heading}</div>{item.tagLine&&<div className="dd-dist" style={{fontStyle:'italic'}}>{item.tagLine}</div>}</div>
-        <div className="dd-body"><div className="ad-details">{renderMarkdown(item.body)}</div></div>
-        {isPhilip&&item.philipNotes&&item.philipNotes.trim()&&(<div className="dd-philip-note"><div className="dd-philip-label">Philip Mode ✦</div><div className="dd-philip-body">{renderMarkdown(item.philipNotes)}</div></div>)}
-      </div><div style={{height:16}}/></div>
-    </div>
-  );
-}
-
 function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
   const eDate=effectiveDate(simDate);
   const visible=GOOD_TO_KNOW.filter(r=>{if(r.philipOnly&&!isPhilip)return false;return dateInRange(eDate,r.showFrom,r.showUntil);}).sort((a,b)=>a.sortOrder-b.sortOrder);
@@ -1073,7 +1087,6 @@ function App(){
   const[pinErr,setPinErr]=useState('');
   const[diningDetail,setDiningDetail]=useState(null);
   const[activityDetail,setActivityDetail]=useState(null);
-  const[packingDetail,setPackingDetail]=useState(null);
   const[itinDateKey,setItinDateKey]=useState(null);
   const[simulatedDate,setSimulatedDate]=useState(null);
   const[huntState,setHuntState]=useState(()=>loadHuntState());
@@ -1097,7 +1110,7 @@ function App(){
   showingPhilipRef.current=showingPhilip;
 
   useEffect(()=>{
-    const handlePop=()=>{if(['itin-day','dining-detail','activity-detail','packing-detail'].includes(view)){setView('main');window.history.pushState(null,'',window.location.href);}};
+    const handlePop=()=>{if(['itin-day','dining-detail','activity-detail','tuesday-recap'].includes(view)){setView('main');window.history.pushState(null,'',window.location.href);}};
     window.history.pushState(null,'',window.location.href);
     window.addEventListener('popstate',handlePop);
     return()=>window.removeEventListener('popstate',handlePop);
@@ -1116,7 +1129,8 @@ function App(){
       if(showingPhilipRef.current){setItinDateKey(dateKey);setView('itin-day');return;}
       if(prevDaria&&isTuesdayMode){if(huntState.introSeen){setView('hunt');}else{setShowIntro(true);}return;}
       if(!isPhilip&&isTuesdayMode){if(huntState.introSeen){setView('hunt');}else{setShowIntro(true);}return;}
-      setAntMsg(getAntMessage(isMondayEveMode));setShowAnt(true);return;
+      if(eDate>ANNIVERSARY_DATE){setView('tuesday-recap');return;}
+      setItinDateKey(dateKey);setView('itin-day');return;
     }
     setItinDateKey(dateKey);setView('itin-day');
   };
@@ -1140,15 +1154,11 @@ function App(){
     .map(a=>({...a,_dist:userPos?haversine(userPos.lat,userPos.lon,a.lat,a.lon):null}))
     .sort((a,b)=>a._dist!==null&&b._dist!==null?a._dist-b._dist:a.name.localeCompare(b.name));
 
-  const visiblePacking=PACKING
-    .filter(p=>showingPhilip||!p.philipOnly)
-    .sort((a,b)=>a.seq-b.seq);
-
   if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState} onReplayIntro={()=>{const ns={...huntState,introSeen:false};setHuntState(ns);saveHuntState(ns);setShowIntro(true);}}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
   if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
   if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><ActivityDetailView item={activityDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
-  if(view==='packing-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><PackingDetailView item={packingDetail} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
+  if(view==='tuesday-recap')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><TuesdayRecapView huntState={huntState} onBack={()=>setView('main')}/></div>);
 
   return(
     <div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}>
@@ -1172,7 +1182,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v15':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v16':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1205,14 +1215,6 @@ function App(){
               ))}
             </Section>
             <GoodToKnowSection simDate={simDate} isPhilip={showingPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
-            <Section id="packing" title="Packing Suggestions" sectionState={sectionState} setSectionState={setSectionState}>
-              {visiblePacking.map(p=>(
-                <div key={p.id} className="oc" onClick={()=>{setPackingDetail(p);setView('packing-detail');}}>
-                  {showingPhilip&&p.philipOnly&&<div className="po-badge">✦</div>}
-                  <div className="oci"><div className="ol"><div className="on_">{p.heading}</div>{p.tagLine&&<div className="od">{p.tagLine}</div>}</div><div className="odist">›</div></div>
-                </div>
-              ))}
-            </Section>
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt Status" sectionState={sectionState} setSectionState={setSectionState}>
                 <div style={{padding:'8px 0'}}>
