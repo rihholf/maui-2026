@@ -837,10 +837,16 @@ function reshapeStops(records){
   return records.map(mapStopRecord).sort((a,b)=>a.stop-b.stop);
 }
 
+// Beyond "did we get records back," check that the field the UI actually
+// displays isn't blank — catches field-mapping regressions (wrong field
+// ID/key, API shape change) that would otherwise sync garbage silently.
+const PRIMARY_FIELD_BY_KEY={goodToKnow:'title',wxLocs:'name',dining:'name',activities:'name',stops:'locName'};
 function sanityCheckTable(key,data){
   if(key==='itinerary')return DAY_ORDER.every(d=>data[d]&&data[d].items&&data[d].items.length>0);
-  if(Array.isArray(data))return data.length>0;
-  return false;
+  if(!Array.isArray(data)||data.length===0)return false;
+  const field=PRIMARY_FIELD_BY_KEY[key];
+  if(field)return data.every(rec=>typeof rec[field]==='string'&&rec[field].trim().length>0);
+  return true;
 }
 
 function loadStoredMauiData(){
@@ -889,7 +895,7 @@ async function refreshOneTable(key){
   let records=[];
   let offset=undefined;
   do{
-    const url=`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableId}${offset?`?offset=${offset}`:''}`;
+    const url=`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableId}?returnFieldsByFieldId=true${offset?`&offset=${offset}`:''}`;
     const res=await fetch(url,{headers:{Authorization:`Bearer ${AIRTABLE_PAT}`}});
     if(!res.ok)throw new Error(`Airtable ${res.status}`);
     const json=await res.json();
@@ -1475,7 +1481,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v17':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v17.1':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
