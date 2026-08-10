@@ -317,7 +317,7 @@ const HUNT_KEY='maui2026_hunt_v2';
 const SECTIONS_KEY='maui2026_sections_v1';
 function loadHuntState(){try{const r=localStorage.getItem(HUNT_KEY);if(r)return JSON.parse(r);}catch(e){}return{currentStopId:null,completedIds:[],enabledIds:[],disabledIds:[],introSeen:false,phase:'clue',hintIdx:-1};}
 function saveHuntState(s){try{localStorage.setItem(HUNT_KEY,JSON.stringify(s));}catch(e){}}
-const DEFAULT_SECTIONS={adventure:false,dining:false,explore:false,goodtoknow:false,huntgod:false,dateoverride:false};
+const DEFAULT_SECTIONS={adventure:false,dining:false,explore:false,goodtoknow:false,huntgod:false,dateoverride:false,datasync:false};
 function loadSectionState(){try{const r=localStorage.getItem(SECTIONS_KEY);if(r)return{...DEFAULT_SECTIONS,...JSON.parse(r)};}catch(e){}return{...DEFAULT_SECTIONS};}
 function saveSectionState(s){try{localStorage.setItem(SECTIONS_KEY,JSON.stringify(s));}catch(e){}}
 
@@ -357,7 +357,7 @@ const SUN_MOON={
   '2026-10-23':{sunrise:'6:03',sunset:'5:54',moon:'86%'},
 };
 
-const ITINERARY={
+const ITINERARY_SEED={
   '2026-10-18':{label:'Oct 18',name:'Sunday',tagline:'Arrival Day',ann:false,items:[
     {id:'recjK9mrK94p8Q1Qg',sortOrder:5,timeLabel:'8:00 AM',displayText:'Parking at SEA Airport',
       tagline:null,
@@ -484,11 +484,11 @@ const ITINERARY={
 };
 const DAY_ORDER=['2026-10-18','2026-10-19','2026-10-20','2026-10-21','2026-10-22','2026-10-23'];
 
-const GOOD_TO_KNOW=[
+const GOOD_TO_KNOW_SEED=[
   {id:'recTphEgBCuJUKgbc',showFrom:'2026-08-02',showUntil:'2026-10-17',sortOrder:0,title:'Packing Recommendations',
     body:"Prepare for warm days and cooler evenings by packing lightweight daytime clothing alongside a couple of versatile layers for night. Swimwear is a must-have with plenty of snorkeling, pool lounging, and waterfront relaxing on the agenda. It never hurts to tuck away a quiet surprise reserved purely for later, just in case the mood strikes. Round out your bag with comfortable walking shoes for sightseeing and sandals for beach outings or dinners.",
     philipNotes:null,philipOnly:false},
-  {id:'recdYEdqdUrm0Z11l',showFrom:'2026-05-20',showUntil:'2026-10-22',sortOrder:999,title:'Sun & Water',
+  {id:'recdYEdqdUrm0Z11l',showFrom:'2026-05-20',showUntil:'2026-10-19',sortOrder:999,title:'Sun & Water',
     body:'Only reef-safe mineral sunscreens containing zinc oxide or titanium dioxide are allowed. Reapply often; the Hawaiian sun is stronger than it feels. \nStay hydrated because the humidity hits different after the Pacific Northwest.',
     philipNotes:'Nothing to Say',philipOnly:false},
   {id:'recVwznGVLiKdWiBL',showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:1,title:'Signal & Offline Areas',
@@ -506,7 +506,7 @@ const GOOD_TO_KNOW=[
     philipOnly:true},
 ];
 
-const WX_LOCS=[
+const WX_LOCS_SEED=[
   {id:'rec9a2efFGtSCtwU3',name:"Ka'anapali",lat:20.9295,lon:-156.7046,showFrom:'2026-05-20',showUntil:'2026-12-31',sortOrder:1000,philipOnly:false},
   {id:'rec4rL8Bw5Vygfslu',name:'Haleakalā Summit',lat:20.7097,lon:-156.253,showFrom:'2026-10-18',showUntil:'2026-10-19',sortOrder:10,philipOnly:false},
   {id:'recqI09uSTx2mfdbe',name:"Ho'omana",lat:20.8286402,lon:-156.2892461,showFrom:'2026-10-19',showUntil:'2026-10-20',sortOrder:10,philipOnly:true},
@@ -516,7 +516,7 @@ const WX_LOCS=[
   {id:'recscl36SUhQw0Zy8',name:'Allyn',lat:47.3873,lon:-122.8271,showFrom:'2026-10-23',showUntil:'2026-10-23',sortOrder:50,philipOnly:false},
 ];
 
-const DINING=[
+const DINING_SEED=[
   {id:'recEKOBaXMFEvNWwq',name:"Castaway Cafe",distLabel:"Ka'anapali",lat:20.9246,lon:-156.6942,
     description:"**Beachfront cafe at Maui Ka'anapali Villas**, essentially walkable from the Westin. Casual open-air dining steps from the sand. One of the more affordable options in Ka'anapali.",
     type:'Breakfast, Lunch, Dinner',notes:"Hours: Daily 8 AM–8 PM. Breakfast 8–11:30 AM.\nWalk-in only — no reservations.\nStandout: Macadamia nut pancakes with coconut syrup.",
@@ -541,7 +541,7 @@ const DINING=[
     description:"100% Kona coffee chain with a few west Maui locations. Consistently well rated. Good morning option if heading north toward Kapalua.",
     type:'Coffee, Light Bites',notes:"Chain with multiple west Maui locations",
     phone:null,philipNotes:null,philipOnly:false,
-    restaurantUrl:'https://badasscoffee.com',mapsUrl:'https://maps.google.com/?q=Bad+Ass+Coffee+Maui'},
+    restaurantUrl:'https://badasscoffee.com',mapsUrl:null},
   {id:'recmEi3y5kzWgNROH',name:"The Gazebo",distLabel:"Napili",lat:20.9614,lon:-156.6738,
     description:"A legendary breakfast spot perched above Napili Bay with panoramic ocean views. Famous for macadamia nut pancakes and lines that start before they open. Tucked into Napili Shores Resort — easy to miss if you don't know where to look.",
     type:'Breakfast, Lunch',notes:"Hours: Daily 7:30 AM–2 PM. Same menu all day.\nWalk-in only — no reservations.\nLines start forming by 6:30 AM. Expect 30–60 min wait unless you arrive at opening.\nFree coffee served while you wait in line.",
@@ -578,7 +578,7 @@ const DINING=[
     philipOnly:true,restaurantUrl:'https://www.hotelwailea.com/dining/the-restaurant/',mapsUrl:'https://maps.app.goo.gl/bKqSZcozTVwsUnkZ9'},
 ];
 
-const ACTIVITIES=[
+const ACTIVITIES_SEED=[
   {id:'reccwt3oqNXEWprvJ',name:"Black Rock Beach",distLabel:"Ka'anapali",lat:20.9279,lon:-156.6957,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"One of Maui's best snorkeling spots, right next door. A dramatic lava rock outcropping rises from the beach at the north end of Ka'anapali. Sea turtles and tropical fish are common around the rock. Each evening at sunset a cliff diver lights the torches and leaps into the ocean — a Ka'anapali tradition.",
@@ -619,7 +619,7 @@ const ACTIVITIES=[
     philipOnly:true},
 ];
 
-const STOPS=[
+const STOPS_SEED=[
   {id:'recpSrKXVa1zyoEqo',stop:10,skip:false,
     locName:"Ho'omana Spa",
     locDesc:"A sanctuary of Lomi Lomi massage and Hawaiian healing traditions.",
@@ -644,7 +644,7 @@ const STOPS=[
     hint2:"Did that one faint?",
     hint3:"🐐",
     arrivalMessage:"What did the goat say?"},
-  {id:'recC0GC1rNtHNOuzF',stop:20,skip:false,
+  {id:'recC0GC1rNtHNOuzF',stop:20,skip:true,
     locName:"Ho'okipa Lookout",
     locDesc:"One of Maui's most dramatic vantage points — where the north shore stretches below.",
     clueText:"Find the place where the island lifts you up — where the wind comes off the water and you can see how far you've traveled. Stand there together and look out.",
@@ -701,6 +701,229 @@ const STOPS=[
     hint3:"Hint 3",
     arrivalMessage:"Arrival"},
 ];
+
+// ============ LIVE DATA LAYER ============
+// The six *_SEED consts above are the bundled fallback, baked in at build time.
+// At runtime the app uses the mutable bindings below, loaded from localStorage
+// if a sync has ever completed, else falling back to the seed. Tapping
+// "Refresh All" in Philip's area re-pulls Airtable directly from the browser
+// and overwrites these bindings (and localStorage) per table, independently.
+
+const AIRTABLE_BASE_ID='appjsBoOwya0nqJOJ';
+// Read-only Personal Access Token, scoped to this base only. Fill in before
+// the Refresh/Reset block will work — see build notes.
+const AIRTABLE_PAT='patT8o9Xf8x2nPL1K.e41484efbc3b38a430a5f7a37e40bbd6f505fee931918cbbf7c189039c0956ff';
+
+const AIRTABLE_TABLES={
+  itinerary:{tableId:'tbl3rVXL4oohjRJtF'},
+  goodToKnow:{tableId:'tbl5KPVIA9DmS9cs2'},
+  wxLocs:{tableId:'tblTBo16IXXqN03h1'},
+  dining:{tableId:'tblOq7ECcM7n9kLjm'},
+  activities:{tableId:'tblEI6c7NQMCpcr52'},
+  stops:{tableId:'tblpvgpGetp4lhMzC'},
+};
+
+const MAUI_DATA_KEY='mauiData';
+
+function mapItineraryRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    date:f['fldYt9Iwbvq0IRpa5']??null,
+    sortOrder:f['fldn6C942dO2DkTVD']??1000,
+    timeLabel:f['fldk3OA67pJmyowfA']??'',
+    displayText:f['fldT5QwOHE4nAZPlP']??'',
+    tagline:f['flde3LAsZjWulDLnx']??null,
+    displayNotes:f['fldThQfCDSoQ0HqBM']??null,
+    philipNotes:f['fldZyKi5emmBLCmkh']??null,
+    mapsUrl:f['flde7Lu6cOItZt7ZZ']??null,
+    refUrl:f['fldT15MRtDngL0OnY']??null,
+    philipOnly:!!f['fldq65vg68PAKccXM'],
+  };
+}
+function mapGoodToKnowRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    showFrom:f['fld0M3GtHgF5h9S9s']??null,
+    showUntil:f['fldMyQibYBhHfFUQ4']??null,
+    sortOrder:f['fldppw71yY37cCmU0']??1000,
+    title:f['fldVoKuLdpjs9hikc']??'',
+    body:f['fldVAKdz9DDVzZTA9']??null,
+    philipNotes:f['fld1REg2K7BGkUPjE']??null,
+    philipOnly:!!f['fldspZtdCT4FjuFW9'],
+  };
+}
+function mapWxLocRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    name:f['fldJfjA9ldDw4899b']??'',
+    lat:f['fldydcmA8x8lQGtvK']??null,
+    lon:f['fldvn0LDU9m1859rD']??null,
+    showFrom:f['fldODCMRP4Z9c0JYr']??null,
+    showUntil:f['fldAppoz6pBLawLF3']??null,
+    sortOrder:f['flddg5dpGMnb7tdJZ']??1000,
+    philipOnly:false,
+  };
+}
+function mapDiningRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    name:f['fld7Orv0p61fd9oeE']??'',
+    distLabel:f['fldtmB4FkUmSjpGx5']??null,
+    lat:f['fldhcCpMMuO3JhrOO']??null,
+    lon:f['fldaB5JcUHuPK8pMO']??null,
+    description:f['fldLPcx03XoZDxfbz']??null,
+    type:f['flde3mDTyRaNPbl2H']??null,
+    notes:f['fldIPnqw03CpTrZDT']??null,
+    phone:f['fldSfcR0FR2EZuzr1']??null,
+    philipNotes:f['fldxgHWJOVvZoIgcl']??null,
+    philipOnly:!!f['fld8bo0D4SZLHo274'],
+    restaurantUrl:f['fldExTgqlZcGZ851W']??null,
+    mapsUrl:f['fldKS7cKFKF3PykZt']??null,
+  };
+}
+function mapActivityRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    name:f['fldL3M1AdfFJctbgp']??'',
+    distLabel:f['fldF9OKSS9X3fzwD7']??null,
+    lat:f['fldZpXfk2lQhsWxza']??null,
+    lon:f['fldx2wquaV7TbHkIP']??null,
+    description:f['fldWIfhL6S2RgehkP']??null,
+    details:f['fldVAQg96s7Qam2Dg']??null,
+    showFrom:f['fldU3Ywd7kMqfo3WM']??null,
+    showUntil:f['fldDYWqRVMSDzPl2T']??null,
+    phone:f['fldv640z5DbXTM5iw']??null,
+    websiteUrl:f['fld3RFb20zxKzsVV5']??null,
+    mapsUrl:f['fldXMmilC8Kj5Jjlc']??null,
+    philipNotes:f['fldL1sCajrDNwoLNY']??null,
+    philipOnly:!!f['fldMyfyA7edMvufxi'],
+  };
+}
+function mapStopRecord(rec){
+  const f=rec.fields;
+  return{
+    id:rec.id,
+    stop:f['fldeDzlq1V0A2kFWp']??1000,
+    locName:f['fldBzyskkvKKHbwC7']??'',
+    clueText:f['fldpEClz4eSECpoMS']??null,
+    hint1:f['fldlNs77tej2VclUQ']??null,
+    hint2:f['fldUvMuAo9BFWf1tc']??null,
+    hint3:f['fldthzGiCkEX6LS57']??null,
+    arrivalMessage:f['fld8l16ksVNbsIXuf']??null,
+    skip:!!f['fldoyF7BZFWCR43fI'],
+  };
+}
+
+// Rebuild the day-grouped ITINERARY shape from flat Airtable records. Day-level
+// metadata (label/name/tagline/ann) isn't tracked in Airtable at all, so it
+// always comes from the seed shell — only each day's `items` array is replaced.
+function reshapeItinerary(records){
+  const mapped=records.map(mapItineraryRecord);
+  const out={};
+  for(const dateKey of DAY_ORDER){
+    const shell=ITINERARY_SEED[dateKey];
+    const items=mapped.filter(it=>it.date===dateKey).sort((a,b)=>a.sortOrder-b.sortOrder)
+      .map(({date,...rest})=>rest);
+    out[dateKey]={label:shell.label,name:shell.name,tagline:shell.tagline,ann:shell.ann,items};
+  }
+  return out;
+}
+function reshapeStops(records){
+  return records.map(mapStopRecord).sort((a,b)=>a.stop-b.stop);
+}
+
+function sanityCheckTable(key,data){
+  if(key==='itinerary')return DAY_ORDER.every(d=>data[d]&&data[d].items&&data[d].items.length>0);
+  if(Array.isArray(data))return data.length>0;
+  return false;
+}
+
+function loadStoredMauiData(){
+  try{
+    const raw=localStorage.getItem(MAUI_DATA_KEY);
+    if(!raw)return null;
+    return JSON.parse(raw);
+  }catch(e){return null;}
+}
+function saveStoredMauiData(store){
+  try{localStorage.setItem(MAUI_DATA_KEY,JSON.stringify(store));}catch(e){}
+}
+
+const SEED_BY_KEY={
+  itinerary:()=>ITINERARY_SEED,
+  goodToKnow:()=>GOOD_TO_KNOW_SEED,
+  wxLocs:()=>WX_LOCS_SEED,
+  dining:()=>DINING_SEED,
+  activities:()=>ACTIVITIES_SEED,
+  stops:()=>STOPS_SEED,
+};
+
+let mauiStore=loadStoredMauiData()||{};
+
+let ITINERARY=(mauiStore.itinerary&&mauiStore.itinerary.data)||ITINERARY_SEED;
+let GOOD_TO_KNOW=(mauiStore.goodToKnow&&mauiStore.goodToKnow.data)||GOOD_TO_KNOW_SEED;
+let WX_LOCS=(mauiStore.wxLocs&&mauiStore.wxLocs.data)||WX_LOCS_SEED;
+let DINING=(mauiStore.dining&&mauiStore.dining.data)||DINING_SEED;
+let ACTIVITIES=(mauiStore.activities&&mauiStore.activities.data)||ACTIVITIES_SEED;
+let STOPS=(mauiStore.stops&&mauiStore.stops.data)||STOPS_SEED;
+
+function applyLoadedData(key,data){
+  if(key==='itinerary')ITINERARY=data;
+  else if(key==='goodToKnow')GOOD_TO_KNOW=data;
+  else if(key==='wxLocs')WX_LOCS=data;
+  else if(key==='dining')DINING=data;
+  else if(key==='activities')ACTIVITIES=data;
+  else if(key==='stops')STOPS=data;
+}
+
+// Fetches one Airtable table's records (paginating if needed), maps + reshapes
+// them, validates the result, and — only if valid — commits it to the mutable
+// binding and localStorage. Returns {ok, syncedAt, error}.
+async function refreshOneTable(key){
+  const {tableId}=AIRTABLE_TABLES[key];
+  let records=[];
+  let offset=undefined;
+  do{
+    const url=`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableId}${offset?`?offset=${offset}`:''}`;
+    const res=await fetch(url,{headers:{Authorization:`Bearer ${AIRTABLE_PAT}`}});
+    if(!res.ok)throw new Error(`Airtable ${res.status}`);
+    const json=await res.json();
+    records=records.concat(json.records);
+    offset=json.offset;
+  }while(offset);
+
+  let data;
+  if(key==='itinerary')data=reshapeItinerary(records);
+  else if(key==='stops')data=reshapeStops(records);
+  else if(key==='goodToKnow')data=records.map(mapGoodToKnowRecord).sort((a,b)=>a.sortOrder-b.sortOrder);
+  else if(key==='wxLocs')data=records.map(mapWxLocRecord).sort((a,b)=>a.sortOrder-b.sortOrder);
+  else if(key==='dining')data=records.map(mapDiningRecord);
+  else if(key==='activities')data=records.map(mapActivityRecord);
+
+  if(!sanityCheckTable(key,data)){
+    return{ok:false,error:'Empty or malformed response'};
+  }
+  const syncedAt=new Date().toISOString();
+  applyLoadedData(key,data);
+  mauiStore={...mauiStore,[key]:{data,syncedAt}};
+  saveStoredMauiData(mauiStore);
+  return{ok:true,syncedAt};
+}
+
+function resetTableToBundled(key){
+  const seedFn=SEED_BY_KEY[key];
+  applyLoadedData(key,seedFn());
+  const next={...mauiStore};
+  delete next[key];
+  mauiStore=next;
+  saveStoredMauiData(mauiStore);
+}
+// ============ END LIVE DATA LAYER ============
 
 function getActiveStops(hs){
   return STOPS
@@ -1136,6 +1359,36 @@ function App(){
   const[antMsg,setAntMsg]=useState('');
   const[showAnt,setShowAnt]=useState(false);
   const[weatherRefreshTick,setWeatherRefreshTick]=useState(0);
+  const[dataVersion,setDataVersion]=useState(0);
+  const[syncStatus,setSyncStatus]=useState(()=>{
+    const stored=mauiStore||{};
+    const out={};
+    for(const key of Object.keys(AIRTABLE_TABLES)){
+      out[key]={syncedAt:stored[key]?stored[key].syncedAt:null,syncing:false,error:null};
+    }
+    return out;
+  });
+  const refreshAllTables=async()=>{
+    for(const key of Object.keys(AIRTABLE_TABLES)){
+      setSyncStatus(prev=>({...prev,[key]:{...prev[key],syncing:true,error:null}}));
+      try{
+        const result=await refreshOneTable(key);
+        setSyncStatus(prev=>({...prev,[key]:{syncedAt:result.ok?result.syncedAt:prev[key].syncedAt,syncing:false,error:result.ok?null:result.error}}));
+        if(result.ok)setDataVersion(v=>v+1);
+      }catch(e){
+        setSyncStatus(prev=>({...prev,[key]:{...prev[key],syncing:false,error:e.message||'Couldn\'t reach Airtable'}}));
+      }
+    }
+  };
+  const resetAllToBundled=()=>{
+    for(const key of Object.keys(AIRTABLE_TABLES))resetTableToBundled(key);
+    setSyncStatus(()=>{
+      const out={};
+      for(const key of Object.keys(AIRTABLE_TABLES))out[key]={syncedAt:null,syncing:false,error:null};
+      return out;
+    });
+    setDataVersion(v=>v+1);
+  };
   const[ptrVisible,setPtrVisible]=useState(false);
   const ptrStartY=useRef(0);const ptrActive=useRef(false);const ptrTriggered=useRef(false);
   const showingPhilipRef=useRef(false);
@@ -1222,7 +1475,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v16.2':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v17':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1276,6 +1529,28 @@ function App(){
                     <button className={`do-btn${simulatedDate==='2026-10-23'?' active':''}`} onClick={()=>setSimulatedDate('2026-10-23')}>Fri Oct 23</button>
                   </div>
                   <div style={{marginTop:10,fontSize:11,color:'var(--gold-light)',letterSpacing:'.1em'}}>Active: {simulatedDate?simulatedDate:'real date · '+todayYMD()}{isTuesdayMode?' · ✦ Tuesday mode ON':''}</div>
+                </div>
+              </Section>
+            )}
+            {showingPhilip&&(
+              <Section id="datasync" title="Data Sync" sectionState={sectionState} setSectionState={setSectionState}>
+                <div className="date-override">
+                  <div className="do-label">Pull fresh content from Airtable — works online only, app stays fully offline otherwise</div>
+                  {Object.entries({itinerary:'Itinerary',goodToKnow:'Good to Know',wxLocs:'Weather Locations',dining:'Dining',activities:'Activities',stops:'Hunt Stops'}).map(([key,label])=>{
+                    const st=syncStatus[key]||{};
+                    return(
+                      <div key={key} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'6px 0',borderBottom:'1px solid var(--border)',fontSize:12}}>
+                        <div style={{color:'var(--warm-brown)'}}>{label}</div>
+                        <div style={{color:st.error?'#b3441e':'var(--gold-light)',textAlign:'right',letterSpacing:'.02em'}}>
+                          {st.syncing?'Syncing…':st.error?`Couldn't reach Airtable — using data from ${st.syncedAt?new Date(st.syncedAt).toLocaleString():'bundled seed'}`:st.syncedAt?`Synced ${new Date(st.syncedAt).toLocaleString()}`:'Never synced (bundled)'}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div style={{display:'flex',gap:10,marginTop:14}}>
+                    <button style={{flex:1,fontFamily:"'Didact Gothic',sans-serif",fontSize:11,letterSpacing:'.24em',textTransform:'uppercase',background:'var(--gold)',color:'var(--white)',border:'none',padding:'14px',cursor:'pointer'}} onClick={refreshAllTables} disabled={Object.values(syncStatus).some(s=>s.syncing)}>Refresh All</button>
+                    <button style={{flex:1,fontFamily:"'Didact Gothic',sans-serif",fontSize:11,letterSpacing:'.24em',textTransform:'uppercase',background:'transparent',color:'var(--warm-brown)',border:'1px solid var(--border)',padding:'14px',cursor:'pointer'}} onClick={()=>{if(window.confirm('Reset all data to the bundled version from this build? This clears anything synced from Airtable.'))resetAllToBundled();}}>Reset to Bundled Data</button>
+                  </div>
                 </div>
               </Section>
             )}
