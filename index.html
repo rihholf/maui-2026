@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.svg">
 <title>Maui 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Didact+Gothic&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Didact+Gothic&family=Tenor+Sans&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -227,6 +227,13 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .snd{width:7px;height:7px;border-radius:50%;background:rgba(200,168,112,.28);transition:all .3s}
 .snd.on{background:#c8a870;transform:scale(1.4)}
 .staph{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(200,168,112,.4);white-space:nowrap}
+.intro-photo{max-width:82vw;max-height:64vh;object-fit:contain;display:block}
+.fin-combo{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.fin-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,42px);font-style:italic;font-weight:700;color:#f5e8d0;margin-bottom:24px}
+.fin-frame{border:6px solid rgba(200,168,112,.55);padding:10px;background:rgba(0,0,0,.15);margin-bottom:22px;max-width:80vw}
+.fin-photo{display:block;max-width:70vw;max-height:44vh;object-fit:contain}
+.fin-caption{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.4vw,23px);font-style:italic;color:#c8a870;max-width:480px;line-height:1.55;margin-bottom:20px}
+.fin-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(26px,4vw,38px);color:#f5e8d0}
 .hunt-bg{background:linear-gradient(160deg,#fdf7ee 0%,#f5e8d0 55%,#ecdbb8 100%)}
 .pm .hunt-bg{background:linear-gradient(160deg,#eaecf2 0%,#d8dce8 55%,#c8d0dc 100%)}
 .hunt-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(253,247,238,.85)}
@@ -605,40 +612,40 @@ const ACTIVITIES_SEED=[
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"One of Maui's best snorkeling spots, right next door. A dramatic lava rock outcropping rises from the beach at the north end of Ka'anapali. Sea turtles and tropical fish are common around the rock. Each evening at sunset a cliff diver lights the torches and leaps into the ocean — a Ka'anapali tradition.",
     details:"**Best For** · Snorkeling, swimming, sunset watching\n**Difficulty** · Easy — calm conditions most days\n**Gear** · Snorkel gear included with car rental\n**Torch Lighting** · Nightly at sunset — free to watch, walkable from Westin",
-    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Black+Rock+Beach+Kaanapali+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Black+Rock+Beach+Kaanapali+Maui',philipNotes:null,philipOnly:false,type:'Beach'},
   {id:'recFY9Yu3HmNxFPAY',name:"Honolua Bay",distLabel:"North Shore",lat:21.0136,lon:-156.6458,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"One of the most spectacular snorkeling bays in all of Hawaii — a protected Marine Conservation District with crystal-clear water, vibrant coral, sea turtles, and an extraordinary variety of tropical fish. Best visibility in all of west Maui on calm days.",
     details:"**Best For** · Snorkeling, exploring, nature\n**Difficulty** · Moderate — some current possible\n**Access** · Short jungle trail from roadside parking to the water\n**Conditions** · Check from the lookout first — if water isn't clear and blue, skip and try Kapalua\n**Note** · No lifeguard · October is start of winter swell season — conditions vary",
-    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Honolua+Bay+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Honolua+Bay+Maui',philipNotes:null,philipOnly:false,type:'Beach'},
   {id:'recTZYWT7AtcYlmgO',name:"Kapalua Bay",distLabel:"Kapalua",lat:20.9978,lon:-156.6678,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"A calm, crescent-shaped bay with gentle waters ideal for snorkeling and swimming. Protected by rocky headlands on both sides, it offers excellent visibility and frequent sea turtle sightings. One of the most reliably good snorkel spots on the west side regardless of conditions.",
     details:"**Best For** · Snorkeling, swimming, relaxing\n**Difficulty** · Easy — very calm, protected waters\n**Turtles** · Frequent sightings near the rocks — give them 15 ft of space\n**Parking** · Small lot fills fast — arrive early\n**Facilities** · Restrooms on site",
-    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Kapalua+Bay+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Kapalua+Bay+Maui',philipNotes:null,philipOnly:false,type:'Beach'},
 
   {id:'recJjZ5AzT03d2mFN',name:"Ka'anapali Beach Walk",distLabel:"Ka'anapali",lat:20.9295,lon:-156.6946,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"A paved beachfront path running the full length of Ka'anapali Beach. Flat, easy, and beautiful at any time of day. Black Rock is at the north end, Whalers Village is mid-path, and the whole stretch offers unobstructed ocean views.",
     details:"**Difficulty** · Easy — flat paved path, no elevation\n**Length** · About 1.5 miles end to end\n**Best time** · Sunrise or golden hour — both are stunning\n**Note** · Black Rock torch lighting happens at the north end each evening at sunset",
-    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Kaanapali+Beach+Walk+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Kaanapali+Beach+Walk+Maui',philipNotes:null,philipOnly:false,type:'Activity'},
   {id:'recYFvDoogbfVwFTL',name:"Black Rock Torch Lighting Ceremony",distLabel:"Ka'anapali",lat:20.9271,lon:-156.6957,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"A Ka'anapali tradition dating back decades. Each evening at sunset a cliff diver scales Black Rock, lights the torches along the shore, and leaps into the ocean below. Free, public, and right on the beach — about 5 to 10 minutes walk from the Westin.",
     details:"**When** · Nightly at sunset — around 5:57–5:59 PM in October\n**Distance** · 5 to 10 min walk north along the beach from the Westin\n**Cost** · Free — no tickets, no reservation",
-    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Black+Rock+Kaanapali+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Black+Rock+Kaanapali+Maui',philipNotes:null,philipOnly:false,type:'Activity'},
   {id:'recn5JpqhhhKczpPI',name:"Whalers Village",distLabel:"Ka'anapali",lat:20.9279,lon:-156.6949,
     showFrom:'2026-05-20',showUntil:'2026-10-23',
     description:"An open-air beachfront shopping and dining center right on Ka'anapali Beach. Several restaurants, shops, and a small whaling museum. Easy walk from the Westin — no car needed. A convenient no-reservation dinner option or afternoon browse.",
     details:"**Distance** · Easy walk along the beach from the Westin\n**Dining** · Multiple restaurants — casual to mid-range, walk-in friendly\n**Shopping** · Resort shops, local goods, island wear\n**Hours** · Most shops and restaurants open until 9–10 PM",
-    phone:null,websiteUrl:'https://www.whalersvillage.com',mapsUrl:'https://maps.google.com/?q=Whalers+Village+Kaanapali+Maui',philipNotes:null,philipOnly:false},
+    phone:null,websiteUrl:'https://www.whalersvillage.com',mapsUrl:'https://maps.google.com/?q=Whalers+Village+Kaanapali+Maui',philipNotes:null,philipOnly:false,type:'Activity'},
   {id:'recQ1pja9K5nMAyqK',name:"Little Beach (Makena)",distLabel:"Makena",lat:20.6215,lon:-156.4395,
     showFrom:'2026-10-18',showUntil:'2026-10-23',
     description:"A secluded cove tucked behind Big Beach in Makena State Park, on Maui's south shore. Clothing-optional by long-standing local custom — one of the few places in Hawaii where it's practiced openly and largely unbothered. Golden sand, calm water on good days, and a raw, unhurried atmosphere unlike anything on the west side.",
     details:"**Best For** · A private, off-the-beaten-path afternoon\n**Access** · Park at Big Beach lot #1; short scramble over the rocky headland at the north end\n**Snorkeling** · Good on calm days around the headland between Little and Big Beach\n**Distance from Ka'anapali** · 45–50 min south via Honoapiilani Hwy\n**Note** · Clothing-optional by longstanding custom; enforcement essentially nonexistent",
     phone:null,websiteUrl:null,mapsUrl:'https://maps.google.com/?q=Little+Beach+Makena+Maui+Hawaii',
     philipNotes:"Philip Only — obvious reasons.\n\nWednesday No Plans Day is the natural fit if you want to head south and explore a different part of the island. Pair it with a lunch stop in Kihei or Wailea on the way down — Tin Roof is near the airport if you want to swing through Kahului en route.",
-    philipOnly:true},
+    philipOnly:true,type:'Beach'},
 ];
 
 const STOPS_SEED=[
@@ -808,6 +815,7 @@ function mapActivityRecord(rec){
     mapsUrl:f['fldXMmilC8Kj5Jjlc']??null,
     philipNotes:f['fldL1sCajrDNwoLNY']??null,
     philipOnly:!!f['fldMyfyA7edMvufxi'],
+    type:f['fldldQwtPAxLOdPYa']??null,
   };
 }
 function mapStopRecord(rec){
@@ -1041,17 +1049,68 @@ function HuntProgress({activeStops,currentStopId,completedIds}){
   return(<div className="hunt-progress">{activeStops.map((s,i)=>{const done=completedIds.includes(s.id);const active=s.id===currentStopId&&!done;return(<div key={s.id} style={{display:'flex',alignItems:'center',gap:0}}><div style={{width:14,height:14,borderRadius:'50%',background:done?'var(--gold)':'transparent',border:active?'2px solid var(--gold-dark)':done?'2px solid var(--gold)':'none',flexShrink:0}}/></div>);})}</div>);
 }
 
-function IntroSlides({onDone}){
+function TextLines({lines}){
+  return(<div>{lines.map((l,i)=>(<div key={i} className="sth" style={{marginBottom:i<lines.length-1?14:0}}>{l}</div>))}</div>);
+}
+
+const INTRO_PHOTOS=['Intro/Intro1.jpg','Intro/Intro2.jpg','Intro/Intro3.jpg','Intro/Intro4.jpg','Intro/Intro5.jpg','Intro/Intro6.jpg'];
+const CLOSING_PHOTOS=['Closing/Closing1.jpg','Closing/Closing2.jpg','Closing/Closing3.jpg','Closing/Closing4.jpg','Closing/Closing5.jpg','Closing/Closing6.jpg'];
+
+// Shared engine for the intro and finale slideshows. Each slide is
+// {duration, content}: duration:null means tap-only advance, a number
+// auto-advances after that many ms (tap still works and short-circuits it).
+// The last slide's onDone fires either way — via tap or, if it has a
+// duration, once it lingers and times out.
+function useSlideshow(slides,onDone){
   const[slide,setSlide]=useState(0);
-  const slides=[
-    <><div className="sd">October 20 · 2006</div><div className="sb2">Twenty<br/>Years</div><div className="sth">Today we celebrate.</div></>,
-    <><div className="sph"><div className="pc2 tl"/><div className="pc2 tr"/><div className="pc2 bl"/><div className="pc2 br"/><div className="spi">💍</div><div className="spl">Your photo here</div></div><div className="spc">"From the moment I met you, I knew."</div></>,
-    <><div className="sd">Twenty years of mornings</div><div className="sb2">Us.</div><div className="sth">Every single one.</div></>,
-    <><div className="sph"><div className="pc2 tl"/><div className="pc2 tr"/><div className="pc2 bl"/><div className="pc2 br"/><div className="spi">👨‍👩‍👦</div><div className="spl">Your photo here</div></div><div className="spc">"Look at everything we've built."</div></>,
-    <><div className="sd">And now</div><div className="sb2">Maui.</div><div className="sth">Today, the adventure is yours to lead.</div><div className="ssub">Tap to begin ✦</div></>,
-  ];
+  const advanceRef=useRef();
   const advance=()=>{if(slide<slides.length-1)setSlide(s=>s+1);else onDone();};
-  return(<div className="intro-ov" onClick={advance}>{slides.map((s,i)=><div key={i} className={`slide${slide===i?' on':''}`}>{s}</div>)}<div className="snav">{slides.map((_,i)=><div key={i} className={`snd${slide===i?' on':''}`}/>)}</div><div className="staph">tap to continue</div></div>);
+  advanceRef.current=advance;
+  useEffect(()=>{
+    const cur=slides[slide];
+    if(cur&&cur.duration){
+      const t=setTimeout(()=>advanceRef.current(),cur.duration);
+      return()=>clearTimeout(t);
+    }
+  },[slide]);
+  return{slide,advance};
+}
+
+function Slideshow({slides,onDone}){
+  const{slide,advance}=useSlideshow(slides,onDone);
+  return(
+    <div className="intro-ov" onClick={advance}>
+      {slides.map((s,i)=><div key={i} className={`slide${slide===i?' on':''}`}>{s.content}</div>)}
+      <div className="snav">{slides.map((_,i)=><div key={i} className={`snd${slide===i?' on':''}`}/>)}</div>
+      <div className="staph">tap to continue</div>
+    </div>
+  );
+}
+
+function IntroSlides({onDone}){
+  const slides=[
+    {duration:null,content:<TextLines lines={["October 20, 2006.","October 20, 2026.","Twenty years in the making."]}/>},
+    {duration:null,content:<TextLines lines={["Not every year was easy.","Every one of them was worth it."]}/>},
+    ...INTRO_PHOTOS.map(src=>({duration:3500,content:<img className="intro-photo" src={src} alt=""/>})),
+    {duration:5500,content:<TextLines lines={["Everything before this led here.","Everything after starts today.","Let's find out what's next."]}/>},
+  ];
+  return<Slideshow slides={slides} onDone={onDone}/>;
+}
+
+function FinaleSlides({onDone}){
+  const slides=[
+    {duration:null,content:<TextLines lines={["Twenty years led to today.","Still us, still choosing this."]}/>},
+    ...CLOSING_PHOTOS.map(src=>({duration:3500,content:<img className="intro-photo" src={src} alt=""/>})),
+    {duration:null,content:(
+      <div className="fin-combo">
+        <div className="fin-heading">Happy Anniversary</div>
+        <div className="fin-frame"><img className="fin-photo" src="Closing/ClosingFinal.jpg" alt=""/></div>
+        <div className="fin-caption">This is us, twenty years in. Everything else has changed. This hasn't.</div>
+        <div className="fin-sig">Love, Pip</div>
+      </div>
+    )},
+  ];
+  return<Slideshow slides={slides} onDone={onDone}/>;
 }
 
 function GodModeView({huntState,setHuntState,onClose}){
@@ -1173,6 +1232,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   const[godPin,setGodPin]=useState('');
   const[godPinErr,setGodPinErr]=useState('');
   const[godModeOpen,setGodModeOpen]=useState(false);
+  const[showFinale,setShowFinale]=useState(false);
   const godTapCount=useRef(0);const godTapTimer=useRef(null);
   const PIN='4242';
   const handleGodTap=()=>{
@@ -1200,6 +1260,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
   return(
     <div className={`hunt-bg${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,display:'flex',flexDirection:'column'}}>
       {godModeOpen&&<GodModeView huntState={huntState} setHuntState={setHuntState} onClose={()=>setGodModeOpen(false)}/>}
+      {showFinale&&<FinaleSlides onDone={()=>{setShowFinale(false);onBack();}}/>}
       <div className="hunt-top">
         <button className="hunt-back" onClick={onBack}>← Back</button>
         <div className="hunt-logo" onClick={handleGodTap}>Anniversary Day ✦</div>
@@ -1234,6 +1295,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
             <div className="at2">{currentStop.arrivalMessage}</div>
             <div className="asig">— Philip</div>
             {hasNext&&<button className="next-btn" onClick={doNext}>On to the next clue →</button>}
+            {!hasNext&&<button className="next-btn" onClick={()=>setShowFinale(true)}>Continue ✦</button>}
           </div>
         )}
         {!isPhilip&&onReplayIntro&&phase==='clue'&&huntState.introSeen&&(
@@ -1266,7 +1328,7 @@ function ItinItem({item,isPhilip}){
   const[philipOpen,setPhilipOpen]=useState(false);
   const hasPhilip=isPhilip&&item.philipNotes&&item.philipNotes.trim();
   const hasNotes=item.displayNotes&&item.displayNotes.trim();
-  const hasUrls=isPhilip&&(item.mapsUrl||item.refUrl);
+  const hasUrls=item.mapsUrl||item.refUrl;
   const showBadge=isPhilip&&(hasPhilip||item.philipOnly);
   return(
     <div className={`ii${hasPhilip?' tappable':''}`} onClick={()=>hasPhilip&&setPhilipOpen(o=>!o)}>
@@ -1365,6 +1427,41 @@ function GoodToKnowSection({simDate,isPhilip,sectionState,setSectionState}){
           {isPhilip&&r.philipNotes&&r.philipNotes.trim()&&(<div style={{marginTop:10,paddingTop:10,borderTop:'1px solid var(--border)',fontSize:13,lineHeight:1.8,color:'var(--text)'}}>{renderMarkdown(r.philipNotes)}</div>)}
         </div>
       ))}
+    </Section>
+  );
+}
+
+// Groups Activities by their Airtable `Type` field. Landing view shows an
+// alphabetical list of type names (blank Type -> "Other", always last);
+// tapping one drills into the existing filtered card list with a way back.
+// Type values come from live data each render, not a hardcoded list.
+function ThingsToExploreSection({visibleActivities,showingPhilip,userPos,sectionState,setSectionState,onOpenActivity}){
+  const[selectedType,setSelectedType]=useState(null);
+  const groups={};
+  visibleActivities.forEach(a=>{
+    const t=(a.type&&a.type.trim())?a.type.trim():'Other';
+    (groups[t]=groups[t]||[]).push(a);
+  });
+  const typeNames=Object.keys(groups).filter(t=>t!=='Other').sort((a,b)=>a.localeCompare(b));
+  if(groups['Other'])typeNames.push('Other');
+  return(
+    <Section id="explore" title="Things to Explore" sectionState={sectionState} setSectionState={setSectionState}>
+      {!selectedType&&typeNames.map(t=>(
+        <div key={t} className="oc" onClick={()=>setSelectedType(t)}>
+          <div className="oci"><div className="ol"><div className="on_">{t}</div></div><div className="odist">›</div></div>
+        </div>
+      ))}
+      {selectedType&&(<>
+        <div className="oc" onClick={()=>setSelectedType(null)}>
+          <div className="oci"><div className="ol"><div className="on_" style={{color:'var(--gold)'}}>← All Types</div></div></div>
+        </div>
+        {groups[selectedType].map(a=>(
+          <div key={a.id} className="oc" onClick={()=>onOpenActivity(a)}>
+            {showingPhilip&&a.philipOnly&&<div className="po-badge">✦</div>}
+            <div className="oci"><div className="ol"><div className="on_">{a.name}</div><div className="od">{getDistLabel(a,userPos)}</div></div><div className="odist">›</div></div>
+          </div>
+        ))}
+      </>)}
     </Section>
   );
 }
@@ -1505,7 +1602,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v18':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v19':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
@@ -1529,14 +1626,7 @@ function App(){
                 </div>
               ))}
             </Section>
-            <Section id="explore" title="Things to Explore" sectionState={sectionState} setSectionState={setSectionState}>
-              {visibleActivities.map(a=>(
-                <div key={a.id} className="oc" onClick={()=>{setActivityDetail(a);setView('activity-detail');}}>
-                  {showingPhilip&&a.philipOnly&&<div className="po-badge">✦</div>}
-                  <div className="oci"><div className="ol"><div className="on_">{a.name}</div><div className="od">{getDistLabel(a,userPos)}</div></div><div className="odist">›</div></div>
-                </div>
-              ))}
-            </Section>
+            <ThingsToExploreSection visibleActivities={visibleActivities} showingPhilip={showingPhilip} userPos={userPos} sectionState={sectionState} setSectionState={setSectionState} onOpenActivity={a=>{setActivityDetail(a);setView('activity-detail');}}/>
             <GoodToKnowSection simDate={simDate} isPhilip={showingPhilip} sectionState={sectionState} setSectionState={setSectionState}/>
             {showingPhilip&&(
               <Section id="huntgod" title="Hunt Status" sectionState={sectionState} setSectionState={setSectionState}>
