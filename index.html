@@ -11,9 +11,9 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <title>Maui 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Didact+Gothic&family=Tenor+Sans&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="vendor/react.production.min.js"></script>
+<script src="vendor/react-dom.production.min.js"></script>
+<script src="vendor/babel.min.js"></script>
 <style>
 :root{
   --cream:#faf4eb;--sand:#f0e4ce;--gold:#a87840;--gold-dark:#7a5420;
@@ -28,7 +28,8 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);font-family:'Didact Gothic',sans-serif;color:var(--text)}
 ::-webkit-scrollbar{width:0}
-.app-root{zoom:var(--ui-zoom,1)}
+.app-root{zoom:var(--ui-zoom,1);transform:translateZ(0)}
+.app-root[style*="fixed"]{right:auto!important;bottom:auto!important;width:calc(100vw / var(--ui-zoom,1))!important;height:calc(100vh / var(--ui-zoom,1))!important;height:calc(100dvh / var(--ui-zoom,1))!important}
 .fs-toggle{position:fixed;top:14px;right:16px;z-index:950;font-family:'Didact Gothic',sans-serif;font-size:11px;letter-spacing:.24em;color:var(--gold-light);opacity:.7;cursor:pointer;user-select:none;background:none;border:none;padding:6px}
 .fs-toggle:active{opacity:1}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -111,6 +112,7 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .wx-forecast{border-top:1px solid var(--border);margin-top:12px;padding-top:12px}
 .wx-forecast-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
 .wx-forecast-row:last-child{border-bottom:none}
+.wx-days-label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-light);margin:14px 0 4px}
 .wx-f-time{font-size:11px;letter-spacing:.12em;color:var(--text-soft);min-width:48px}
 .wx-f-icon{font-size:16px;margin:0 8px}
 .wx-f-temp{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--warm-brown);min-width:44px;text-align:right}
@@ -374,12 +376,12 @@ function renderInline(text){
 }
 
 const SUN_MOON={
-  '2026-10-18':{sunrise:'6:00',sunset:'5:59',moon:'92%'},
-  '2026-10-19':{sunrise:'6:01',sunset:'5:58',moon:'97%'},
-  '2026-10-20':{sunrise:'6:01',sunset:'5:57',moon:'100%'},
-  '2026-10-21':{sunrise:'6:02',sunset:'5:56',moon:'98%'},
-  '2026-10-22':{sunrise:'6:02',sunset:'5:55',moon:'93%'},
-  '2026-10-23':{sunrise:'6:03',sunset:'5:54',moon:'86%'},
+  '2026-10-18':{sunrise:'6:23',sunset:'6:00',moon:'52%'},
+  '2026-10-19':{sunrise:'6:23',sunset:'5:59',moon:'62%'},
+  '2026-10-20':{sunrise:'6:24',sunset:'5:58',moon:'71%'},
+  '2026-10-21':{sunrise:'6:24',sunset:'5:57',moon:'80%'},
+  '2026-10-22':{sunrise:'6:24',sunset:'5:57',moon:'87%'},
+  '2026-10-23':{sunrise:'6:25',sunset:'5:56',moon:'94%'},
 };
 
 const ITINERARY_SEED={
@@ -985,24 +987,32 @@ function wmoToCondition(code){
   if(code<=99)return{cond:'Storm',icon:'⛈️'};return{cond:'Mixed',icon:'⛅'};
 }
 async function fetchWeatherForLocation(loc,skipCache){
-  const cacheKey=`maui_wx_${loc.id}_v1`;
+  const cacheKey=`maui_wx_${loc.id}_v2`;
   if(!skipCache){try{const c=localStorage.getItem(cacheKey);if(c){const{data,ts}=JSON.parse(c);if(Date.now()-ts<30*60*1000)return{...data,cached:true,live:false};}}catch(e){}}
   try{
-    const url=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weathercode,windspeed_10m&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto&forecast_days=1`;
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weathercode,windspeed_10m&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto&forecast_days=3`;
     const resp=await fetch(url);const json=await resp.json();const cur=json.current;
     const{cond,icon}=wmoToCondition(cur.weathercode);
     const temp=Math.round(cur.temperature_2m)+'\xb0F';
     const wind=cur.windspeed_10m>15?' · '+Math.round(cur.windspeed_10m)+' mph wind':'';
-    const now=new Date();const hourly=[];
+    // Open-Meteo returns times in the location's own timezone as plain strings, so compare strings (not Date objects, which would use the phone's timezone).
+    const nowStr=cur.time;const hourly=[];
     for(let i=0;i<json.hourly.time.length&&hourly.length<12;i++){
-      const t=new Date(json.hourly.time[i]);
-      if(t>now){const h=t.getHours();const ampm=h>=12?'PM':'AM';const h12=h%12||12;const{cond:hcond,icon:hicon}=wmoToCondition(json.hourly.weathercode[i]);hourly.push({time:`${h12}${ampm}`,icon:hicon,temp:Math.round(json.hourly.temperature_2m[i])+'\xb0F',cond:hcond});}
+      const ts=json.hourly.time[i];
+      if(ts>nowStr){const h=parseInt(ts.slice(11,13),10);const ampm=h>=12?'PM':'AM';const h12=h%12||12;const{cond:hcond,icon:hicon}=wmoToCondition(json.hourly.weathercode[i]);hourly.push({time:`${h12}${ampm}`,icon:hicon,temp:Math.round(json.hourly.temperature_2m[i])+'\xb0F',cond:hcond});}
     }
-    const data={loc:loc.name,temp,cond:cond+wind,icon,hourly,live:true,cached:false};
+    const daily=[];
+    if(json.daily&&json.daily.time){for(let i=0;i<json.daily.time.length;i++){
+      const ds=json.daily.time[i];const[yy,mm,dd]=ds.split('-').map(Number);
+      const label=new Date(yy,mm-1,dd).toLocaleDateString('en-US',{weekday:'short'});
+      const{cond:dcond,icon:dicon}=wmoToCondition(json.daily.weathercode[i]);
+      daily.push({date:ds,label,icon:dicon,cond:dcond,hi:Math.round(json.daily.temperature_2m_max[i]),lo:Math.round(json.daily.temperature_2m_min[i])});
+    }}
+    const data={loc:loc.name,temp,cond:cond+wind,icon,hourly,daily,live:true,cached:false};
     try{localStorage.setItem(cacheKey,JSON.stringify({data,ts:Date.now()}));}catch(e){}
     return data;
   }catch(e){}
-  return{loc:loc.name,temp:'--',cond:'Unavailable',icon:'⛅',hourly:[],live:false,cached:false};
+  return{loc:loc.name,temp:'--',cond:'Unavailable',icon:'⛅',hourly:[],daily:[],live:false,cached:false};
 }
 
 function useUserPosition(){
@@ -1026,12 +1036,15 @@ function Section({id,title,sectionState,setSectionState,children}){
 function WxCard({loc,skipCache}){
   const[wx,setWx]=useState(null);const[expanded,setExpanded]=useState(false);
   useEffect(()=>{fetchWeatherForLocation(loc,skipCache).then(setWx);},[loc.id,skipCache]);
+  const days=wx&&wx.daily?wx.daily.slice(1).filter(d=>!loc.showUntil||d.date<=loc.showUntil):[];
   if(!wx)return(<div className="wx-card"><div className="wx-loc">{loc.name}</div><div className="wx-loading"><div className="wx-spinner"/></div></div>);
   return(
     <div className={`wx-card${expanded?' expanded':''}`} onClick={()=>setExpanded(o=>!o)}>
       <div className="wx-loc">{wx.loc}</div>
       <div className="wx-inner"><div className="wi">{wx.icon}</div><div><div className="wt">{wx.temp}</div><div className="ws">{wx.cond}</div></div></div>
-      {expanded&&wx.hourly.length>0&&(<div className="wx-forecast">{wx.hourly.map((h,i)=>(<div key={i} className="wx-forecast-row"><span className="wx-f-time">{h.time}</span><span className="wx-f-icon">{h.icon}</span><span className="wx-f-temp">{h.temp}</span><span className="wx-f-cond">{h.cond}</span></div>))}</div>)}
+      {expanded&&(wx.hourly.length>0||days.length>0)&&(<div className="wx-forecast">{wx.hourly.map((h,i)=>(<div key={i} className="wx-forecast-row"><span className="wx-f-time">{h.time}</span><span className="wx-f-icon">{h.icon}</span><span className="wx-f-temp">{h.temp}</span><span className="wx-f-cond">{h.cond}</span></div>))}
+        {days.length>0&&<div className="wx-days-label">Coming days</div>}
+        {days.map((d,i)=>(<div key={'d'+i} className="wx-forecast-row"><span className="wx-f-time">{d.label}</span><span className="wx-f-icon">{d.icon}</span><span className="wx-f-temp" style={{minWidth:84}}>{d.hi}° / {d.lo}°</span><span className="wx-f-cond">{d.cond}</span></div>))}</div>)}
     </div>
   );
 }
@@ -1597,7 +1610,7 @@ function App(){
     .map(a=>({...a,_dist:userPos?haversine(userPos.lat,userPos.lon,a.lat,a.lon):null}))
     .sort((a,b)=>a._dist!==null&&b._dist!==null?a._dist-b._dist:a.name.localeCompare(b.name));
 
-  if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`}><FontSizeToggle/><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState} onReplayIntro={()=>{const ns={...huntState,introSeen:false};setHuntState(ns);saveHuntState(ns);setShowIntro(true);}}/></div>);
+  if(view==='hunt')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0}}><FontSizeToggle/><HuntView isPhilip={isPhilip} onBack={()=>setView('main')} huntState={huntState} setHuntState={setHuntState} onReplayIntro={()=>{const ns={...huntState,introSeen:false};setHuntState(ns);saveHuntState(ns);setShowIntro(true);}}/></div>);
   if(view==='itin-day')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><FontSizeToggle/><ItinDayView dateKey={itinDateKey} isPhilip={showingPhilip} onBack={()=>setView('main')}/></div>);
   if(view==='dining-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><FontSizeToggle/><DiningDetailView item={diningDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
   if(view==='activity-detail')return(<div className={`app-root${isPhilip?' pm':''}`} style={{position:'fixed',inset:0,background:'var(--cream)'}}><FontSizeToggle/><ActivityDetailView item={activityDetail} isPhilip={showingPhilip} onBack={()=>setView('main')} userPos={userPos}/></div>);
@@ -1621,12 +1634,12 @@ function App(){
         </div>
       )}
       {view==='main'&&(
-        <div style={{display:'flex',flexDirection:'column',height:'100vh',background:'var(--cream)'}}>
+        <div style={{display:'flex',flexDirection:'column',height:'100%',background:'var(--cream)'}}>
           {dariaPhone&&(<div className="banner">Philip mode — you are viewing Daria's app &nbsp;<span style={{opacity:.75,cursor:'pointer',fontSize:10,marginLeft:14}} onClick={()=>{setDariaPhone(false);setIsPhilip(false);setPrevDaria(false);}}>✕ Exit</span></div>)}
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v19.1':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v20':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
