@@ -1056,6 +1056,29 @@ function TextLines({lines}){
 const INTRO_PHOTOS=['Intro/Intro1.jpg','Intro/Intro2.jpg','Intro/Intro3.jpg','Intro/Intro4.jpg','Intro/Intro5.jpg','Intro/Intro6.jpg'];
 const CLOSING_PHOTOS=['Closing/Closing1.jpg','Closing/Closing2.jpg','Closing/Closing3.jpg','Closing/Closing4.jpg','Closing/Closing5.jpg','Closing/Closing6.jpg'];
 
+// Finale song (v19.1). Created inside the Continue tap so phones allow playback.
+let _finaleAudio=null,_finaleFade=null,_finaleCap=null;
+function startFinaleSong(){
+  try{
+    stopFinaleSong(true);
+    const a=new Audio('Closing/ClosingSong.mp3');
+    a.volume=1;a.preload='auto';
+    _finaleAudio=a;
+    const p=a.play();if(p&&p.catch)p.catch(()=>{});
+    _finaleCap=setTimeout(()=>stopFinaleSong(),90000);
+  }catch(e){}
+}
+function stopFinaleSong(immediate){
+  try{
+    clearTimeout(_finaleCap);clearInterval(_finaleFade);
+    const a=_finaleAudio;_finaleAudio=null;
+    if(!a)return;
+    if(immediate){a.pause();return;}
+    let v=a.volume;
+    _finaleFade=setInterval(()=>{v-=0.05;if(v<=0){clearInterval(_finaleFade);a.pause();}else a.volume=v;},100);
+  }catch(e){}
+}
+
 // Shared engine for the intro and finale slideshows. Each slide is
 // {duration, content}: duration:null means tap-only advance, a number
 // auto-advances after that many ms (tap still works and short-circuits it).
@@ -1098,6 +1121,7 @@ function IntroSlides({onDone}){
 }
 
 function FinaleSlides({onDone}){
+  useEffect(()=>()=>stopFinaleSong(),[]);
   const slides=[
     {duration:null,content:<TextLines lines={["Twenty years led to today.","Still us, still choosing this."]}/>},
     ...CLOSING_PHOTOS.map(src=>({duration:3500,content:<img className="intro-photo" src={src} alt=""/>})),
@@ -1295,7 +1319,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro}){
             <div className="at2">{currentStop.arrivalMessage}</div>
             <div className="asig">— Philip</div>
             {hasNext&&<button className="next-btn" onClick={doNext}>On to the next clue →</button>}
-            {!hasNext&&<button className="next-btn" onClick={()=>setShowFinale(true)}>Continue ✦</button>}
+            {!hasNext&&<button className="next-btn" onClick={()=>{startFinaleSong();setShowFinale(true);}}>Continue ✦</button>}
           </div>
         )}
         {!isPhilip&&onReplayIntro&&phase==='clue'&&huntState.introSeen&&(
@@ -1602,7 +1626,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v19':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v19.1':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
