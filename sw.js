@@ -1,8 +1,9 @@
-const CACHE='maui-2026-v20';
+const CACHE='maui-2026-v20-1';
 const ASSETS=['./','./index.html','./manifest.json','./icon.svg',
   './Intro/Intro1.jpg','./Intro/Intro2.jpg','./Intro/Intro3.jpg','./Intro/Intro4.jpg','./Intro/Intro5.jpg','./Intro/Intro6.jpg',
   './Closing/Closing1.jpg','./Closing/Closing2.jpg','./Closing/Closing3.jpg','./Closing/Closing4.jpg','./Closing/Closing5.jpg','./Closing/Closing6.jpg','./Closing/ClosingFinal.jpg','./Closing/ClosingSong.mp3',
-  './vendor/react.production.min.js','./vendor/react-dom.production.min.js','./vendor/babel.min.js'];
+  './vendor/react.production.min.js','./vendor/react-dom.production.min.js','./vendor/babel.min.js',
+  './fonts/cormorant-garamond-latin-ext-400-normal.woff2','./fonts/cormorant-garamond-latin-400-normal.woff2','./fonts/cormorant-garamond-latin-ext-600-normal.woff2','./fonts/cormorant-garamond-latin-600-normal.woff2','./fonts/cormorant-garamond-latin-ext-700-normal.woff2','./fonts/cormorant-garamond-latin-700-normal.woff2','./fonts/cormorant-garamond-latin-ext-400-italic.woff2','./fonts/cormorant-garamond-latin-400-italic.woff2','./fonts/cormorant-garamond-latin-ext-600-italic.woff2','./fonts/cormorant-garamond-latin-600-italic.woff2','./fonts/cormorant-garamond-latin-ext-700-italic.woff2','./fonts/cormorant-garamond-latin-700-italic.woff2','./fonts/didact-gothic-latin-ext-400-normal.woff2','./fonts/didact-gothic-latin-400-normal.woff2','./fonts/dancing-script-latin-ext-400-normal.woff2','./fonts/dancing-script-latin-400-normal.woff2','./fonts/dancing-script-latin-ext-700-normal.woff2','./fonts/dancing-script-latin-700-normal.woff2'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 // Phones ask for audio in byte ranges; answer from cache with a 206 slice or playback fails.
