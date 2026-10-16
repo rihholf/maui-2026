@@ -1,4 +1,4 @@
-const CACHE='maui-2026-v20-4';
+const CACHE='maui-2026-v20-5';
 const ASSETS=['./','./index.html','./manifest.json','./icon.svg',
   './Intro/Intro1.jpg','./Intro/Intro2.jpg','./Intro/Intro3.jpg','./Intro/Intro4.jpg','./Intro/Intro5.jpg','./Intro/Intro6.jpg',
   './Closing/Closing01.jpg','./Closing/Closing02.jpg','./Closing/Closing03.jpg','./Closing/Closing04.jpg','./Closing/Closing05.jpg','./Closing/Closing06.jpg','./Closing/Closing07.jpg','./Closing/Closing08.jpg','./Closing/Closing09.jpg','./Closing/Closing10.jpg','./Closing/Closing11.jpg','./Closing/Closing12.jpg','./Closing/Closing13.jpg','./Closing/Closing14.jpg','./Closing/Closing15.jpg','./Closing/Closing16.jpg','./Closing/ClosingFinal.jpg','./Closing/ClosingSong.mp3',

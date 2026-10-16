@@ -966,7 +966,7 @@ function Slideshow({slides,onDone}){
 function IntroSlides({onDone}){
   const slides=[
     {duration:null,content:<TextLines lines={["October 20, 2006.","October 20, 2026.","Twenty years in the making."]}/>},
-    {duration:null,content:<TextLines lines={["Not every year was easy.","Every one of them was worth it."]}/>},
+    {duration:null,content:<TextLines lines={["Twenty years of ordinary days...","and extraordinary adventures.","Every one of them, together."]}/>},
     ...INTRO_PHOTOS.map(src=>({duration:3500,content:<img className="intro-photo" src={src} alt=""/>})),
     {duration:5500,content:<TextLines lines={["Everything before this led here.","Everything after starts today.","Let's find out what's next."]}/>},
   ];
@@ -993,7 +993,7 @@ function FinaleSlides({onDone}){
       <div className="fin-combo">
         <div className="fin-heading">Happy Anniversary</div>
         <div className="fin-frame"><img className="fin-photo" src="Closing/ClosingFinal.jpg" alt=""/></div>
-        <div className="fin-caption">This is us, twenty years in. Everything else has changed. This hasn't.</div>
+        <div className="fin-caption">Twenty years of loving you, and raising Andrew with you, are the happiest ones of my life.</div>
         <div className="fin-sig">Love, Pip</div>
       </div>
     )},
@@ -1157,7 +1157,7 @@ function HuntView({isPhilip,onBack,huntState,setHuntState,onReplayIntro,redo}){
         <div style={{width:60}}/>
       </div>
       <div className="sb">
-        <div className="hv-head"><div className="hve">October 20 · 2026</div><div className="hvt">Your Adventure</div><div className="hvrule"/></div>
+        <div className="hv-head"><div className="hve">October 20 · 2026</div><div className="hvt">Our Adventure</div><div className="hvrule"/></div>
         <HuntProgress activeStops={activeStops} currentStopId={currentStopId} completedIds={completedIds}/>
         {phase==='clue'&&(
           <div className="clue">
@@ -1518,7 +1518,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v20.4':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v20.5':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
