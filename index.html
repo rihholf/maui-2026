@@ -255,6 +255,11 @@ html,body,#root{width:100%;height:100%;overflow:hidden;background:var(--cream);f
 .snd.on{background:#c8a870;transform:scale(1.4)}
 .staph{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(200,168,112,.4);white-space:nowrap}
 .intro-photo{max-width:82vw;max-height:64vh;object-fit:contain;display:block}
+.stk{position:relative;width:min(calc(88vw / var(--ui-zoom,1)),calc(60vh / var(--ui-zoom,1)));height:min(calc(88vw / var(--ui-zoom,1)),calc(60vh / var(--ui-zoom,1)))}
+.stk-ph{position:absolute;width:54%;padding:5px;background:#7a633f;box-shadow:inset 0 0 0 1px rgba(245,232,208,.3),0 10px 24px rgba(10,4,0,.6);transform:rotate(var(--r,0deg))}
+.stk-ph img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.slide.on .stk-ph{animation:stkIn .8s ease-out backwards;animation-delay:var(--d,0s)}
+@keyframes stkIn{from{opacity:0;transform:translateY(-28px) scale(1.07) rotate(calc(var(--r,0deg) + 7deg))}to{opacity:1;transform:rotate(var(--r,0deg))}}
 .fin-combo{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
 .fin-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,42px);font-style:italic;font-weight:700;color:#f5e8d0;margin-bottom:24px}
 .fin-frame{border:6px solid rgba(200,168,112,.55);padding:10px;background:rgba(0,0,0,.15);margin-bottom:22px;max-width:80vw}
@@ -416,7 +421,7 @@ const ITINERARY_SEED={
   '2026-10-18':{label:"Oct 18",name:"Sunday",tagline:"Arrival Day",ann:false,items:[
     {"id":"recjK9mrK94p8Q1Qg","sortOrder":5,"timeLabel":"8:00 AM","displayText":"Parking at SEA Airport","tagline":null,"displayNotes":null,"philipNotes":null,"mapsUrl":"https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac","refUrl":null,"philipOnly":true},
     {"id":"recJpXSL5xBDkxJMK","sortOrder":10,"timeLabel":"10:05 AM","displayText":"Let the Adventure Begin","tagline":"AS 929 · SEA → OGG · 6h 20min","displayNotes":"Departs: 10:05 AM Seattle/Tacoma Intl (SEA)\nArrives: 1:16 PM Kahului/Maui (OGG)\nSeats: 19H/19J","philipNotes":null,"mapsUrl":"https://maps.app.goo.gl/oSihJP61LAHA5R6N6?g_st=ac","refUrl":null,"philipOnly":false},
-    {"id":"recfFTeer69Xg9nIo","sortOrder":20,"timeLabel":"1:20 PM","displayText":"Welcome to Maui!","tagline":"Our adventure starts the moment we land.","displayNotes":"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.","philipNotes":"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES (from T&Cs):\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it’s the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice","mapsUrl":null,"refUrl":"https://cruisin-maui-rent-a-car.us5.hqrentals.app","philipOnly":false},
+    {"id":"recfFTeer69Xg9nIo","sortOrder":20,"timeLabel":"1:20 PM","displayText":"Welcome to Maui!","tagline":"Our adventure starts the moment we land.","displayNotes":"We'll be cruising Maui in a BMW 430i Convertible from Cruisin' Maui. \nThe drive from the airport to Ka'anapali is about 45 minutes along the west coast.","philipNotes":"### **Cruisin' Maui Rent-A-Car**\n591 Haleakala Hwy, Kahului, HI 96732\nPhone: 1-808-866-6284 | booking@cruisinmaui.com\n\nVehicle: 2022 BMW 430i Convertible, White, Loaded, 2-door, seats 4\nPickup: Sunday, October 18 @ 2:00 PM — Kahului Airport OGG\nReturn: Friday, October 23 @ 12:00 PM — Kahului Airport OGG\n\nCHARGE BREAKDOWN:\n— 5x Days @ $89.99 = $449.95\n— Ti Leaf Lei greeting on arrival = $58.00\n— Snorkel, Mask & Fins = $47.98\n— Tommy Bahama Beach Chair = $20.00\n— Tommy Bahama Beach Umbrella = $15.00\n— Airport pickup/dropoff = $0.00\n— Built-in GPS Navigation = $0.00\n— Rental Vehicle Surcharge Tax = $37.50\n— General Excise State Tax (4.712%) = $29.61\nTOTAL: $658.04 (paid in full — $50 deposit + $608.04)\nSecurity deposit: $10.00\n\nAll waivers declined (CDW, Loss of Use, Roadside Assistance, Liability) — covered by credit card insurance.\n\nRENTAL NOTES (from T&Cs):\n— Top and windows must ALWAYS be parked CLOSED in a secure area\n— No smoking — up to $350 fine regardless of damage\n— Sunscreen/salt cleaning fee up to $350 — rinse car before return after beach days\n— Refuel before return — $6.99–$8.99/gallon if they refuel\n— Call/text before returning to designated return area\n— Each hour past return = ¼ day charge; no refunds for early returns\n— No cell phone use unless on mount — it’s the law\n— Do not take vehicle off island\n— No driving on unpaved roads\n— Cancellation: free with 36 hours email notice","mapsUrl":null,"refUrl":"https://cruisin-maui-rent-a-car.us5.hqrentals.app/public/car-rental/reservations/my-reservations/login?brand_id=mo6agdaa-qu4s-lvk6-yi4e-xp6aak9zk0bs","philipOnly":false},
     {"id":"rec8gau0RPf2HPffw","sortOrder":30,"timeLabel":"Afternoon","displayText":"Home Base for the Week","tagline":"Westin Ka'anapali Ocean Resort Villas","displayNotes":"Check-in, and the first real exhale of the trip. One bedroom, ocean view, a balcony worth sitting on for a minute before you do anything else.","philipNotes":"The Westin Ka'anapali Ocean Resort Villas\n6 Kai Ala Drive, Lahaina, Hawaii 96761\nPhone: +1-808-667-3200\n\nCheck-In: Sunday, October 18, 2026 — 4:00 PM\nCheck-Out: Friday, October 23, 2026 — 10:00 AM\n5 Nights | 2 Adults\n\nRoom: 1 Bedroom Villa, 1 King, Sofa bed, Ocean view, Balcony\nTotal: $3,436.71 USD\nGuarantee: Credit Card (Visa)\nFree cancellation until 14 days before arrival (deadline: ~October 4, 2026).\n\nAMENITIES: Heated pool, whirlpool, Lazy River (Daria will love this). Beach access on Ka'anapali Beach.\n\nPHOTOGRAPHY: Complimentary 30–45 min photo session with Blinnk Photography — couples and family, sunrise/sunset, candid/portrait. Reservations required: 808-662-2525. Note: Most likely not using.\n\nhttps://stay.vacationclub.com/the-westin-kaanapali-ocean-resort-villas/","mapsUrl":"https://maps.app.goo.gl/oVJA4vcNxxAomid37","refUrl":"https://www.marriott.com/en-us/hotels/oggws-the-westin-kaanapali-ocean-resort-villas/overview/","philipOnly":false},
     {"id":"recSi5xmVCY7oJqrX","sortOrder":40,"timeLabel":"Evening","displayText":"Settle In and Explore","tagline":null,"displayNotes":"Sunday evening is all about keeping it low-key. We've landed, checked in, and parked the convertible. Take a stroll around the area, there's plenty to explore within easy walking distance.","philipNotes":"Good night for the cliff dive","mapsUrl":null,"refUrl":null,"philipOnly":false},
     {"id":"recYS9D6MbkeSXl8G","sortOrder":1000,"timeLabel":"Packing Suggestions","displayText":"Comfortable for the flight, and low-key for the evening","tagline":null,"displayNotes":"Wear something comfortable for travel, and bring layers for the plane. It'll do double duty at the Haleakalā summit tomorrow, where temps can drop into the 30s and 40s with wind chill at 10,000 feet.\nFor the evening, keep it light and casual. Shorts or chinos with a linen shirt for me, a sundress or something easy and comfortable for you. Sandals or walking shoes work fine, and bring a light layer for after the sun goes down on the beach.","philipNotes":null,"mapsUrl":null,"refUrl":null,"philipOnly":false}
@@ -879,7 +884,15 @@ function TextLines({lines}){
 }
 
 const INTRO_PHOTOS=['Intro/Intro1.jpg','Intro/Intro2.jpg','Intro/Intro3.jpg','Intro/Intro4.jpg','Intro/Intro5.jpg','Intro/Intro6.jpg'];
-const CLOSING_PHOTOS=['Closing/Closing1.jpg','Closing/Closing2.jpg','Closing/Closing3.jpg','Closing/Closing4.jpg','Closing/Closing5.jpg','Closing/Closing6.jpg'];
+const CLOSING_PHOTOS=Array.from({length:16},(_,i)=>'Closing/Closing'+String(i+1).padStart(2,'0')+'.jpg');
+// Four stacks of four. Each layout is the four slots [left%,top%,tilt deg]; the newest photo lands on top.
+const STACK_LAYOUTS=[
+  [[3,3,-5],[43,0,4],[4,43,3],[41,41,-3]],
+  [[43,3,4],[2,0,-4],[41,43,-3],[4,41,5]],
+  [[3,2,3],[41,5,-4],[2,43,-4],[43,41,4]],
+  [[41,2,-3],[3,5,5],[43,43,3],[2,39,-5]],
+];
+const CLOSING_STACKS=[0,1,2,3].map(g=>CLOSING_PHOTOS.slice(g*4,g*4+4));
 
 // Finale song (v19.1). Created inside the Continue tap so phones allow playback.
 let _finaleAudio=null,_finaleFade=null,_finaleCap=null;
@@ -945,11 +958,22 @@ function IntroSlides({onDone}){
   return<Slideshow slides={slides} onDone={onDone}/>;
 }
 
+function PhotoStack({srcs,layout}){
+  return(
+    <div className="stk">
+      {srcs.map((src,i)=>{const[l,t,r]=layout[i];return(
+        <div key={src} className="stk-ph" style={{left:l+'%',top:t+'%','--r':r+'deg','--d':(i*2)+'s'}}>
+          <img src={src} alt=""/>
+        </div>);})}
+    </div>
+  );
+}
+
 function FinaleSlides({onDone}){
   useEffect(()=>()=>stopFinaleSong(),[]);
   const slides=[
     {duration:null,content:<TextLines lines={["Twenty years led to today.","Still us, still choosing this."]}/>},
-    ...CLOSING_PHOTOS.map(src=>({duration:3500,content:<img className="intro-photo" src={src} alt=""/>})),
+    ...CLOSING_STACKS.map((g,i)=>({duration:10000,content:<PhotoStack srcs={g} layout={STACK_LAYOUTS[i]}/>})),
     {duration:null,content:(
       <div className="fin-combo">
         <div className="fin-heading">Happy Anniversary</div>
@@ -1479,7 +1503,7 @@ function App(){
           <div className="top-nav">
             <button onClick={handleLogoTap} style={{background:'none',border:'none',padding:0,textAlign:'left',cursor:'default',userSelect:'none'}}>
               <div className="nav-orn">✦ &nbsp; ✦ &nbsp; ✦</div>
-              <div className="nav-logo">Maui 2026{showingPhilip?' · v20.1':''}</div>
+              <div className="nav-logo">Maui 2026{showingPhilip?' · v20.2':''}</div>
             </button>
             <div className="nav-right">
               {isPhilip&&prevDaria&&<button className="nav-preview-exit" onClick={exitPreviewDaria}>Exit Preview</button>}
